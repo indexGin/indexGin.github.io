@@ -1,0 +1,61 @@
+# Anthony Fu Style Curated Projects Showcase
+- category: "Autonomous Agents & LLM4OR"
+  description: "面向运筹优化与长程决策的大模型与智能体系统"
+  items:
+    - name: "Opt-Verifier-Agent"
+      desc: "基于大语言模型的运筹学自动建模与双向语法/语义验证闭环工具，集成 Gurobi 求解器接口。"
+      link: "https://github.com/indexGin"
+      stars: "Open"
+      icon: "fa-robot"
+      tags: ["Python", "Gurobi", "LLM", "AST Verification"]
+
+    - name: "Production-Opt-Agent"
+      desc: "面向离散制造业车间作业调度（Job-Shop Scheduling）的长程自主 Multi-Agent 仿真与求解框架。"
+      link: "https://github.com/indexGin"
+      stars: "Active"
+      icon: "fa-industry"
+      tags: ["Multi-Agent", "JSP", "PyTorch", "Heuristics"]
+
+- category: "Operations Research Algorithms"
+  description: "经典组合优化启发式算法与求解器工程实践"
+  items:
+    - name: "ALNS-VRPTW-Solver"
+      desc: "基于自适应大规模邻域搜索（ALNS）的带时间窗车辆路径问题（VRPTW）高性能求解器。"
+      link: "https://github.com/indexGin"
+      stars: "Core"
+      icon: "fa-route"
+      tags: ["Optimization", "Meta-heuristics", "VRP", "Python"]
+
+    - name: "Benders-Decomposition-Framework"
+      desc: "针对大型两阶段随机选址问题（Location-Allocation）的 Benders 分解算法工程实现。"
+      link: "https://github.com/indexGin"
+      stars: "Research"
+      icon: "fa-draw-polygon"
+      tags: ["Benders", "MIP", "Linear Programming"]
+
+- category: "Open Source Upstream Inflow"
+  description: "深度参与的高星开源项目与已合并的核心 PR"
+  items:
+    - name: "bytedance/deer-flow"
+      desc: "字节跳动开源的长程自主智能体平台（SuperAgent Harness）。贡献了调度流与任务拆解核心优化。"
+      link: "https://github.com/bytedance/deer-flow"
+      stars: "84k★"
+      badge: "3 Merged PRs"
+      icon: "fa-code-branch"
+      tags: ["SuperAgent", "Python", "Autonomous Flow"]
+
+    - name: "agno-agi/agno"
+      desc: "高并发轻量级 Multi-modal Agent 框架。优化了智能体状态迁移与工具调用链路。"
+      link: "https://github.com/agno-agi/agno"
+      stars: "42k★"
+      badge: "Merged PR"
+      icon: "fa-microchip"
+      tags: ["Multi-modal", "Agent System"]
+
+    - name: "Kludex/starlette"
+      desc: "广受欢迎的高性能 Python ASGI 异步 Web 核心框架。优化核心路由与类型约束处理。"
+      link: "https://github.com/Kludex/starlette"
+      stars: "12k★"
+      badge: "Merged PR"
+      icon: "fa-bolt"
+      tags: ["ASGI", "AsyncIO", "Python"]

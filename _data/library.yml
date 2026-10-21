@@ -1,0 +1,70 @@
+# Maggie Appleton Style Digital Library & Paper Shelf
+- title: "Reinforcement Learning: An Introduction"
+  subtitle: "Sutton & Barto 经典强化学习教材"
+  author: "Richard S. Sutton & Andrew G. Barto"
+  category: "书籍"
+  status: "精读中 (Reading)"
+  year: "2024"
+  cover_gradient: "from-amber-500/30 to-orange-600/40"
+  icon: "fa-book"
+  takeaway: "系统梳理了值函数逼近与策略梯度的数学根基，为将 RL 与运筹学调度（Job-Shop）以及大模型多轮思考对齐打下了坚实的理论基础。"
+  tags:
+    - 强化学习
+    - 马尔可夫决策
+    - 理论基础
+
+- title: "Integer Programming"
+  subtitle: "整数规划与组合优化圣经"
+  author: "Laurence A. Wolsey"
+  category: "书籍"
+  status: "常读常新 (Evergreen)"
+  year: "2023"
+  cover_gradient: "from-violet-500/30 to-purple-600/40"
+  icon: "fa-superscript"
+  takeaway: "割平面法、分支定界与多面体理论的核心教材。在研究如何让 LLM 自动构建强松弛（Strong Formulation）时是绝佳的指导手册。"
+  tags:
+    - 运筹学
+    - 整数规划
+    - 多面体理论
+
+- title: "Opt-Verifier: Dual-Side Verification for Optimization Modeling"
+  subtitle: "大模型运筹建模双向形式化验证"
+  author: "Research Paper"
+  category: "核心论文"
+  status: "已精读 (Finished)"
+  year: "2025"
+  cover_gradient: "from-sky-500/30 to-blue-600/40"
+  icon: "fa-file-lines"
+  takeaway: "提出正向语法 AST 形式化校验与反向语义逆推验证的双向机制，大幅降低了大语言模型在复杂约束工业规划问题中的幻觉概率。"
+  tags:
+    - LLM4OR
+    - 形式化验证
+    - Gurobi
+
+- title: "Designing Data-Intensive Applications"
+  subtitle: "数据密集型应用系统设计"
+  author: "Martin Kleppmann"
+  category: "书籍"
+  status: "已读完 (Finished)"
+  year: "2023"
+  cover_gradient: "from-emerald-500/30 to-teal-600/40"
+  icon: "fa-server"
+  takeaway: "分布式存储、共识算法与事务模型的经典之作。对构建高并发长程 Multi-Agent 状态存储与日志系统极具工程启发意义。"
+  tags:
+    - 分布式系统
+    - 架构设计
+    - 存储模型
+
+- title: "Multi-Agent System for Disassembly Sequence Planning"
+  subtitle: "多智能体协同装配与调度规划"
+  author: "Xiao et al."
+  category: "论文"
+  status: "精读中 (Reading)"
+  year: "2025"
+  cover_gradient: "from-pink-500/30 to-rose-600/40"
+  icon: "fa-network-wired"
+  takeaway: "结合图卷积网络与长程智能体，探索复杂工业流水线动态调度与任务解耦的高效范式。"
+  tags:
+    - Multi-Agent
+    - 生产调度
+    - 图神经网络

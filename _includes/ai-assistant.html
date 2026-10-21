@@ -1,0 +1,78 @@
+<!-- Maxime Heckel Style Embedded AI Q&A Agent Widget -->
+<div class="ai-agent-widget-container" id="aiAgentWidget">
+
+  <!-- Floating Launcher Button -->
+  <button class="ai-agent-launcher" id="aiAgentLauncher" aria-label="Open AI Research Assistant" title="Open AI Assistant">
+    <span class="ai-launcher-pulse"></span>
+    <span class="ai-launcher-icon"><i class="fa fa-sparkles">✨</i></span>
+    <span class="ai-launcher-text font-mono">Ask AI Agent <span class="badge-tag">// LLM4OR</span></span>
+  </button>
+
+  <!-- Interactive Chat Modal -->
+  <div class="ai-agent-modal" id="aiAgentModal" aria-hidden="true">
+    
+    <!-- Modal Header -->
+    <div class="ai-modal-header">
+      <div class="ai-header-info">
+        <div class="ai-avatar-badge">
+          <i class="fa fa-terminal"></i>
+        </div>
+        <div>
+          <h4 class="ai-assistant-name font-mono">indexGin AI Agent</h4>
+          <span class="ai-status-pill font-mono">
+            <span class="ai-live-dot"></span> OR_KNOWLEDGE_BASE // ONLINE
+          </span>
+        </div>
+      </div>
+      <div class="ai-header-actions">
+        <button class="ai-clear-btn" id="aiClearBtn" title="清空对话"><i class="fa fa-refresh"></i></button>
+        <button class="ai-close-btn" id="aiCloseBtn" title="关闭窗口">&times;</button>
+      </div>
+    </div>
+
+    <!-- Quick Questions Pills Bar -->
+    <div class="ai-quick-questions">
+      <span class="quick-title font-mono"><i class="fa fa-bolt"></i> 快捷问答:</span>
+      <div class="quick-pills-scroll">
+        <button class="quick-pill" data-query="什么是 LLM4OR (大模型与运筹优化)？">什么是 LLM4OR？</button>
+        <button class="quick-pill" data-query="介绍一下 Opt-Verifier 验证框架">Opt-Verifier 框架</button>
+        <button class="quick-pill" data-query="你在 deer-flow 和 agno 的开源贡献是什么？">开源项目 PR 贡献</button>
+        <button class="quick-pill" data-query="运筹学与强化学习在工业调度中如何结合？">运筹学 + 强化学习</button>
+        <button class="quick-pill" data-query="推荐几本运筹优化与算法经典书籍？">推荐书籍与论文</button>
+      </div>
+    </div>
+
+    <!-- Chat Messages Container -->
+    <div class="ai-messages-container" id="aiMessagesContainer">
+      <!-- Default Assistant Welcome Message -->
+      <div class="ai-msg ai-msg-assistant">
+        <div class="ai-msg-avatar"><i class="fa fa-robot"></i></div>
+        <div class="ai-msg-bubble font-editorial">
+          你好！我是 indexGin 网站的内置 AI 智能体助手。你可以向我咨询关于 <strong>大模型运筹优化 (LLM4OR)</strong>、<strong>组合优化求解器 (Gurobi/ALNS)</strong>、<strong>开源贡献 (deer-flow / agno)</strong> 以及书架与文献库的任何问题。
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Form -->
+    <form class="ai-input-form" id="aiInputForm" onsubmit="return false;">
+      <input type="text" 
+             id="aiInputField" 
+             class="ai-input-field font-mono" 
+             placeholder="输入技术问题或点击上方快捷胶囊..." 
+             autocomplete="off">
+      <button type="submit" id="aiSendBtn" class="ai-send-btn" title="发送">
+        <i class="fa fa-paper-plane"></i>
+      </button>
+    </form>
+
+    <!-- Footer Note -->
+    <div class="ai-modal-footer font-mono">
+      <span>Maxime Heckel Inspired // Local Vector Matrix Retrieval</span>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- AI Agent Script -->
+<script src="{{ '/js/ai-agent.js' | prepend: site.baseurl }}"></script>

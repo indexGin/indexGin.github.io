@@ -1,0 +1,533 @@
+---
+layout: page
+title: Demos
+description: "交互式算法工坊：运筹优化求解器与组合几何的可视化沙盒"
+header-img: "img/home-bg.jpg"
+hide-in-nav: true
+---
+
+<!-- Maxime Heckel Style Interactive Algorithm Demos -->
+<div class="maxime-demos-wrapper">
+
+  <!-- Intro statement -->
+  <div class="demos-intro-header">
+    <div class="tech-label font-mono">
+      <i class="fa fa-flask"></i> INTERACTIVE ALGORITHM LAB // SANDBOX
+    </div>
+    <h2 class="demos-main-title font-editorial">
+      Interactive Operations Research & Algorithms
+    </h2>
+    <p class="demos-subtext">
+      受 Maxime Heckel 交互式技术博客启发：纯前端、免编译、直接在浏览器中运行与交互的经典运筹学与组合优化算法沙盒。
+    </p>
+  </div>
+
+  <!-- DEMO 1: Traveling Salesperson Problem & 2-Opt Local Search -->
+  <div class="demo-card-container" id="tsp-demo">
+    <div class="demo-header">
+      <div class="demo-badge font-mono">DEMO_01 // COMBINATORIAL OPTIMIZATION</div>
+      <h3 class="demo-title font-editorial">
+        旅行商问题 (TSP) 与 2-Opt 局部搜索启发式
+      </h3>
+      <p class="demo-desc">
+        旅行商问题属于经典的 NP-Hard 组合优化难题。2-Opt 启发式算法通过不断检测路径中交叉的边，并将其翻转重连（当且仅当反转后回路总长度减小），直至收敛到局部最优解。
+      </p>
+    </div>
+
+    <!-- Live Interactive Canvas & Control Deck -->
+    <div class="demo-interactive-stage">
+      <div class="canvas-wrapper">
+        <canvas id="tspCanvas" width="600" height="380"></canvas>
+        <div class="canvas-hint font-mono">
+          <i class="fa fa-mouse-pointer"></i> 点击画布可直接添加城市点
+        </div>
+      </div>
+
+      <div class="demo-control-panel">
+        <div class="panel-section">
+          <h4 class="panel-title font-mono"><i class="fa fa-sliders"></i> 控制台 (Controls)</h4>
+          <div class="btn-group-vertical" style="width: 100%;">
+            <button id="btnRandomTSP" class="algo-btn primary-btn font-mono">
+              <i class="fa fa-random"></i> 随机生成 16 座城市
+            </button>
+            <button id="btnGreedyTSP" class="algo-btn secondary-btn font-mono">
+              <i class="fa fa-play"></i> 贪心最近邻初始化 (Greedy)
+            </button>
+            <button id="btn2OptTSP" class="algo-btn accent-btn font-mono">
+              <i class="fa fa-magic"></i> 运行 2-Opt 局部搜索优化
+            </button>
+            <button id="btnClearTSP" class="algo-btn outline-btn font-mono">
+              <i class="fa fa-trash"></i> 清空画布
+            </button>
+          </div>
+        </div>
+
+        <div class="panel-section stats-section">
+          <h4 class="panel-title font-mono"><i class="fa fa-tachometer"></i> 求解遥测 (Telemetry)</h4>
+          <div class="metric-row font-mono">
+            <span class="metric-label">城市总数 (Nodes):</span>
+            <span class="metric-value" id="tspCityCount">16</span>
+          </div>
+          <div class="metric-row font-mono">
+            <span class="metric-label">初始长度 (Initial L):</span>
+            <span class="metric-value" id="tspInitialDist">--</span>
+          </div>
+          <div class="metric-row font-mono">
+            <span class="metric-label">当前总距离 (Current L):</span>
+            <span class="metric-value highlight" id="tspCurrentDist">--</span>
+          </div>
+          <div class="metric-row font-mono">
+            <span class="metric-label">优化幅度 (Improvement):</span>
+            <span class="metric-value text-emerald" id="tspImprovement">0.00%</span>
+          </div>
+          <div class="metric-row font-mono">
+            <span class="metric-label">2-Opt 交换次数 (Swaps):</span>
+            <span class="metric-value" id="tspSwaps">0</span>
+          </div>
+          <div class="metric-status-badge font-mono" id="tspStatus">
+            READY
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEMO 2: 2D Linear Programming & Feasible Polyhedron -->
+  <div class="demo-card-container" id="lp-demo" style="margin-top: 50px;">
+    <div class="demo-header">
+      <div class="demo-badge font-mono">DEMO_02 // LINEAR PROGRAMMING</div>
+      <h3 class="demo-title font-editorial">
+        二维线性规划 (LP) 可行域与单纯形顶点探索
+      </h3>
+      <p class="demo-desc">
+        线性规划的基本定理证明：若线性规划存在最优解，则必可在可行域（凸多面体）的某个极点（Vertex）处达到。调整下方目标函数梯度向量 $c = (c_1, c_2)$，观察目标超平面与最优顶点的实时跃迁。
+      </p>
+    </div>
+
+    <div class="demo-interactive-stage">
+      <div class="canvas-wrapper">
+        <canvas id="lpCanvas" width="600" height="380"></canvas>
+      </div>
+
+      <div class="demo-control-panel">
+        <div class="panel-section">
+          <h4 class="panel-title font-mono"><i class="fa fa-sliders"></i> 目标函数权重 $\max c_1 x_1 + c_2 x_2$</h4>
+          
+          <div class="slider-control">
+            <div class="slider-label-row font-mono">
+              <span>权重 $c_1$ (x 轴方向):</span>
+              <span id="valC1">3.0</span>
+            </div>
+            <input type="range" id="sliderC1" min="-5" max="5" step="0.5" value="3.0" class="algo-slider">
+          </div>
+
+          <div class="slider-control" style="margin-top: 15px;">
+            <div class="slider-label-row font-mono">
+              <span>权重 $c_2$ (y 轴方向):</span>
+              <span id="valC2">2.0</span>
+            </div>
+            <input type="range" id="sliderC2" min="-5" max="5" step="0.5" value="2.0" class="algo-slider">
+          </div>
+        </div>
+
+        <div class="panel-section stats-section">
+          <h4 class="panel-title font-mono"><i class="fa fa-check-circle-o"></i> 约束条件系统</h4>
+          <div class="math-constraint font-mono">
+            1) $x_1 + 2x_2 \le 14$<br>
+            2) $3x_1 + x_2 \le 18$<br>
+            3) $x_1 \ge 0, \quad x_2 \ge 0$
+          </div>
+
+          <h4 class="panel-title font-mono" style="margin-top: 16px;"><i class="fa fa-trophy"></i> 最优解 (Optimal Vertex)</h4>
+          <div class="metric-row font-mono">
+            <span class="metric-label">最优极点 $(x_1^*, x_2^*)$:</span>
+            <span class="metric-value highlight" id="lpOptCoord">(4.40, 4.80)</span>
+          </div>
+          <div class="metric-row font-mono">
+            <span class="metric-label">最大目标值 $Z^*$:</span>
+            <span class="metric-value text-emerald" id="lpOptZ">22.80</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Interactive Algorithm Scripts -->
+<script>
+(function() {
+  // ==========================================
+  // DEMO 1: TSP & 2-Opt Interactive Simulation
+  // ==========================================
+  const canvas = document.getElementById('tspCanvas');
+  const ctx = canvas.getContext('2d');
+
+  let cities = [];
+  let tour = [];
+  let initialDist = 0;
+  let isRunning = false;
+  let swapsCount = 0;
+
+  function dist(p1, p2) {
+    const dx = p1.x - p2.x;
+    const dy = p1.y - p2.y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  function calculateTourLength(t) {
+    if (!t || t.length < 2) return 0;
+    let sum = 0;
+    for (let i = 0; i < t.length; i++) {
+      sum += dist(cities[t[i]], cities[t[(i + 1) % t.length]]);
+    }
+    return sum;
+  }
+
+  function generateRandomCities(n = 16) {
+    cities = [];
+    const pad = 40;
+    const w = canvas.width - pad * 2;
+    const h = canvas.height - pad * 2;
+    for (let i = 0; i < n; i++) {
+      cities.push({
+        x: pad + Math.random() * w,
+        y: pad + Math.random() * h,
+        id: i + 1
+      });
+    }
+    greedyTour();
+  }
+
+  function greedyTour() {
+    if (cities.length === 0) return;
+    const unvisited = new Set(cities.keys());
+    tour = [0];
+    unvisited.delete(0);
+
+    let current = 0;
+    while (unvisited.size > 0) {
+      let nearest = null;
+      let minD = Infinity;
+      for (const next of unvisited) {
+        const d = dist(cities[current], cities[next]);
+        if (d < minD) {
+          minD = d;
+          nearest = next;
+        }
+      }
+      tour.push(nearest);
+      unvisited.delete(nearest);
+      current = nearest;
+    }
+
+    initialDist = calculateTourLength(tour);
+    swapsCount = 0;
+    updateTSPUI();
+    drawTSP();
+  }
+
+  function drawTSP() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw background grid
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < canvas.width; x += 30) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, canvas.height);
+      ctx.stroke();
+    }
+    for (let y = 0; y < canvas.height; y += 30) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(canvas.width, y);
+      ctx.stroke();
+    }
+
+    // Draw Tour Edges
+    if (tour.length > 1) {
+      ctx.beginPath();
+      ctx.strokeStyle = '#a855f7';
+      ctx.lineWidth = 2.5;
+      ctx.lineJoin = 'round';
+      ctx.shadowColor = '#c084fc';
+      ctx.shadowBlur = 8;
+      for (let i = 0; i < tour.length; i++) {
+        const p1 = cities[tour[i]];
+        const p2 = cities[tour[(i + 1) % tour.length]];
+        if (i === 0) ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+      }
+      ctx.closePath();
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+    }
+
+    // Draw City Nodes
+    cities.forEach((c, idx) => {
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, 6.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#38bdf8';
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#0f172a';
+      ctx.stroke();
+
+      // Index label
+      ctx.fillStyle = '#e2e8f0';
+      ctx.font = '10px "Fira Code", monospace';
+      ctx.fillText(c.id, c.x + 8, c.y - 6);
+    });
+  }
+
+  function updateTSPUI() {
+    document.getElementById('tspCityCount').innerText = cities.length;
+    if (initialDist > 0) {
+      document.getElementById('tspInitialDist').innerText = initialDist.toFixed(1);
+      const curr = calculateTourLength(tour);
+      document.getElementById('tspCurrentDist').innerText = curr.toFixed(1);
+      const imp = ((initialDist - curr) / initialDist) * 100;
+      document.getElementById('tspImprovement').innerText = (imp >= 0 ? imp.toFixed(2) : '0.00') + '%';
+    } else {
+      document.getElementById('tspInitialDist').innerText = '--';
+      document.getElementById('tspCurrentDist').innerText = '--';
+      document.getElementById('tspImprovement').innerText = '0.00%';
+    }
+    document.getElementById('tspSwaps').innerText = swapsCount;
+  }
+
+  async function run2Opt() {
+    if (cities.length < 4 || isRunning) return;
+    isRunning = true;
+    document.getElementById('tspStatus').innerText = 'OPTIMIZING (2-OPT)...';
+    document.getElementById('tspStatus').className = 'metric-status-badge running font-mono';
+
+    let improved = true;
+    const n = tour.length;
+
+    while (improved) {
+      improved = false;
+      for (let i = 0; i < n - 1; i++) {
+        for (let j = i + 2; j < n; j++) {
+          if (i === 0 && j === n - 1) continue;
+
+          const p1 = cities[tour[i]];
+          const p2 = cities[tour[(i + 1) % n]];
+          const p3 = cities[tour[j]];
+          const p4 = cities[tour[(j + 1) % n]];
+
+          const currentD = dist(p1, p2) + dist(p3, p4);
+          const newD = dist(p1, p3) + dist(p2, p4);
+
+          if (newD < currentD - 1e-4) {
+            // Reverse segment between i+1 and j
+            const sub = tour.slice(i + 1, j + 1).reverse();
+            tour.splice(i + 1, sub.length, ...sub);
+            swapsCount++;
+            improved = true;
+            updateTSPUI();
+            drawTSP();
+            await new Promise(r => setTimeout(r, 40));
+            break;
+          }
+        }
+        if (improved) break;
+      }
+    }
+
+    isRunning = false;
+    document.getElementById('tspStatus').innerText = 'LOCAL OPTIMAL REACHED';
+    document.getElementById('tspStatus').className = 'metric-status-badge optimal font-mono';
+  }
+
+  // Canvas click to add city
+  canvas.addEventListener('click', function(e) {
+    if (isRunning) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    cities.push({ x, y, id: cities.length + 1 });
+    greedyTour();
+  });
+
+  document.getElementById('btnRandomTSP').addEventListener('click', () => { if (!isRunning) generateRandomCities(16); });
+  document.getElementById('btnGreedyTSP').addEventListener('click', () => { if (!isRunning) greedyTour(); });
+  document.getElementById('btn2OptTSP').addEventListener('click', run2Opt);
+  document.getElementById('btnClearTSP').addEventListener('click', () => {
+    if (isRunning) return;
+    cities = [];
+    tour = [];
+    initialDist = 0;
+    swapsCount = 0;
+    updateTSPUI();
+    drawTSP();
+    document.getElementById('tspStatus').innerText = 'EMPTY';
+    document.getElementById('tspStatus').className = 'metric-status-badge font-mono';
+  });
+
+  generateRandomCities(16);
+
+  // ==========================================
+  // DEMO 2: 2D LP & Feasible Region Simulation
+  // ==========================================
+  const lpCanvas = document.getElementById('lpCanvas');
+  const lpCtx = lpCanvas.getContext('2d');
+
+  // LP Polyhedron Vertices:
+  // 1) x1 + 2*x2 <= 14
+  // 2) 3*x1 + x2 <= 18
+  // 3) x1 >= 0, x2 >= 0
+  // Intersections:
+  // (0, 0)
+  // (6, 0) from 3*x1 = 18 => x1=6
+  // (4.4, 4.8) from x1 + 2x2 = 14 & 3x1 + x2 = 18 => 5x1 = 22 => x1 = 4.4, x2 = 4.8
+  // (0, 7) from 2*x2 = 14 => x2 = 7
+  const lpVertices = [
+    { x1: 0, x2: 0 },
+    { x1: 6, x2: 0 },
+    { x1: 4.4, x2: 4.8 },
+    { x1: 0, x2: 7 }
+  ];
+
+  const scale = 36; // pixels per unit
+  const originX = 60;
+  const originY = lpCanvas.height - 50;
+
+  function toScreen(x1, x2) {
+    return {
+      x: originX + x1 * scale,
+      y: originY - x2 * scale
+    };
+  }
+
+  function drawLP(c1, c2) {
+    lpCtx.clearRect(0, 0, lpCanvas.width, lpCanvas.height);
+
+    // Coordinate Axes
+    lpCtx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    lpCtx.lineWidth = 1.5;
+
+    // X axis
+    lpCtx.beginPath();
+    lpCtx.moveTo(originX - 20, originY);
+    lpCtx.lineTo(lpCanvas.width - 20, originY);
+    lpCtx.stroke();
+
+    // Y axis
+    lpCtx.beginPath();
+    lpCtx.moveTo(originX, originY + 20);
+    lpCtx.lineTo(originX, 30);
+    lpCtx.stroke();
+
+    // Axis Labels
+    lpCtx.fillStyle = '#94a3b8';
+    lpCtx.font = '12px "Fira Code", monospace';
+    lpCtx.fillText('x₁', lpCanvas.width - 25, originY + 18);
+    lpCtx.fillText('x₂', originX - 18, 30);
+
+    // Ticks
+    for (let i = 2; i <= 12; i += 2) {
+      const p = toScreen(i, 0);
+      lpCtx.fillText(i, p.x - 4, p.y + 16);
+      lpCtx.beginPath();
+      lpCtx.moveTo(p.x, p.y - 3);
+      lpCtx.lineTo(p.x, p.y + 3);
+      lpCtx.stroke();
+    }
+    for (let i = 2; i <= 8; i += 2) {
+      const p = toScreen(0, i);
+      lpCtx.fillText(i, p.x - 18, p.y + 4);
+      lpCtx.beginPath();
+      lpCtx.moveTo(p.x - 3, p.y);
+      lpCtx.lineTo(p.x + 3, p.y);
+      lpCtx.stroke();
+    }
+
+    // Draw Feasible Convex Polygon
+    lpCtx.beginPath();
+    lpVertices.forEach((v, idx) => {
+      const p = toScreen(v.x1, v.x2);
+      if (idx === 0) lpCtx.moveTo(p.x, p.y);
+      else lpCtx.lineTo(p.x, p.y);
+    });
+    lpCtx.closePath();
+    lpCtx.fillStyle = 'rgba(168, 85, 247, 0.18)';
+    lpCtx.fill();
+    lpCtx.strokeStyle = '#c084fc';
+    lpCtx.lineWidth = 2;
+    lpCtx.stroke();
+
+    // Find Optimal Vertex: max c1*x1 + c2*x2
+    let bestZ = -Infinity;
+    let optV = lpVertices[0];
+
+    lpVertices.forEach(v => {
+      const z = c1 * v.x1 + c2 * v.x2;
+      if (z > bestZ) {
+        bestZ = z;
+        optV = v;
+      }
+    });
+
+    // Draw Objective Vector Arrow from (0,0)
+    const vecLen = Math.sqrt(c1 * c1 + c2 * c2);
+    if (vecLen > 0.01) {
+      const normC1 = (c1 / vecLen) * 3;
+      const normC2 = (c2 / vecLen) * 3;
+      const arrowStart = toScreen(0, 0);
+      const arrowEnd = toScreen(normC1, normC2);
+
+      lpCtx.beginPath();
+      lpCtx.moveTo(arrowStart.x, arrowStart.y);
+      lpCtx.lineTo(arrowEnd.x, arrowEnd.y);
+      lpCtx.strokeStyle = '#38bdf8';
+      lpCtx.lineWidth = 2.5;
+      lpCtx.stroke();
+
+      lpCtx.fillStyle = '#38bdf8';
+      lpCtx.fillText('∇c', arrowEnd.x + 6, arrowEnd.y - 6);
+    }
+
+    // Draw All Vertices
+    lpVertices.forEach(v => {
+      const p = toScreen(v.x1, v.x2);
+      lpCtx.beginPath();
+      lpCtx.arc(p.x, p.y, 5, 0, Math.PI * 2);
+      lpCtx.fillStyle = '#64748b';
+      lpCtx.fill();
+    });
+
+    // Highlight Optimal Vertex
+    const optScreen = toScreen(optV.x1, optV.x2);
+    lpCtx.beginPath();
+    lpCtx.arc(optScreen.x, optScreen.y, 9, 0, Math.PI * 2);
+    lpCtx.fillStyle = '#34d399';
+    lpCtx.shadowColor = '#34d399';
+    lpCtx.shadowBlur = 12;
+    lpCtx.fill();
+    lpCtx.shadowBlur = 0;
+
+    // Update UI telemetry
+    document.getElementById('lpOptCoord').innerText = `(${optV.x1.toFixed(2)}, ${optV.x2.toFixed(2)})`;
+    document.getElementById('lpOptZ').innerText = bestZ.toFixed(2);
+  }
+
+  const sliderC1 = document.getElementById('sliderC1');
+  const sliderC2 = document.getElementById('sliderC2');
+
+  function updateLPFromSliders() {
+    const c1 = parseFloat(sliderC1.value);
+    const c2 = parseFloat(sliderC2.value);
+    document.getElementById('valC1').innerText = c1.toFixed(1);
+    document.getElementById('valC2').innerText = c2.toFixed(1);
+    drawLP(c1, c2);
+  }
+
+  sliderC1.addEventListener('input', updateLPFromSliders);
+  sliderC2.addEventListener('input', updateLPFromSliders);
+
+  updateLPFromSliders();
+})();
+</script>

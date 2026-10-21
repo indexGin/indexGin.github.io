@@ -1,0 +1,133 @@
+---
+layout: page
+title: Library
+description: "数字书架与文献库：沉淀运筹优化、强化学习与智能体系统的认知切片"
+header-img: "img/home-bg.jpg"
+hide-in-nav: true
+---
+
+<!-- Maggie Appleton Style Digital Garden Library -->
+<div class="maggie-library-wrapper">
+
+  <!-- Editorial Introduction -->
+  <div class="library-editorial-intro">
+    <div class="garden-badge">
+      <i class="fa fa-leaf"></i> DIGITAL GARDEN // READING SHELF
+    </div>
+    <h2 class="library-quote font-editorial">
+      “阅读不仅是知识的输入，更是与不同时空的思维模型展开对齐与共鸣的过程。”
+    </h2>
+    <p class="library-subtext">
+      这里记录了我正在精读、已读完以及常读常新的书籍与学术论文。涵盖 <strong>强化学习理论</strong>、<strong>整数规划与多面体</strong>、<strong>大模型运筹建模 (LLM4OR)</strong> 与 <strong>分布式高并发系统架构</strong>。
+    </p>
+  </div>
+
+  <!-- Interactive Filter Controls -->
+  <div class="library-filter-bar">
+    <span class="filter-label"><i class="fa fa-filter"></i> 筛选:</span>
+    <button class="filter-btn active" data-filter="all">全部 (All)</button>
+    <button class="filter-btn" data-filter="书籍">书籍 (Books)</button>
+    <button class="filter-btn" data-filter="论文">核心论文 (Papers)</button>
+    <button class="filter-btn" data-filter="精读中">精读中 (Reading)</button>
+    <button class="filter-btn" data-filter="常读常新">常读常新 (Evergreen)</button>
+    <button class="filter-btn" data-filter="已读">已读完 (Finished)</button>
+  </div>
+
+  <!-- Library Cards Shelf -->
+  <div class="library-shelf" id="libraryShelf">
+    {% for item in site.data.library %}
+    <div class="library-card" 
+         data-category="{{ item.category }}" 
+         data-status="{{ item.status }}">
+      
+      <!-- Top Accent Spine -->
+      <div class="card-spine-accent"></div>
+
+      <div class="card-body-content">
+        <!-- Meta Header -->
+        <div class="card-meta-row">
+          <span class="category-badge">
+            <i class="fa {{ item.icon }}"></i> {{ item.category }}
+          </span>
+          <span class="status-badge status-{{ item.status | slice: 0, 3 }}">
+            <span class="status-dot"></span>
+            {{ item.status }}
+          </span>
+        </div>
+
+        <!-- Title & Subtitle -->
+        <h3 class="card-book-title font-editorial">
+          {{ item.title }}
+        </h3>
+        {% if item.subtitle %}
+        <h4 class="card-book-subtitle">
+          {{ item.subtitle }}
+        </h4>
+        {% endif %}
+
+        <!-- Author & Year -->
+        <div class="card-author-row">
+          <span class="author-name"><i class="fa fa-user-circle-o"></i> {{ item.author }}</span>
+          <span class="publish-year">{{ item.year }}</span>
+        </div>
+
+        <!-- Maggie Style Takeaway Quote Box -->
+        <div class="card-takeaway-box">
+          <div class="takeaway-label">
+            <i class="fa fa-lightbulb-o"></i> 核心认知 (Takeaway)
+          </div>
+          <p class="takeaway-text font-editorial">
+            “{{ item.takeaway }}”
+          </p>
+        </div>
+
+        <!-- Tags -->
+        <div class="card-tags-row">
+          {% for tag in item.tags %}
+          <span class="tag-pill">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+<!-- Filter Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const filterBtns = document.querySelectorAll('.library-filter-bar .filter-btn');
+    const cards = document.querySelectorAll('.library-shelf .library-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function () {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const filter = this.getAttribute('data-filter');
+
+        cards.forEach(card => {
+          const category = card.getAttribute('data-category') || '';
+          const status = card.getAttribute('data-status') || '';
+
+          if (filter === 'all') {
+            card.style.display = 'flex';
+          } else if (filter === '书籍' && category.includes('书籍')) {
+            card.style.display = 'flex';
+          } else if (filter === '论文' && (category.includes('论文') || category.includes('核心论文'))) {
+            card.style.display = 'flex';
+          } else if (filter === '精读中' && status.includes('精读中')) {
+            card.style.display = 'flex';
+          } else if (filter === '常读常新' && status.includes('常读常新')) {
+            card.style.display = 'flex';
+          } else if (filter === '已读' && (status.includes('已精读') || status.includes('已读完'))) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>

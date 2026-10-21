@@ -36,17 +36,31 @@
                                 <span class="node-id">01_</span>Home
                             </a>
                         </li>
-                        {% assign node_idx = 1 %}
-                        {% for page in site.pages %}
-                        {% if page.title and page.hide-in-nav != true %}
-                        {% assign node_idx = node_idx | plus: 1 %}
                         <li>
-                            <a href="{{ page.url | prepend: site.baseurl }}">
-                                <span class="node-id">0{{ node_idx }}_</span>{{ page.title }}
+                            <a href="{{ site.baseurl }}/projects.html">
+                                <span class="node-id">02_</span>Projects
                             </a>
                         </li>
-                        {% endif %}
-                        {% endfor %}
+                        <li>
+                            <a href="{{ site.baseurl }}/library.html">
+                                <span class="node-id">03_</span>Library
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ site.baseurl }}/demos.html">
+                                <span class="node-id">04_</span>Demos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ site.baseurl }}/archive.html">
+                                <span class="node-id">05_</span>Archive
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ site.baseurl }}/about.html">
+                                <span class="node-id">06_</span>About
+                            </a>
+                        </li>
                         <li class="search-icon">
                             <a href="javascript:void(0)" title="Search Node">
                                 <i class="fa fa-search"></i>

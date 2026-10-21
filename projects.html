@@ -1,0 +1,91 @@
+---
+layout: page
+title: Projects
+description: "开源项目与算法工具：从长程智能体到运筹优化求解器"
+header-img: "img/home-bg.jpg"
+hide-in-nav: true
+---
+
+<!-- Anthony Fu Style Curated Projects Showcase -->
+<div class="antfu-projects-wrapper">
+
+  <!-- Intro statement -->
+  <div class="projects-intro-header">
+    <div class="tech-label font-mono">
+      <span class="status-pulse-dot"></span> OPEN SOURCE & RESEARCH CODE
+    </div>
+    <h2 class="projects-main-title font-mono">
+      Projects & Upstream Inflow
+    </h2>
+    <p class="projects-subtext">
+      精选的个人研究项目、运筹优化算法求解器，以及深度参与贡献的头部开源技术体系（如 <code>deer-flow</code>, <code>agno</code>, <code>starlette</code>）。
+    </p>
+  </div>
+
+  <!-- Loop through project categories -->
+  <div class="projects-category-list">
+    {% for category in site.data.projects %}
+    <section class="project-group-section">
+      <div class="group-header">
+        <h3 class="group-title font-mono">
+          <span class="group-hashtag">#</span> {{ category.category }}
+        </h3>
+        {% if category.description %}
+        <p class="group-description">{{ category.description }}</p>
+        {% endif %}
+      </div>
+
+      <div class="projects-grid">
+        {% for item in category.items %}
+        <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="project-card-link">
+          <div class="project-card">
+            
+            <div class="card-top-bar">
+              <div class="project-title-area">
+                <i class="fa {{ item.icon }} project-icon"></i>
+                <span class="project-name font-mono">{{ item.name }}</span>
+              </div>
+              <div class="project-badge-area">
+                {% if item.stars %}
+                <span class="badge-pill badge-stars font-mono">
+                  <i class="fa fa-star"></i> {{ item.stars }}
+                </span>
+                {% endif %}
+                {% if item.badge %}
+                <span class="badge-pill badge-pr font-mono">
+                  <i class="fa fa-code-fork"></i> {{ item.badge }}
+                </span>
+                {% endif %}
+              </div>
+            </div>
+
+            <p class="project-description">
+              {{ item.desc }}
+            </p>
+
+            <div class="project-tags-area font-mono">
+              {% for tag in item.tags %}
+              <span class="tech-tag">{{ tag }}</span>
+              {% endfor %}
+              <span class="view-link-arrow"><i class="fa fa-arrow-right"></i></span>
+            </div>
+
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endfor %}
+  </div>
+
+  <!-- GitHub Activity CTA -->
+  <div class="github-activity-cta">
+    <div class="cta-inner font-mono">
+      <span><i class="fa fa-github"></i> 更多开源实验与代码提交请访问</span>
+      <a href="https://github.com/indexGin" target="_blank" class="cta-link">
+        github.com/indexGin &rarr;
+      </a>
+    </div>
+  </div>
+
+</div>
