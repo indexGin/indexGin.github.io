@@ -89,7 +89,7 @@ description: "探索大语言模型、运筹优化与智能体系统的交汇前
                 </div>
 
                 <div class="widget-action-footer font-mono">
-                    <a href="{{ site.baseurl }}/projects.html" class="widget-more-link">
+                    <a href="{{ site.baseurl }}/projects/" class="widget-more-link">
                         查看完整项目与算法工具集 <i class="fa fa-angle-right"></i>
                     </a>
                 </div>
@@ -111,37 +111,33 @@ description: "探索大语言模型、运筹优化与智能体系统的交汇前
                 </p>
                 <div class="profile-social-bar font-mono">
                     <a href="https://github.com/indexGin" target="_blank" class="social-btn"><i class="fa fa-github"></i> @indexGin</a>
-                    <a href="{{ site.baseurl }}/about.html" class="social-btn"><i class="fa fa-user"></i> 关于博主</a>
+                    <a href="{{ site.baseurl }}/about/" class="social-btn"><i class="fa fa-user"></i> 关于博主</a>
                 </div>
             </div>
 
-            <!-- 3. Recent Books (近期在读) Mini Card -->
+            <!-- 3. Recent Books (近期在读) Mini Card: 封面、书名、作者 (无评分) -->
             <div class="home-widget-card reading-mini-widget">
                 <div class="widget-header font-mono">
                     <span class="widget-icon"><i class="fa fa-book"></i></span>
-                    <span class="widget-title">近期书架 // READING</span>
+                    <span class="widget-title">近期在读 // READING</span>
                 </div>
                 <div class="mini-books-grid">
-                    <a href="https://book.douban.com/subject/36455064/" target="_blank" rel="noopener noreferrer" class="mini-book-card">
-                        <img src="{{ '/img/covers/proust.png' | prepend: site.baseurl }}" alt="追忆似水年华" class="mini-cover-thumb">
+                    {% for item in site.data.library %}
+                    <a href="{{ item.douban_url }}" target="_blank" rel="noopener noreferrer" class="mini-book-card" title="查看豆瓣读书详情">
+                        <div class="mini-book-cover-wrap">
+                            <img src="{{ item.cover | prepend: site.baseurl }}" alt="{{ item.title }}" class="mini-cover-thumb">
+                            <div class="mini-spine-shadow"></div>
+                        </div>
                         <div class="mini-book-details">
-                            <h5 class="mini-title font-editorial">《追忆似水年华》</h5>
-                            <span class="mini-author font-mono">[法] 普鲁斯特</span>
-                            <span class="mini-douban font-mono"><span class="douban-badge">豆</span> ⭐8.6</span>
+                            <h5 class="mini-title font-editorial">{{ item.title }}</h5>
+                            <span class="mini-author font-mono">{{ item.author }}</span>
                         </div>
                     </a>
-                    <a href="https://book.douban.com/subject/30388054/" target="_blank" rel="noopener noreferrer" class="mini-book-card">
-                        <img src="{{ '/img/covers/odyssey.png' | prepend: site.baseurl }}" alt="奥德修纪" class="mini-cover-thumb">
-                        <div class="mini-book-details">
-                            <h5 class="mini-title font-editorial">《奥德修纪》</h5>
-                            <span class="mini-author font-mono">[古希腊] 荷马</span>
-                            <span class="mini-douban font-mono"><span class="douban-badge">豆</span> ⭐9.1</span>
-                        </div>
-                    </a>
+                    {% endfor %}
                 </div>
                 <div class="widget-action-footer font-mono">
-                    <a href="{{ site.baseurl }}/library.html" class="widget-more-link">
-                        进入数字书架与文献库 <i class="fa fa-angle-right"></i>
+                    <a href="{{ site.baseurl }}/library/" class="widget-more-link">
+                        进入完整数字书架 <i class="fa fa-angle-right"></i>
                     </a>
                 </div>
             </div>

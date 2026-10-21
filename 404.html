@@ -7,10 +7,18 @@ header-img: "img/404-bg.jpg"
 permalink: /404.html
 ---
 
-
 <!-- Page Header -->
 {% include intro-header.html type="page" short='true' %}
 
 <script>
-	document.body.classList.add('page-fullscreen');
+    // Seamless redirect for pretty URLs (.html -> directory)
+    (function () {
+        var path = window.location.pathname;
+        if (path.indexOf('.html') > -1 && path.indexOf('404.html') === -1) {
+            var cleanPath = path.replace(/\.html\/?$/, '/');
+            window.location.replace(cleanPath + window.location.search + window.location.hash);
+        } else {
+            document.body.classList.add('page-fullscreen');
+        }
+    })();
 </script>

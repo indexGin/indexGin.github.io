@@ -531,16 +531,16 @@ header.intro-header .site-heading .subheading {
 .mini-books-grid {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 10px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 .mini-book-card {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
-  padding: 8px 10px;
-  border-radius: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
   background: rgba(124, 58, 237, 0.03);
   border: 1px solid var(--card-border);
   text-decoration: none !important;
@@ -553,52 +553,65 @@ header.intro-header .site-heading .subheading {
   background: rgba(124, 58, 237, 0.08);
 }
 
-.mini-cover-thumb {
-  width: 40px;
-  height: 56px;
-  object-fit: cover;
-  border-radius: 4px;
-  box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.25);
+.mini-book-cover-wrap {
+  position: relative;
+  perspective: 600px;
   flex-shrink: 0;
+}
+
+.mini-cover-thumb {
+  width: 46px;
+  height: 66px;
+  object-fit: cover;
+  border-radius: 2px 5px 5px 2px;
+  box-shadow: -2px 3px 10px rgba(0, 0, 0, 0.25);
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.mini-book-card:hover .mini-cover-thumb {
+  transform: rotateY(-6deg) scale(1.04);
+}
+
+.mini-spine-shadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.45), transparent);
+  pointer-events: none;
 }
 
 .mini-book-details {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
   overflow: hidden;
+  flex: 1;
 }
 
 .mini-title {
   margin: 0;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
   color: var(--text-main);
-  white-space: nowrap;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
+  transition: color 0.2s ease;
+}
+
+.mini-book-card:hover .mini-title {
+  color: var(--primary-color);
 }
 
 .mini-author {
-  font-size: 11px;
+  font-size: 11.5px;
   color: var(--text-muted);
-}
-
-.mini-douban {
-  font-size: 10.5px;
-  color: #d97706;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.douban-badge {
-  background: #007722;
-  color: #ffffff;
-  border-radius: 2px;
-  padding: 0 3px;
-  font-size: 9px;
-  font-weight: 700;
 }
 
 .widget-action-footer {
@@ -1257,168 +1270,72 @@ blockquote {
 
 /* --------------------------------------------------------------------------
    7. Maggie Appleton Style: Digital Garden Reading Shelf & Library
+   Clean Format: Cover, Title, Author (No Douban Rating)
    -------------------------------------------------------------------------- */
 .maggie-library-wrapper {
-  margin-top: 10px;
+  margin-top: 15px;
   margin-bottom: 60px;
 }
 
-.library-editorial-intro {
-  margin-bottom: 30px;
-  padding: 24px 28px;
-  background: var(--card-bg);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 4px 20px -2px rgba(124, 58, 237, 0.08);
+.bookshelf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 36px;
+  margin-bottom: 45px;
 }
 
-.garden-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-family: 'Fira Code', monospace;
-  font-weight: 600;
-  color: #10b981;
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  padding: 3px 10px;
-  border-radius: 999px;
-  margin-bottom: 12px;
-}
-
-.library-quote {
-  font-size: 20px;
-  font-style: italic;
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--text-main);
-  margin: 0 0 10px 0;
-}
-
-.library-subtext {
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: var(--text-muted);
-  margin: 0;
-}
-
-.library-filter-bar {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 26px;
-  padding: 10px 16px;
-  background: var(--card-bg);
-  border-radius: 12px;
-  border: 1px solid var(--card-border);
-}
-
-.filter-label {
-  font-size: 11.5px;
-  color: var(--text-muted);
-  font-weight: 600;
-  margin-right: 6px;
-}
-
-.filter-btn {
-  background: rgba(124, 58, 237, 0.05);
-  border: 1px solid var(--card-border);
-  border-radius: 8px;
-  padding: 5px 12px;
-  font-size: 11.5px;
-  color: var(--text-muted);
-  font-weight: 500;
-  cursor: pointer;
-  transition: var(--transition-smooth);
-}
-
-.filter-btn:hover {
-  background: rgba(124, 58, 237, 0.12);
-  color: var(--text-main);
-}
-
-.filter-btn.active {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
-  color: #ffffff;
-  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.35);
-}
-
-/* Shelf Layout (Responsive 2-column or 1-column) */
-.library-shelf {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-
-/* Maggie Appleton 3D Tactile Book Card */
-.library-card.maggie-book-card {
-  display: flex;
-  flex-direction: column;
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--card-border);
-  overflow: hidden;
-  box-shadow: 0 4px 16px -3px rgba(0, 0, 0, 0.06);
-  transition: var(--transition-smooth);
-}
-
-@media (min-width: 768px) {
-  .library-card.maggie-book-card {
-    flex-direction: row;
-    align-items: stretch;
+@media (max-width: 640px) {
+  .bookshelf-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 }
 
-.library-card.maggie-book-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--card-hover-border);
-  box-shadow: 0 14px 32px -6px rgba(124, 58, 237, 0.14);
-}
-
-/* 3D Book Cover Stage */
-.book-cover-stage {
-  width: 100%;
-  min-width: 170px;
-  padding: 24px 20px;
+.bookshelf-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at center, rgba(124, 58, 237, 0.06) 0%, rgba(0, 0, 0, 0.04) 100%);
-  border-bottom: 1px solid var(--card-border);
+  text-align: center;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 34px 24px 28px;
+  box-shadow: 0 4px 20px -3px rgba(0, 0, 0, 0.05);
+  transition: var(--transition-smooth);
   position: relative;
 }
 
-@media (min-width: 768px) {
-  .book-cover-stage {
-    width: 180px;
-    max-width: 180px;
-    border-bottom: none;
-    border-right: 1px solid var(--card-border);
-  }
+.bookshelf-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--card-hover-border);
+  box-shadow: 0 16px 36px -6px rgba(124, 58, 237, 0.16);
 }
 
-.book-cover-3d-wrap {
-  perspective: 900px;
+.book-3d-stage {
+  perspective: 1000px;
+  margin-bottom: 22px;
+  display: flex;
+  justify-content: center;
+}
+
+.book-cover-link {
   position: relative;
   display: inline-block;
+  outline: none;
+  text-decoration: none !important;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.library-card.maggie-book-card:hover .book-cover-3d-wrap {
-  transform: rotateY(-7deg) scale(1.03);
+.bookshelf-item:hover .book-cover-link {
+  transform: rotateY(-8deg) scale(1.04);
 }
 
 .book-cover-img {
-  width: 120px;
-  height: 172px;
+  width: 154px;
+  height: 226px;
   object-fit: cover;
-  border-radius: 3px 6px 6px 3px;
-  box-shadow: -4px 6px 18px rgba(0, 0, 0, 0.28), 0 2px 4px rgba(0, 0, 0, 0.12);
+  border-radius: 3px 8px 8px 3px;
+  box-shadow: -6px 8px 22px rgba(0, 0, 0, 0.32), 0 2px 5px rgba(0, 0, 0, 0.15);
   border-left: 2px solid rgba(255, 255, 255, 0.35);
   display: block;
 }
@@ -1428,268 +1345,54 @@ blockquote {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 7px;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.4), transparent);
+  width: 8px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.45), transparent);
   pointer-events: none;
 }
 
-.book-cover-placeholder {
-  width: 120px;
-  height: 172px;
-  border-radius: 4px 6px 6px 4px;
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(56, 189, 248, 0.2));
-  border: 1px dashed var(--primary-light);
+.book-info {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 8px;
-  color: var(--primary-color);
-  font-size: 26px;
 }
 
-.book-cover-placeholder .placeholder-cat {
-  font-size: 11px;
-  font-weight: 600;
-}
-
-/* Douban Rating Badge */
-.douban-rating-badge {
-  margin-top: 10px;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: #007722;
-  color: #ffffff;
-  font-size: 10.5px;
+.book-title {
+  font-size: 17px;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0, 119, 34, 0.3);
-}
-
-.douban-logo {
-  font-weight: 900;
-  font-size: 10px;
-}
-
-.star-gold {
-  color: #fbbf24;
-}
-
-/* Book Body Information */
-.card-body-content {
-  padding: 20px 24px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.card-meta-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.category-badge {
-  font-size: 10.5px;
-  font-weight: 600;
-  color: var(--primary-color);
-  background: rgba(124, 58, 237, 0.08);
-  border: 1px solid var(--card-border);
-  padding: 2px 8px;
-  border-radius: 4px;
-}
-
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 10px;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: rgba(124, 58, 237, 0.05);
-  color: var(--text-muted);
-}
-
-.status-badge .status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #94a3b8;
-}
-
-.status-badge.status-精读中 {
-  background: rgba(245, 158, 11, 0.12);
-  color: #d97706;
-  border: 1px solid rgba(245, 158, 11, 0.3);
-}
-
-.status-badge.status-精读中 .status-dot {
-  background: #f59e0b;
-  box-shadow: 0 0 6px #f59e0b;
-}
-
-.status-badge.status-常读常 {
-  background: rgba(168, 85, 247, 0.12);
-  color: #9333ea;
-  border: 1px solid rgba(168, 85, 247, 0.3);
-}
-
-.status-badge.status-常读常 .status-dot {
-  background: #a855f7;
-  box-shadow: 0 0 6px #a855f7;
-}
-
-.status-badge.status-已精读,
-.status-badge.status-已读完 {
-  background: rgba(16, 185, 129, 0.12);
-  color: #059669;
-  border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-.status-badge.status-已精读 .status-dot,
-.status-badge.status-已读完 .status-dot {
-  background: #10b981;
-}
-
-.card-book-title {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.35;
-  color: var(--text-main);
-  margin: 0 0 4px 0;
-}
-
-.book-title-link {
-  color: var(--text-main);
-  text-decoration: none !important;
-  transition: color 0.2s;
-}
-
-.book-title-link:hover {
-  color: var(--primary-color);
-}
-
-.douban-link-icon {
-  font-size: 11px;
-  margin-left: 4px;
-  opacity: 0.6;
-}
-
-.card-book-original-title,
-.card-book-subtitle {
-  font-size: 12.5px;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--text-muted);
-  margin: 0 0 10px 0;
-}
-
-.card-author-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  font-size: 11.5px;
-  color: var(--text-muted);
-  margin-bottom: 12px;
-}
-
-.author-name {
-  color: var(--text-main);
-  font-weight: 600;
-}
-
-/* Maggie Appleton Style Takeaway Quote Box */
-.card-takeaway-box {
-  background: rgba(124, 58, 237, 0.04);
-  border-left: 3px solid var(--primary-color);
-  border-radius: 0 8px 8px 0;
-  padding: 10px 14px;
-  margin-bottom: 14px;
-  flex: 1;
-}
-
-.takeaway-label {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--primary-color);
-  margin-bottom: 4px;
-  letter-spacing: 0.03em;
-}
-
-.takeaway-text {
-  font-size: 13px;
-  line-height: 1.6;
+  line-height: 1.4;
   color: var(--text-main);
   margin: 0;
+  max-width: 90%;
 }
 
-.card-bottom-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding-top: 8px;
-  border-top: 1px dashed var(--card-border);
-}
-
-.card-tags-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.tag-pill {
-  font-size: 10px;
-  background: rgba(124, 58, 237, 0.06);
-  color: var(--text-muted);
-  padding: 2px 7px;
-  border-radius: 4px;
-  border: 1px solid var(--card-border);
-}
-
-.douban-direct-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 9px;
-  border-radius: 6px;
-  background: rgba(0, 119, 34, 0.1);
-  color: #007722;
-  border: 1px solid rgba(0, 119, 34, 0.3);
+.book-title a {
+  color: var(--text-main);
   text-decoration: none !important;
-  transition: all 0.2s;
+  transition: color 0.2s ease;
 }
 
-html[data-theme="dark"] .douban-direct-btn {
-  background: rgba(34, 197, 94, 0.15);
-  color: #4ade80;
-  border-color: rgba(34, 197, 94, 0.35);
+.bookshelf-item:hover .book-title a {
+  color: var(--primary-color);
 }
 
-.douban-direct-btn:hover {
-  background: #007722;
-  color: #ffffff !important;
-  border-color: #007722;
+.book-author {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+  letter-spacing: 0.02em;
 }
 
-/* Documentation Note at bottom of Library */
 .library-extensibility-note {
-  margin-top: 30px;
-  padding: 14px 18px;
+  margin-top: 35px;
+  padding: 16px 20px;
   background: var(--card-bg);
   border: 1px dashed var(--primary-light);
-  border-radius: 10px;
-  font-size: 12px;
+  border-radius: 12px;
+  font-size: 12.5px;
   color: var(--text-muted);
+  text-align: center;
 }
 
 .library-extensibility-note code {

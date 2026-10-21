@@ -1,135 +1,33 @@
 # ==============================================================================
 # indexGin's Digital Library & Reading Shelf
-# 参考 Maggie Appleton 风格的数字书架，沉淀文学经典、西方哲学、学术论文与前沿算法书目
+# 展示格式：封面 (Cover)、书名 (Title)、作者 (Author)
+# 点击直达豆瓣读书链接
 # ==============================================================================
 #
 # 【📖 如何添加新书指南】：
-# 复制下方模板，粘贴到列表最前面或相应分类位置，填写对应信息后保存即可：
+# 复制下方模板，粘贴到列表最前面，填写书名、作者、封面路径与豆瓣链接即可：
 #
-# - title: "书名（如《追忆似水年华》）"
-#   original_title: "外文原名（可选）"
-#   author: "作者名"
-#   translator: "译者（可选）"
-#   publisher: "出版社, 出版年份"
-#   isbn: "ISBN 编号"
-#   douban_url: "豆瓣书籍主页链接（点击可直接跳转）"
-#   douban_rating: "豆瓣评分（如 8.6）"
-#   cover: "/img/covers/your_book.png" # 封面图片，放在 img/covers/ 目录下
-#   category: "文学经典" # 分类标签：文学经典 / 古典哲学 / 核心论文 / 计算机与运筹
-#   status: "精读中 (Reading)" # 状态：精读中 (Reading) / 常读常新 (Evergreen) / 已读完 (Finished)
-#   takeaway: "你的核心阅读感想、书摘或认知启发"
-#   tags:
-#     - 标签1
-#     - 标签2
+# - title: "书名"
+#   author: "作者"
+#   cover: "/img/covers/your_book.png"
+#   douban_url: "https://book.douban.com/subject/xxxxxxx/"
+#
 # ==============================================================================
 
 # 1. 普鲁斯特《追忆似水年华·第二卷》
 - title: "追忆似水年华·第二卷：在少女们身旁"
-  original_title: "À la recherche du temps perdu: À l'ombre des jeunes filles en fleurs"
   author: "[法] 马塞尔·普鲁斯特"
-  translator: "桂裕芳 / 袁树仁"
-  publisher: "译林出版社, 2012-6"
-  isbn: "9787544896320"
-  pages: "509 页"
-  binding: "精装"
-  douban_url: "https://book.douban.com/subject/36455064/"
-  douban_rating: "8.6"
   cover: "/img/covers/proust.png"
-  category: "文学经典"
-  status: "精读中 (Reading)"
-  year: "2024"
-  icon: "fa-bookmark"
-  takeaway: "回忆并非对过去的被动复现，而是在时间流逝中对感官记忆的主动重构。普鲁斯特以手术刀般的细腻笔触，不仅解构了爱恋与社交场域的虚妄，更探寻了主体意识与永恒艺术之间不可磨灭的隐秘连接。"
-  tags:
-    - 法国文学
-    - 意识流
-    - 普鲁斯特
-    - 经典重读
+  douban_url: "https://book.douban.com/subject/36455064/"
 
 # 2. 荷马《奥德修纪》
 - title: "奥德修纪"
-  original_title: "Odyssey"
   author: "[古希腊] 荷马"
-  translator: "杨宪益"
-  publisher: "上海人民出版社 / 世纪文景, 2019-2"
-  isbn: "9787208155459"
-  pages: "416 页"
-  binding: "精装"
-  douban_url: "https://book.douban.com/subject/30388054/"
-  douban_rating: "9.1"
   cover: "/img/covers/odyssey.png"
-  category: "古典哲学"
-  status: "常读常新 (Evergreen)"
-  year: "2024"
-  icon: "fa-anchor"
-  takeaway: "一部关于归乡、流亡与追寻自我的永恒英雄史诗。在波澜壮阔的海上漂流与神谕试炼中，奥德修斯的足智多谋与坚忍不拔，不仅是对命运抗争的颂歌，更映照出人类对心灵归宿的永恒守望。"
-  tags:
-    - 荷马史诗
-    - 西方古典
-    - 世纪文景
-    - 归乡与追寻
+  douban_url: "https://book.douban.com/subject/30388054/"
 
 # 3. 荷马《伊利亚特》
 - title: "伊利亚特"
-  original_title: "The Iliad"
   author: "[古希腊] 荷马"
-  translator: "陈中梅"
-  publisher: "上海译文出版社, 2023-4"
-  isbn: "9787532792443"
-  pages: "712 页"
-  binding: "企鹅布纹经典·精装"
-  douban_url: "https://book.douban.com/subject/36240070/"
-  douban_rating: "9.0"
   cover: "/img/covers/iliad.png"
-  category: "古典哲学"
-  status: "已读完 (Finished)"
-  year: "2023"
-  icon: "fa-shield"
-  takeaway: "特洛伊城下关于阿基琉斯之怒与英雄宿命的史诗长卷。不仅是冷兵器战场的激烈搏杀，更是对凡人生死、尊严与命运枷锁的深刻沉思，洋溢着古希腊悲剧特有的崇高与苍凉。"
-  tags:
-    - 企鹅布纹
-    - 特洛伊战争
-    - 古希腊文学
-    - 英雄史诗
-
-# 4. Sutton & Barto 强化学习
-- title: "Reinforcement Learning: An Introduction"
-  subtitle: "Sutton & Barto 经典强化学习教材"
-  author: "Richard S. Sutton & Andrew G. Barto"
-  category: "计算机与运筹"
-  status: "常读常新 (Evergreen)"
-  year: "2024"
-  icon: "fa-book"
-  takeaway: "系统梳理了值函数逼近与策略梯度的数学根基，为将 RL 与运筹学调度（Job-Shop）以及大模型多轮思考对齐打下了坚实的理论基础。"
-  tags:
-    - 强化学习
-    - 马尔可夫决策
-    - 理论基础
-
-# 5. Wolsey 整数规划
-- title: "Integer Programming"
-  subtitle: "整数规划与组合优化圣经"
-  author: "Laurence A. Wolsey"
-  category: "计算机与运筹"
-  status: "常读常新 (Evergreen)"
-  year: "2023"
-  icon: "fa-superscript"
-  takeaway: "割平面法、分支定界与多面体理论的核心教材。在研究如何让 LLM 自动构建强松弛（Strong Formulation）时是绝佳的指导手册。"
-  tags:
-    - 运筹学
-    - 整数规划
-    - 多面体理论
-
-# 6. Opt-Verifier 核心论文
-- title: "Opt-Verifier: Dual-Side Verification for Optimization Modeling"
-  subtitle: "大模型运筹建模双向形式化验证"
-  author: "Research Paper"
-  category: "核心论文"
-  status: "已读完 (Finished)"
-  year: "2025"
-  icon: "fa-file-lines"
-  takeaway: "提出正向语法 AST 形式化校验与反向语义逆推验证的双向机制，大幅降低了大语言模型在复杂约束工业规划问题中的幻觉概率。"
-  tags:
-    - LLM4OR
-    - 形式化验证
-    - Gurobi
+  douban_url: "https://book.douban.com/subject/36240070/"
