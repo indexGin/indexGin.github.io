@@ -1,20 +1,112 @@
-<!-- Footer -->
-<footer>
+<!-- Scheme 3: Graph Matrix & OR Lab Footer -->
+<footer class="matrix-footer">
+    <div class="matrix-grid-overlay"></div>
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <!-- SNS Link -->
-                {% include sns-links.html center=true %}
+        <!-- Top Mathematical Optimization Model Card Terminal -->
+        <div class="matrix-terminal-card">
+            <div class="matrix-terminal-header font-mono">
+                <div class="terminal-dots">
+                    <span class="term-dot red"></span>
+                    <span class="term-dot yellow"></span>
+                    <span class="term-dot green"></span>
+                </div>
+                <span class="term-title">or_objective_function.tex // MODEL_CARD</span>
+                <span class="term-status">[STATUS: OPTIMAL]</span>
+            </div>
+            <div class="matrix-terminal-body">
+                <div class="math-easter-egg">
+                    $$\max_{\theta} \quad \mathbb{E}_{\tau \sim \pi_\theta} \left[ \text{Impact}(\tau) \right] \quad \text{s.t.} \quad \text{Curiosity} > 0, \quad \nabla_{\text{passion}} \ne 0$$
+                </div>
+                <div class="term-subtext font-mono">
+                    // Formulation: Dual-Side Verified · Solvers: Gurobi / COPT / SCIP · Topology: Multi-Agent Network
+                </div>
+            </div>
+        </div>
 
-                <p class="copyright text-muted">
-                    Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
-                    <br>
-                    Powered by <a href="https://huxpro.github.io">Hux Blog</a> |
-                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
-                        height="20px"
-                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
-                    </iframe>
+        <!-- 3-Column Node Matrix -->
+        <div class="row matrix-footer-grid font-mono">
+            <!-- Node Col 1: Identity & Topology -->
+            <div class="col-md-5 col-sm-12 matrix-col">
+                <div class="node-heading">
+                    <span class="node-tag text-purple-400">[NODE:ROOT]</span>
+                    <span class="node-title">{{ site.title }}</span>
+                </div>
+                <p class="node-desc">
+                    面向运筹优化（Operations Research）与大语言模型（LLM）交叉领域的独立技术空间。记录数学规划自动建模、双向形式化验证与长程智能体系统的实验与推导。
                 </p>
+                <div class="node-meta-pills">
+                    <span class="matrix-pill"><i class="fa fa-code-fork"></i> GRAPH_VER: 2026.10</span>
+                    <span class="matrix-pill active"><i class="fa fa-circle"></i> NODE_STATUS: RUNNING</span>
+                </div>
+            </div>
+
+            <!-- Node Col 2: Graph Vertices (Frontier Radar) -->
+            <div class="col-md-4 col-sm-6 matrix-col">
+                <div class="node-heading">
+                    <span class="node-tag text-purple-400">[EDGES:EXPLORATION]</span>
+                    <span class="node-title">Frontier Vertices</span>
+                </div>
+                <ul class="matrix-links-list">
+                    <li>
+                        <a href="{{ site.baseurl }}/archive/?tag=LLM">
+                            <span class="node-link-title">Vertex:01 LLM4OR Modeling</span>
+                            <span class="node-weight">w=0.98</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ site.baseurl }}/archive/?tag=Multi-Agent">
+                            <span class="node-link-title">Vertex:02 Multi-Agent Dispatch</span>
+                            <span class="node-weight">w=0.95</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ site.baseurl }}/archive/?tag=%E8%BF%90%E7%AD%B9%E4%BC%98%E5%8C%96">
+                            <span class="node-link-title">Vertex:03 ALNS & Combinatorial</span>
+                            <span class="node-weight">w=0.92</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Node Col 3: Upstream PRs & Inflow -->
+            <div class="col-md-3 col-sm-6 matrix-col">
+                <div class="node-heading">
+                    <span class="node-tag text-purple-400">[EDGES:COMMITS]</span>
+                    <span class="node-title">Merged Inflow</span>
+                </div>
+                <ul class="matrix-links-list">
+                    <li>
+                        <a href="https://github.com/bytedance/deer-flow" target="_blank">
+                            <span>deer-flow (ByteDance)</span>
+                            <span class="node-badge-pr">3 Merged</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/agno-agi/agno" target="_blank">
+                            <span>agno-agi/agno</span>
+                            <span class="node-badge-pr">1 Merged</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/Kludex/starlette" target="_blank">
+                            <span>Kludex/starlette</span>
+                            <span class="node-badge-pr">1 Merged</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Matrix Bottom Status Line -->
+        <div class="row matrix-bottom-bar font-mono">
+            <div class="col-sm-8 col-xs-12">
+                <p class="copyright">
+                    © {{ site.time | date: '%Y' }} indexGin // ALL ALGORITHMS OPEN-SOURCED · HOSTED ON GITHUB_PAGES
+                </p>
+            </div>
+            <div class="col-sm-4 col-xs-12 matrix-bottom-right">
+                <!-- SNS Link -->
+                {% include sns-links.html center=false %}
             </div>
         </div>
     </div>

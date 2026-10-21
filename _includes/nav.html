@@ -1,8 +1,11 @@
+<!-- Reading Scroll Progress Bar -->
+<div class="reading-progress-bar" id="readingProgressBar"></div>
+
 <!-- Navigation -->
 {% if page.nav-style == "invert" or page.header-style == "text" %}
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top invert matrix-nav">
     {% else %}
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top matrix-nav">
         {% endif %}
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -13,26 +16,45 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ site.baseurl }}/">{{ site.title }}</a>
+                <a class="navbar-brand" href="{{ site.baseurl }}/">
+                    <span class="node-prefix font-mono">[NODE:0]</span>
+                    <span class="nav-brand-title">indexGin</span>
+                    <span class="node-sublabel font-mono">// OR_LAB</span>
+                    <span class="graph-status-badge font-mono" title="Status: Optimal">
+                        <span class="graph-node-dot"></span>
+                        <span class="graph-status-text">LLM4OR_GRAPH</span>
+                    </span>
+                </a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div id="huxblog_navbar">
                 <div class="navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right font-mono">
                         <li>
-                            <a href="{{ site.baseurl }}/">Home</a>
+                            <a href="{{ site.baseurl }}/">
+                                <span class="node-id">01_</span>Home
+                            </a>
                         </li>
+                        {% assign node_idx = 1 %}
                         {% for page in site.pages %}
                         {% if page.title and page.hide-in-nav != true %}
+                        {% assign node_idx = node_idx | plus: 1 %}
                         <li>
-                            <a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+                            <a href="{{ page.url | prepend: site.baseurl }}">
+                                <span class="node-id">0{{ node_idx }}_</span>{{ page.title }}
+                            </a>
                         </li>
                         {% endif %}
                         {% endfor %}
                         <li class="search-icon">
-                            <a href="javascript:void(0)">
+                            <a href="javascript:void(0)" title="Search Node">
                                 <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                        <li class="github-nav-item">
+                            <a href="https://github.com/indexGin" target="_blank" title="GitHub @indexGin">
+                                <i class="fa fa-github"></i>
                             </a>
                         </li>
                     </ul>
@@ -93,5 +115,14 @@
             if (e.target == $toggle) return;
             if (e.target.className == 'icon-bar') return;
             __HuxNav__.close();
-        })
+        });
+
+        // Reading Scroll Progress Indicator
+        window.addEventListener('scroll', function () {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            var bar = document.getElementById("readingProgressBar");
+            if (bar) bar.style.width = scrolled + "%";
+        });
     </script>

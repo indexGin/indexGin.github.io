@@ -27,43 +27,141 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   1. Modern Navigation (Frosted Glass Acrylic)
+   1. Scheme 3: Graph Matrix Navigation & Scroll Progress Indicator
    -------------------------------------------------------------------------- */
-.navbar-custom {
-  background: rgba(15, 23, 42, 0.8) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #7c3aed 0%, #a855f7 50%, #38bdf8 100%);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.7);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
+.navbar-custom.matrix-nav {
+  background: rgba(10, 15, 29, 0.88) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(168, 85, 247, 0.2) !important;
   transition: var(--transition-smooth);
+}
+
+@media (min-width: 768px) {
+  .navbar-custom.matrix-nav {
+    top: 14px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: min(95%, 1180px) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(168, 85, 247, 0.25) !important;
+    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.65), 0 0 20px -5px rgba(124, 58, 237, 0.25) !important;
+    padding: 2px 16px !important;
+  }
 }
 
 .navbar-custom .navbar-brand {
   font-weight: 700;
   letter-spacing: -0.02em;
   color: #f8fafc !important;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
+  padding: 12px 10px;
 }
 
 .navbar-custom .navbar-brand::before {
-  content: "⚡";
-  font-size: 16px;
+  display: none !important;
 }
 
-.navbar-custom .nav li a {
-  font-size: 14px;
+.matrix-nav .node-prefix {
+  color: #a855f7;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.matrix-nav .nav-brand-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.matrix-nav .node-sublabel {
+  font-size: 11px;
+  color: #64748b;
+  margin-left: 2px;
+}
+
+.matrix-nav .graph-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  font-size: 10.5px;
+  color: #d8b4fe;
+}
+
+@media (max-width: 767px) {
+  .matrix-nav .graph-status-badge {
+    display: none;
+  }
+}
+
+.graph-node-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a855f7;
+  box-shadow: 0 0 8px #c084fc;
+  display: inline-block;
+  animation: pulse-node 2s infinite ease-in-out;
+}
+
+@keyframes pulse-node {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+.matrix-nav .node-id {
+  color: #a855f7;
+  font-size: 11px;
+  margin-right: 2px;
+  opacity: 0.85;
+}
+
+.matrix-nav .nav li a {
+  font-size: 12.5px;
   font-weight: 500;
   letter-spacing: 0.02em;
   color: #cbd5e1 !important;
-  padding: 10px 18px;
-  border-radius: 9999px;
+  padding: 8px 14px;
+  border-radius: 6px;
   transition: var(--transition-smooth);
 }
 
-.navbar-custom .nav li a:hover {
+.matrix-nav .nav li a:hover {
   color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.matrix-nav .nav li.github-nav-item a {
+  padding: 8px 12px;
+  margin-left: 4px;
+  font-size: 15px;
+  color: #94a3b8 !important;
+}
+
+.matrix-nav .nav li.github-nav-item a:hover {
+  color: #c084fc !important;
+  border: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -375,3 +473,213 @@ blockquote {
   color: #ffffff;
   border-color: var(--primary-color);
 }
+
+/* --------------------------------------------------------------------------
+   7. Scheme 3: Graph Matrix & OR Lab Footer
+   -------------------------------------------------------------------------- */
+.matrix-footer {
+  position: relative;
+  background: #060911 !important;
+  color: #94a3b8;
+  padding: 55px 0 35px;
+  margin-top: 60px;
+  border-top: 1px solid rgba(168, 85, 247, 0.25);
+  overflow: hidden;
+}
+
+.matrix-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(168, 85, 247, 0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(168, 85, 247, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.matrix-terminal-card {
+  background: rgba(10, 15, 29, 0.85);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 15px -3px rgba(168, 85, 247, 0.15);
+  overflow: hidden;
+  margin-bottom: 36px;
+  position: relative;
+  z-index: 2;
+}
+
+.matrix-terminal-header {
+  background: rgba(15, 23, 42, 0.95);
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.term-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.term-dot.red { background: #ef4444; }
+.term-dot.yellow { background: #f59e0b; }
+.term-dot.green { background: #10b981; }
+
+.term-title {
+  color: #cbd5e1;
+  font-size: 11px;
+}
+
+.term-status {
+  color: #34d399;
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.matrix-terminal-body {
+  padding: 20px 24px;
+  text-align: center;
+}
+
+.matrix-terminal-body .math-easter-egg {
+  color: #e9d5ff;
+  font-size: 14.5px;
+  overflow-x: auto;
+}
+
+.matrix-terminal-body .term-subtext {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 10px;
+}
+
+.matrix-footer-grid {
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.matrix-col {
+  margin-bottom: 24px;
+}
+
+.matrix-col .node-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 14px;
+}
+
+.matrix-col .node-tag {
+  color: #a855f7;
+  font-size: 12px;
+}
+
+.matrix-col .node-desc {
+  color: #94a3b8;
+  font-size: 12.5px;
+  line-height: 1.7;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  margin-bottom: 14px;
+}
+
+.node-meta-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.matrix-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+.matrix-pill.active {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #34d399;
+}
+
+.matrix-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.matrix-links-list li {
+  margin-bottom: 9px;
+}
+
+.matrix-links-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #94a3b8;
+  text-decoration: none !important;
+  font-size: 12px;
+  transition: color 0.2s ease;
+}
+
+.matrix-links-list a:hover {
+  color: #c084fc;
+}
+
+.matrix-links-list .node-weight {
+  font-size: 10px;
+  color: #64748b;
+}
+
+.matrix-links-list .node-badge-pr {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34d399;
+}
+
+.matrix-bottom-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.matrix-bottom-bar .copyright {
+  margin: 0;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.matrix-bottom-right {
+  text-align: right;
+}
+
+@media (max-width: 767px) {
+  .matrix-bottom-right {
+    text-align: left;
+    margin-top: 12px;
+  }
+}
+
+
