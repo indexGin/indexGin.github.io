@@ -1,0 +1,377 @@
+/* ==========================================================================
+   custom-modern.css
+   Modern, sleek front-end enhancements for indexGin's personal tech blog
+   ========================================================================== */
+
+:root {
+  --primary-color: #7c3aed;
+  --primary-light: #a78bfa;
+  --secondary-color: #0284c7;
+  --accent-cyan: #38bdf8;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --bg-page: #f8fafc;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --card-hover-border: #c4b5fd;
+  --radius-lg: 16px;
+  --radius-sm: 8px;
+  --transition-smooth: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --------------------------------------------------------------------------
+   1. Modern Navigation (Frosted Glass Acrylic)
+   -------------------------------------------------------------------------- */
+.navbar-custom {
+  background: rgba(15, 23, 42, 0.8) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: var(--transition-smooth);
+}
+
+.navbar-custom .navbar-brand {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f8fafc !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-custom .navbar-brand::before {
+  content: "⚡";
+  font-size: 16px;
+}
+
+.navbar-custom .nav li a {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #cbd5e1 !important;
+  padding: 10px 18px;
+  border-radius: 9999px;
+  transition: var(--transition-smooth);
+}
+
+.navbar-custom .nav li a:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Modern Hero Header (Cyber / Deep Mesh Gradient)
+   -------------------------------------------------------------------------- */
+header.intro-header {
+  position: relative;
+  background: radial-gradient(circle at 18% 25%, rgba(124, 58, 237, 0.4), transparent 45%),
+              radial-gradient(circle at 82% 75%, rgba(56, 189, 248, 0.3), transparent 45%),
+              linear-gradient(135deg, #090d16 0%, #111827 50%, #1e1b4b 100%) !important;
+  padding: 120px 0 90px !important;
+  margin-bottom: 45px !important;
+  overflow: hidden;
+}
+
+header.intro-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  background: linear-gradient(to top, var(--bg-page), transparent);
+}
+
+header.intro-header .site-heading h1,
+header.intro-header .post-heading h1 {
+  font-size: 46px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+  text-shadow: none;
+}
+
+header.intro-header .site-heading .subheading {
+  font-size: 17px;
+  font-weight: 400;
+  color: #94a3b8 !important;
+  line-height: 1.6;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.intro-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 18px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: rgba(124, 58, 237, 0.2);
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  color: #c4b5fd;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+/* --------------------------------------------------------------------------
+   3. Elevated Modern Post Cards
+   -------------------------------------------------------------------------- */
+.postlist-container {
+  padding-right: 25px;
+}
+
+.post-preview {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 30px 34px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.post-preview:hover {
+  transform: translateY(-4px);
+  border-color: var(--card-hover-border);
+  box-shadow: 0 16px 32px -8px rgba(124, 58, 237, 0.12);
+}
+
+.post-preview > a {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.post-preview .post-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 0;
+  margin-bottom: 10px;
+  line-height: 1.35;
+  transition: color 0.2s ease;
+}
+
+.post-preview:hover .post-title {
+  color: var(--primary-color);
+}
+
+.post-preview .post-subtitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--primary-color);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.post-preview .post-content-preview {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.post-preview .post-meta {
+  font-size: 13px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.post-preview .post-meta i {
+  color: var(--primary-light);
+}
+
+/* Remove ugly horizontal rules between posts */
+.postlist-container > hr {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. Modern Sidebar Profile Card
+   -------------------------------------------------------------------------- */
+.sidebar-container {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 26px 22px;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+}
+
+.sidebar-container hr {
+  border-color: #f1f5f9;
+  margin: 18px 0;
+}
+
+.sidebar-container h5 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.short-about img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-cyan));
+  box-shadow: 0 8px 20px -4px rgba(124, 58, 237, 0.35);
+  margin-bottom: 14px;
+  transition: var(--transition-smooth);
+}
+
+.short-about img:hover {
+  transform: rotate(5deg) scale(1.05);
+}
+
+.short-about p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* Tech Badges in Sidebar */
+.tech-stack-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 16px 0 10px;
+}
+
+.tech-badge {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  transition: var(--transition-smooth);
+}
+
+.tech-badge:hover {
+  background: #ede9fe;
+  color: var(--primary-color);
+  border-color: #ddd6fe;
+}
+
+/* SNS Icon Links */
+.short-about .list-inline > li {
+  padding: 0 3px;
+}
+
+.short-about .fa-stack-2x {
+  color: #f1f5f9;
+  transition: var(--transition-smooth);
+}
+
+.short-about .fa-stack-1x {
+  color: #475569;
+  transition: var(--transition-smooth);
+}
+
+.short-about a:hover .fa-stack-2x {
+  color: var(--primary-color);
+}
+
+.short-about a:hover .fa-stack-1x {
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   5. Post Detail & Content Styling
+   -------------------------------------------------------------------------- */
+.post-container {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 40px 48px;
+  box-shadow: 0 4px 25px -4px rgba(15, 23, 42, 0.05);
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.post-container h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-top: 36px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #f1f5f9;
+  color: #0f172a;
+}
+
+.post-container h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 28px;
+  margin-bottom: 14px;
+  color: #1e293b;
+}
+
+/* MathJax Formulas container */
+.MathJax_Display {
+  padding: 16px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Code block enhancements */
+pre {
+  background: #0d1117 !important;
+  color: #e6edf3 !important;
+  border: 1px solid #30363d !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  font-family: "Fira Code", Consolas, "Courier New", monospace !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+  position: relative;
+}
+
+/* Callout blockquotes */
+blockquote {
+  border-left: 4px solid var(--primary-color);
+  background: #f5f3ff;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 20px;
+  font-size: 15px;
+  color: #4c1d95;
+  margin: 22px 0;
+}
+
+/* --------------------------------------------------------------------------
+   6. Pager / Pagination
+   -------------------------------------------------------------------------- */
+.pager li > a {
+  border-radius: 9999px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: var(--text-main);
+  font-weight: 600;
+  padding: 10px 22px;
+  transition: var(--transition-smooth);
+}
+
+.pager li > a:hover {
+  background: var(--primary-color);
+  color: #ffffff;
+  border-color: var(--primary-color);
+}

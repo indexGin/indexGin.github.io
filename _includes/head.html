@@ -48,26 +48,32 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ " /css/hux-blog.min.css" | prepend: site.baseurl }}">
-    <link rel="stylesheet" href="{{ "/css/new-site-link.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ "/css/custom-modern.css" | prepend: site.baseurl }}">
 
     <!-- Custom Fonts -->
-    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- Hux change font-awesome CDN to qiniu -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
         type="text/css">
 
+    <!-- MathJax 3 for elegant LaTeX mathematical formulas -->
+    {% if site.page-mathjax %}
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    {% endif %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- ga & ba script hoook -->
-    <script></script>
-
-    <!-- Google AdSense -->
-    <script data-ad-client="ca-pub-6487568398225121" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>

@@ -1,11 +1,11 @@
 # Site settings
-title: Hux Blog
-SEOTitle: 黄玄的博客 | Hux Blog
+title: indexGin's Space
+SEOTitle: indexGin | AI & Operations Research
 header-img: img/home-bg.jpg
-email: huxpro@gmail.com
-description: "这里是 @Hux黄玄 的个人博客，与你一起发现更大的世界 | 要做一个有 swag 的程序员"
-keyword: "黄玄, Hux黄玄, Hux, 鬼栈, huxpro, @huxpro, 黄玄的博客, Hux Blog, 博客, 个人网站, 互联网, Web, JavaScript, React, React Native, 前端, 设计"
-url: "https://huxpro.github.io" # your host, for absolute URL
+email: 166748424+indexGin@users.noreply.github.com
+description: "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent 系统的个人学术与技术空间"
+keyword: "indexGin, LLM, Operations Research, 运筹学, Multi-Agent, Python, PyTorch, Gurobi, 算法, 博客"
+url: "https://indexgin.github.io" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
 
 
@@ -15,19 +15,16 @@ future: true
 
 # SNS settings
 RSS: false
-weibo_username: huxpro
-zhihu_username: huxpro
-github_username: huxpro
-twitter_username: huxpro
-#facebook_username:  huxpro
-#linkedin_username:  firstname-lastname-idxxxx
+github_username: indexGin
+# zhihu_username: indexGin
+# twitter_username: indexGin
+# linkedin_username: indexGin
 
 
 # Build settings
-# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
 highlighter: rouge
 permalink: pretty
-paginate: 10
+paginate: 8
 exclude:
   [
     "less",
@@ -37,25 +34,18 @@ exclude:
     "README.md",
     "README.zh.md",
   ]
-anchorjs: true # if you want to customize anchor. check out line:181 of `post.html`
-# If you have timezone issue (e.g. #68) in China, uncomment to use this:
-#timezone: CN
+anchorjs: true
+page-mathjax: true
 
 
 # Gems
-# from PR#40, to support local preview for Jekyll 3.0
-# make sure you have this gem installed
-# `$ gem install jekyll-paginate`
 plugins: [jekyll-paginate]
 
 
 # Markdown settings
-# replace redcarpet to kramdown,
-# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
-# document: http://jekyllrb.com/docs/configuration/#kramdown
 markdown: kramdown
 kramdown:
-  input: GFM # use Github Flavored Markdown !important
+  input: GFM
   syntax_highlighter_opts:
     span:
       line_numbers: false
@@ -64,25 +54,13 @@ kramdown:
       start_line: 1
 
 
-# Disqus settings
-disqus_username: hux
-
-
-# Netease settings
+# Comments (Disable old Disqus)
+# disqus_username: 
 netease_comment: false
 
 
-# Analytics settings
-# Baidu Analytics
-# ba_track_id: [your track id]
-
-
-# Google Analytics
-ga_track_id: "UA-49627206-1" # Format: UA-xxxxxx-xx
-ga_domain: huxpro.github.io
-
-
 # Sidebar settings
-sidebar: true # whether or not using Sidebar.
-sidebar-about-description: "要做一个有 swag 的程序员 <br> React Team @ Meta"
-sidebar-avatar: https://github.com/Huxpro.png # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar: true
+sidebar-about-description: "AI & Operations Research<br>Multi-Agent Systems | LLM4OR"
+sidebar-avatar: https://github.com/indexGin.png
+

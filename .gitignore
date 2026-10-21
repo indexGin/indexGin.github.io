@@ -2,6 +2,7 @@ _site
 _posts/_draft
 _posts/_archive
 _archive
+_posts_archive
 node_modules
 .vscode
 *.log
