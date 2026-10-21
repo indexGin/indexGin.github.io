@@ -1,11 +1,11 @@
-<!-- Maxime Heckel Style Embedded AI Q&A Agent Widget -->
+<!-- indexGin Personal Site Assistant Widget (Maxime Heckel Inspired) -->
 <div class="ai-agent-widget-container" id="aiAgentWidget">
 
   <!-- Floating Launcher Button -->
-  <button class="ai-agent-launcher" id="aiAgentLauncher" aria-label="Open AI Research Assistant" title="Open AI Assistant">
+  <button class="ai-agent-launcher" id="aiAgentLauncher" aria-label="Open Personal Site Assistant" title="打开空间小助手">
     <span class="ai-launcher-pulse"></span>
-    <span class="ai-launcher-icon"><i class="fa fa-sparkles">✨</i></span>
-    <span class="ai-launcher-text font-mono">Ask AI Agent <span class="badge-tag">// LLM4OR</span></span>
+    <span class="ai-launcher-icon">✨</span>
+    <span class="ai-launcher-text font-mono">空间助手 <span class="badge-tag">// indexGin Bot</span></span>
   </button>
 
   <!-- Interactive Chat Modal -->
@@ -15,12 +15,12 @@
     <div class="ai-modal-header">
       <div class="ai-header-info">
         <div class="ai-avatar-badge">
-          <i class="fa fa-terminal"></i>
+          <i class="fa fa-sparkles">✨</i>
         </div>
         <div>
-          <h4 class="ai-assistant-name font-mono">indexGin AI Agent</h4>
+          <h4 class="ai-assistant-name font-mono">indexGin 空间小助手</h4>
           <span class="ai-status-pill font-mono">
-            <span class="ai-live-dot"></span> OR_KNOWLEDGE_BASE // ONLINE
+            <span class="ai-live-dot"></span> SITE_COMPANION // ONLINE
           </span>
         </div>
       </div>
@@ -34,11 +34,11 @@
     <div class="ai-quick-questions">
       <span class="quick-title font-mono"><i class="fa fa-bolt"></i> 快捷问答:</span>
       <div class="quick-pills-scroll">
-        <button class="quick-pill" data-query="什么是 LLM4OR (大模型与运筹优化)？">什么是 LLM4OR？</button>
-        <button class="quick-pill" data-query="介绍一下 Opt-Verifier 验证框架">Opt-Verifier 框架</button>
-        <button class="quick-pill" data-query="你在 deer-flow 和 agno 的开源贡献是什么？">开源项目 PR 贡献</button>
-        <button class="quick-pill" data-query="运筹学与强化学习在工业调度中如何结合？">运筹学 + 强化学习</button>
-        <button class="quick-pill" data-query="推荐几本运筹优化与算法经典书籍？">推荐书籍与论文</button>
+        <button class="quick-pill" data-query="推荐几本近期在读书单（普鲁斯特、荷马史诗）？">📖 近期在读书单</button>
+        <button class="quick-pill" data-query="介绍博主的开源贡献（deer-flow 等）">🚀 头部开源 PR 贡献</button>
+        <button class="quick-pill" data-query="网站都有哪些好玩的功能？（算法沙盒、主题切换）">💡 网站特色功能</button>
+        <button class="quick-pill" data-query="关于博主 indexGin 与研究方向？">👤 关于博主 indexGin</button>
+        <button class="quick-pill" data-query="如何在书架中添加新书与豆瓣链接？">🛠️ 如何添加新书</button>
       </div>
     </div>
 
@@ -46,9 +46,9 @@
     <div class="ai-messages-container" id="aiMessagesContainer">
       <!-- Default Assistant Welcome Message -->
       <div class="ai-msg ai-msg-assistant">
-        <div class="ai-msg-avatar"><i class="fa fa-robot"></i></div>
+        <div class="ai-msg-avatar"><i class="fa fa-smile-o"></i></div>
         <div class="ai-msg-bubble font-editorial">
-          你好！我是 indexGin 网站的内置 AI 智能体助手。你可以向我咨询关于 <strong>大模型运筹优化 (LLM4OR)</strong>、<strong>组合优化求解器 (Gurobi/ALNS)</strong>、<strong>开源贡献 (deer-flow / agno)</strong> 以及书架与文献库的任何问题。
+          你好！我是 indexGin 网站的内置智能小助手。你可以向我咨询关于 <strong>博主背景与研究</strong>、<strong>开源贡献 (deer-flow / agno)</strong>、<strong>豆瓣书单与文献 (普鲁斯特 / 荷马史诗)</strong> 以及站点功能的任何问题！后续博主还会为我接入真正的云端大模型思考能力～
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
       <input type="text" 
              id="aiInputField" 
              class="ai-input-field font-mono" 
-             placeholder="输入技术问题或点击上方快捷胶囊..." 
+             placeholder="问我关于博客、开源项目、豆瓣书单或技术的问题..." 
              autocomplete="off">
       <button type="submit" id="aiSendBtn" class="ai-send-btn" title="发送">
         <i class="fa fa-paper-plane"></i>
@@ -67,7 +67,7 @@
 
     <!-- Footer Note -->
     <div class="ai-modal-footer font-mono">
-      <span>Maxime Heckel Inspired // Local Vector Matrix Retrieval</span>
+      <span>Personal AI Companion // Extensible Real LLM Architecture</span>
     </div>
 
   </div>

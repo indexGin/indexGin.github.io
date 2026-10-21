@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Library
-description: "数字书架与文献库：沉淀运筹优化、强化学习与智能体系统的认知切片"
+description: "数字书架与阅读切片：沉淀文学经典、西方哲学、学术论文与前沿算法书目"
 header-img: "img/home-bg.jpg"
 hide-in-nav: true
 ---
@@ -11,23 +11,24 @@ hide-in-nav: true
 
   <!-- Editorial Introduction -->
   <div class="library-editorial-intro">
-    <div class="garden-badge">
+    <div class="garden-badge font-mono">
       <i class="fa fa-leaf"></i> DIGITAL GARDEN // READING SHELF
     </div>
     <h2 class="library-quote font-editorial">
       “阅读不仅是知识的输入，更是与不同时空的思维模型展开对齐与共鸣的过程。”
     </h2>
     <p class="library-subtext">
-      这里记录了我正在精读、已读完以及常读常新的书籍与学术论文。涵盖 <strong>强化学习理论</strong>、<strong>整数规划与多面体</strong>、<strong>大模型运筹建模 (LLM4OR)</strong> 与 <strong>分布式高并发系统架构</strong>。
+      这里记录了我正在精读、已读完以及常读常新的文学经典、古典哲学与前沿学术书目。点击任意书籍卡片可直达<strong>豆瓣读书主页</strong>查看更多书评与详情。
     </p>
   </div>
 
   <!-- Interactive Filter Controls -->
-  <div class="library-filter-bar">
+  <div class="library-filter-bar font-mono">
     <span class="filter-label"><i class="fa fa-filter"></i> 筛选:</span>
     <button class="filter-btn active" data-filter="all">全部 (All)</button>
-    <button class="filter-btn" data-filter="书籍">书籍 (Books)</button>
-    <button class="filter-btn" data-filter="论文">核心论文 (Papers)</button>
+    <button class="filter-btn" data-filter="文学经典">文学经典</button>
+    <button class="filter-btn" data-filter="古典哲学">古典哲学</button>
+    <button class="filter-btn" data-filter="计算机与运筹">计算机与运筹</button>
     <button class="filter-btn" data-filter="精读中">精读中 (Reading)</button>
     <button class="filter-btn" data-filter="常读常新">常读常新 (Evergreen)</button>
     <button class="filter-btn" data-filter="已读">已读完 (Finished)</button>
@@ -36,18 +37,40 @@ hide-in-nav: true
   <!-- Library Cards Shelf -->
   <div class="library-shelf" id="libraryShelf">
     {% for item in site.data.library %}
-    <div class="library-card" 
+    <div class="library-card maggie-book-card" 
          data-category="{{ item.category }}" 
          data-status="{{ item.status }}">
       
-      <!-- Top Accent Spine -->
-      <div class="card-spine-accent"></div>
+      <!-- Book Visual Area (Left/Top) -->
+      <div class="book-cover-stage">
+        {% if item.cover %}
+        <div class="book-cover-3d-wrap">
+          <a href="{{ item.douban_url | default: '#' }}" {% if item.douban_url %}target="_blank" rel="noopener noreferrer"{% endif %} title="查看豆瓣读书页面">
+            <img src="{{ item.cover | prepend: site.baseurl }}" alt="{{ item.title }}" class="book-cover-img" loading="lazy">
+            <div class="book-spine-shadow"></div>
+          </a>
+        </div>
+        {% else %}
+        <div class="book-cover-placeholder font-mono">
+          <i class="fa {{ item.icon | default: 'fa-book' }}"></i>
+          <span class="placeholder-cat">{{ item.category }}</span>
+        </div>
+        {% endif %}
 
+        {% if item.douban_rating %}
+        <div class="douban-rating-badge font-mono" title="豆瓣评分 {{ item.douban_rating }}">
+          <span class="douban-logo">豆</span>
+          <span class="douban-score"><i class="fa fa-star star-gold"></i> {{ item.douban_rating }}</span>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Book Information Area (Right/Body) -->
       <div class="card-body-content">
         <!-- Meta Header -->
         <div class="card-meta-row">
           <span class="category-badge">
-            <i class="fa {{ item.icon }}"></i> {{ item.category }}
+            <i class="fa {{ item.icon | default: 'fa-bookmark' }}"></i> {{ item.category }}
           </span>
           <span class="status-badge status-{{ item.status | slice: 0, 3 }}">
             <span class="status-dot"></span>
@@ -57,39 +80,72 @@ hide-in-nav: true
 
         <!-- Title & Subtitle -->
         <h3 class="card-book-title font-editorial">
+          {% if item.douban_url %}
+          <a href="{{ item.douban_url }}" target="_blank" rel="noopener noreferrer" class="book-title-link">
+            {{ item.title }} <i class="fa fa-external-link douban-link-icon" title="跳转豆瓣"></i>
+          </a>
+          {% else %}
           {{ item.title }}
+          {% endif %}
         </h3>
-        {% if item.subtitle %}
+
+        {% if item.original_title %}
+        <h4 class="card-book-original-title">
+          {{ item.original_title }}
+        </h4>
+        {% elsif item.subtitle %}
         <h4 class="card-book-subtitle">
           {{ item.subtitle }}
         </h4>
         {% endif %}
 
-        <!-- Author & Year -->
-        <div class="card-author-row">
+        <!-- Author, Translator & Publisher -->
+        <div class="card-author-row font-mono">
           <span class="author-name"><i class="fa fa-user-circle-o"></i> {{ item.author }}</span>
-          <span class="publish-year">{{ item.year }}</span>
+          {% if item.translator %}
+          <span class="translator-name">译: {{ item.translator }}</span>
+          {% endif %}
+          {% if item.publisher %}
+          <span class="publisher-info">{{ item.publisher }}</span>
+          {% endif %}
         </div>
 
         <!-- Maggie Style Takeaway Quote Box -->
+        {% if item.takeaway %}
         <div class="card-takeaway-box">
-          <div class="takeaway-label">
+          <div class="takeaway-label font-mono">
             <i class="fa fa-lightbulb-o"></i> 核心认知 (Takeaway)
           </div>
           <p class="takeaway-text font-editorial">
             “{{ item.takeaway }}”
           </p>
         </div>
+        {% endif %}
 
-        <!-- Tags -->
-        <div class="card-tags-row">
-          {% for tag in item.tags %}
-          <span class="tag-pill">{{ tag }}</span>
-          {% endfor %}
+        <!-- Tags & Direct Douban Button -->
+        <div class="card-bottom-row">
+          <div class="card-tags-row">
+            {% for tag in item.tags %}
+            <span class="tag-pill">{{ tag }}</span>
+            {% endfor %}
+          </div>
+          {% if item.douban_url %}
+          <a href="{{ item.douban_url }}" target="_blank" rel="noopener noreferrer" class="douban-direct-btn font-mono">
+            豆瓣读书 ↗
+          </a>
+          {% endif %}
         </div>
+
       </div>
     </div>
     {% endfor %}
+  </div>
+
+  <!-- Documentation Note for user updating future books -->
+  <div class="library-extensibility-note font-mono">
+    <div class="note-inner">
+      <span><i class="fa fa-info-circle"></i> <strong>如何添加新书？</strong> 只需在项目 <code>_data/library.yml</code> 中新增一条书籍记录并填入豆瓣链接，系统即可自动渲染！</span>
+    </div>
   </div>
 
 </div>
@@ -113,15 +169,13 @@ hide-in-nav: true
 
           if (filter === 'all') {
             card.style.display = 'flex';
-          } else if (filter === '书籍' && category.includes('书籍')) {
-            card.style.display = 'flex';
-          } else if (filter === '论文' && (category.includes('论文') || category.includes('核心论文'))) {
-            card.style.display = 'flex';
           } else if (filter === '精读中' && status.includes('精读中')) {
             card.style.display = 'flex';
           } else if (filter === '常读常新' && status.includes('常读常新')) {
             card.style.display = 'flex';
           } else if (filter === '已读' && (status.includes('已精读') || status.includes('已读完'))) {
+            card.style.display = 'flex';
+          } else if (category.includes(filter)) {
             card.style.display = 'flex';
           } else {
             card.style.display = 'none';

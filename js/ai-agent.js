@@ -1,89 +1,97 @@
 /**
  * ai-agent.js
- * Maxime Heckel inspired embedded AI Q&A Agent Widget for indexGin's Space.
- * Provides client-side semantic matching, streaming typewriter responses,
- * and pre-indexed knowledge base on LLM4OR, Solvers, and Open Source.
+ * indexGin Personal Space Assistant Widget (Maxime Heckel Inspired)
+ * 
+ * Features:
+ * 1. Pluggable Architecture: Supports future real LLMs (DeepSeek / OpenAI / Cloudflare Workers AI)
+ * 2. Client-side Semantic Match Engine & Offline Knowledge Base
+ * 3. Smooth streaming typewriter animation & responsive modal
  */
 
 (function () {
   'use strict';
 
-  // 1. Knowledge Base
+  // =========================================================================
+  // 1. Agent Configuration & Real LLM Extension Hook
+  // =========================================================================
+  // 当你后续需要为小助手接入真实的云端大模型时：
+  // 1. 将 useRemoteLLM 设置为 true
+  // 2. 配置你的 Serverless Proxy / API Endpoint（如 Cloudflare Worker 或 OpenAI/DeepSeek API）
+  // 3. 小助手将自动开启流式真实对话，若网络断开则自动平滑回退至本地离线知识库
+  // =========================================================================
+  const AGENT_CONFIG = {
+    botName: "indexGin 小助手",
+    botVersion: "v2.0",
+    useRemoteLLM: false, // 设为 true 即可直连真实大模型 API
+    remoteConfig: {
+      apiEndpoint: "https://your-llm-proxy-worker.workers.dev/v1/chat/completions",
+      apiKey: "", // 若有代理可在代理端存储 key，无需硬编码在前端
+      model: "deepseek-chat", // 可换成 gpt-4o-mini, gemini-1.5-flash 等
+      systemPrompt: "你是 indexGin 个人主页的智能助手。你精通博主的开源贡献（deer-flow, agno, starlette）、技术博客、运筹优化算法与文学阅读书单（普鲁斯特、荷马史诗）。请用亲切、严谨、智慧的口吻回答访客。"
+    }
+  };
+
+  // =========================================================================
+  // 2. Offline Knowledge Base (本地离线预索引知识库)
+  // =========================================================================
   const KNOWLEDGE_BASE = [
     {
-      keywords: ['llm4or', '大模型', '运筹优化', '结合', 'or', 'operations research', '什么是 llm4or'],
-      title: 'LLM 与运筹优化 (LLM4OR) 的交汇前沿',
-      answer: `<strong>LLM4OR (Large Language Models for Operations Research)</strong> 是目前 AI 与工业运筹最前沿的研究范式之一。<br><br>
-传统运筹优化（如 Gurobi, CPLEX, COPT）具备严格的数学最优性保证，但建模过程需要资深专家将复杂的工业自然语言描述转换为严格的代数模型（如 $\\min c^T x \\text{ s.t. } Ax \\le b$）。<br><br>
-大模型的引入使得<strong>自然语言自动构建数学规划模型</strong>成为可能。然而，LLM 容易产生“约束幻觉”或不满足严格凸性要求。indexGin 的核心研究正是针对这一痛点，提出<strong>双向形式化验证（Dual-side Verification）</strong>，结合抽象语法树 (AST) 与求解器反馈，实现可靠的自主建模闭环。`
+      keywords: ['书单', '书籍', '普鲁斯特', '荷马', '追忆似水年华', '奥德修纪', '伊利亚特', '豆瓣', 'library', '阅读'],
+      title: '数字书架与精选书单',
+      answer: `indexGin 的数字书架精选了人类文学、古典哲学与前沿科学的璀璨思想：<br><br>
+• <strong>《追忆似水年华·第二卷：在少女们身旁》</strong>（普鲁斯特 著 / 桂裕芳 等译 / 豆瓣 ⭐8.6）：解构时间与记忆的意识流巨著，探讨主体意识与永恒艺术的隐秘连接；<br>
+• <strong>《奥德修纪》</strong>（荷马 著 / 杨宪益 译 / 豆瓣 ⭐9.1）：关于归乡、流亡与追寻自我的永恒英雄史诗；<br>
+• <strong>《伊利亚特》</strong>（荷马 著 / 陈中梅 译 / 企鹅布纹经典 / 豆瓣 ⭐9.0）：关于阿基琉斯之怒与凡人命运枷锁的悲壮史诗；<br>
+• <strong>技术与算法经典</strong>：包含 Sutton 经典《强化学习》与 Wolsey《整数规划》。<br><br>
+点击顶部导航的 <strong>03_Library</strong> 可以查看书卡详情，并直接跳转对应<strong>豆瓣读书主页</strong>！`
     },
     {
-      keywords: ['opt-verifier', 'optverifier', '验证', '双向验证', 'ast', '形式化'],
-      title: 'Opt-Verifier 双向建模验证框架',
-      answer: `<strong>Opt-Verifier-Agent</strong> 是 indexGin 主导研发的面向量化运筹建模验证工具：<br><br>
-1. <strong>正向 AST 约束校验：</strong>对大模型生成的 Python/Gurobi 代码进行抽象语法树语法与拓扑解析，检查变量维度、非线性项以及越界约束；<br>
-2. <strong>反向语义逆推验证：</strong>将生成的数学模型反向还原为自然语言逻辑，并与原始工业需求进行双向一致性对齐（Semantic Invariance Check）；<br>
-3. <strong>求解反馈闭环：</strong>若求解器返回 Infeasible，智能体将利用 IIS (Irreducible Inconsistent Subsystem) 定位最小冲突约束集并自动启动自我修正轮次。`
+      keywords: ['开源', '贡献', 'pr', 'deer-flow', 'agno', 'starlette', 'upstream', '字节', 'github'],
+      title: '深度参与的头部开源项目贡献',
+      answer: `indexGin 在高星开源社区深度参与了多个关键基础设施的代码贡献：<br><br>
+• <strong>bytedance/deer-flow (84k★)</strong>：字节跳动开源的长程自主智能体平台。贡献了 <strong>3 个已合并核心 PR</strong>，深度重构了智能体多轮调度的任务流与拓扑解耦逻辑；<br>
+• <strong>agno-agi/agno (42k★)</strong>：高并发轻量级多模态 Agent 框架，参与优化了智能体状态机迁移与异步调用上下文；<br>
+• <strong>Kludex/starlette (12k★)</strong>：Python 事实标准的 ASGI 高性能异步 Web 框架，优化了核心路由吞吐与类型系统。<br><br>
+点击顶部导航的 <strong>02_Projects</strong> 或主页左侧开源栏目可查看详细 PR 记录与代码仓库。`
     },
     {
-      keywords: ['deer-flow', 'deerflow', '字节', '字节跳动', 'upstream', '开源', 'pr', '贡献'],
-      title: '深度参与的头部开源项目与 Upstream PR',
-      answer: `indexGin 在高星开源社区深度参与了多个核心基础设施的贡献：<br><br>
-• <strong>bytedance/deer-flow (84k★)</strong>：字节跳动开源的长程自主智能体平台（SuperAgent Harness）。贡献了 <strong>3 个已合并核心 PR</strong>，重构了多轮工具调用的调度流水线与任务拓扑解耦逻辑；<br>
-• <strong>agno-agi/agno (42k★)</strong>：前身为 phidata，高并发多模态智能体框架。优化了智能体状态机迁移与异步上下文管理；<br>
-• <strong>Kludex/starlette (12k★)</strong>：Python 生态事实标准的 ASGI 异步 Web 核心框架，参与修复核心路由性能与类型系统约束。`
+      keywords: ['功能', '特色', '好玩', 'demo', '演示', '主题', '暗色', '亮色', '沙盒'],
+      title: '本站特色与交互功能指引',
+      answer: `欢迎探索 indexGin 个人空间的诸多硬核与美学特色：<br><br>
+1. <strong>右上角双套主题切换</strong>：点击右上角 🌙/☀️ 按钮，可即时在“深空代码黑”与“纯净纸质白”之间无缝切换，并自动记忆偏好；<br>
+2. <strong>04_Demos 交互式算法沙盒</strong>：纯前端 Canvas 实现，可实时运行<strong>旅行商问题 (TSP) 2-Opt 启发式</strong>（支持点击加点与实时求解动画）以及<strong>二维线性规划 (LP) 可行域与单纯形顶点</strong>探索；<br>
+3. <strong>03_Library 豆瓣书架</strong>：Maggie Appleton 风格的拟真书架，沉淀阅读感想与豆瓣跳转；<br>
+4. <strong>前沿数学矢量环境底图</strong>：由凸多面体、KKT 运筹公式、矩阵中括号点阵、神经网络拓扑与智能体循环构成的数学美学水印。`
     },
     {
-      keywords: ['agno', 'phidata', 'starlette', '开源贡献'],
-      title: 'agno 与 starlette 开源经历',
-      answer: `在 <strong>agno</strong> 项目中，贡献集中在轻量级多模态 Agent 状态同步机制；在 <strong>starlette</strong> 框架中，针对 ASGI 路由中间件的参数解析与并发吞吐做出了代码贡献与测试用例补全。所有 PR 记录均可在 indexGin 的 GitHub 页面查阅。`
+      keywords: ['添加新书', '怎么上传', '更新书籍', '如何添加', '新增书'],
+      title: '如何在书架中添加新书？',
+      answer: `为书架添加新书非常简单，全流程只需 2 步：<br><br>
+1. 打开项目根目录下的 <code>_data/library.yml</code> 文件；<br>
+2. 复制文件顶部的标准书籍模板，填入书名、作者、豆瓣链接（<code>douban_url</code>）及评分，若有封面图片放入 <code>img/covers/</code> 即可；<br><br>
+保存提交后，GitHub Pages 会自动根据模板渲染出包含 3D 阴影、豆瓣跳转按钮与 Maggie 核心笔记的精美书卡！`
     },
     {
-      keywords: ['调度', '车间', 'job-shop', 'jsp', '生产调度', 'production', 'multi-agent'],
-      title: '车间作业调度 (Job-Shop) 与多智能体系统',
-      answer: `针对离散制造业车间作业调度 (JSP) 难题，indexGin 研发了 <strong>Production-Opt-Agent</strong> 框架：<br><br>
-将工件（Jobs）、机床设备（Machines）与中央调度器（Dispatcher）分别抽象为具备感知、通信与策略决策能力的自主智能体。结合强化学习 PPO 算法与动态分派规则（Dispatching Rules），能够在设备故障、紧急插单等动态扰动下实现秒级自适应重调度。`
+      keywords: ['indexgin', '关于', '谁是', '博主', '简历', 'about', '联系', '方向'],
+      title: '关于博主 indexGin',
+      answer: `<strong>indexGin</strong> 是一名热衷于前沿技术与人文经典的思想实践者。研究聚焦于：<br><br>
+• <strong>大语言模型与运筹优化 (LLM4OR)</strong>：探索大模型自动构建数学规划与双向形式化验证；<br>
+• <strong>长程自主智能体系统 (Multi-Agent Systems)</strong>：离散制造与工业车间自适应调度；<br>
+• <strong>组合优化与数学规划求解器工程</strong>；<br>
+• <strong>经典文学与思想沉淀</strong>。<br><br>
+欢迎通过 GitHub <a href="https://github.com/indexGin" target="_blank" style="color:#c084fc;">@indexGin</a> 与博主交流合作！`
     },
     {
-      keywords: ['alns', 'vrp', 'vrptw', '启发式', '车辆路径'],
-      title: 'ALNS-VRPTW 启发式优化求解器',
-      answer: `<strong>ALNS-VRPTW-Solver</strong> 是针对带时间窗车辆路径问题的工程实现。<br><br>
-算法采用自适应大规模邻域搜索（Adaptive Large Neighborhood Search）：<br>
-• <strong>Destroy 算子：</strong>随机移除、相关性移除（Shaw Removal）以及最差成本移除；<br>
-• <strong>Repair 算子：</strong>贪心最近插入、Regret-k 启发插入；<br>
-• 动态轮盘赌权重自适应调整概率，能够在数千个节点的大规模工业算例上快速逼近 Solomon 基准最优界。`
-    },
-    {
-      keywords: ['benders', '分解', '随机规划', 'mip', '整数规划'],
-      title: 'Benders 分解算法工程框架',
-      answer: `针对大型两阶段随机整数规划问题，传统的联合求解极易面临“维度灾难”。<br><br>
-<strong>Benders 分解框架</strong>将问题拆解为：<br>
-• <strong>主问题 (Master Problem)：</strong>处理一阶段整数决策（如工厂选址）；<br>
-• <strong>子问题 (Subproblem)：</strong>给定一阶段决策后，求解连续线性规划（各场景运输调度）；<br>
-通过引入极射线产生可行割（Feasibility Cuts）与极点产生最优割（Optimality Cuts），多轮交替迭代直至收敛，大幅提升工业级算例的求解效率。`
-    },
-    {
-      keywords: ['书籍', '书架', '论文', '书单', '文献', 'library', 'maggie', '推荐'],
-      title: '数字书架与文献库 (Library) 推荐',
-      answer: `根据 Maggie Appleton 风格书架的记录，indexGin 近期重点研读与推荐的书目包括：<br><br>
-1. <strong>《Reinforcement Learning: An Introduction》</strong> (Sutton & Barto) —— 策略梯度与值函数逼近的理论基石；<br>
-2. <strong>《Integer Programming》</strong> (Laurence A. Wolsey) —— 整数规划与多面体割平面法的经典巨著；<br>
-3. <strong>《Opt-Verifier: Dual-Side Verification》</strong> —— 大模型运筹双向验证的核心前沿论文；<br>
-4. <strong>《Designing Data-Intensive Applications》</strong> (Martin Kleppmann) —— 分布式系统与高并发架构设计的必读书目。<br><br>
-详细读书笔记与核心 Takeaway 请访问导航栏的 <strong>03_Library</strong> 页面！`
-    },
-    {
-      keywords: ['indexgin', '关于', '谁是', '博主', '简历', 'about', '联系', '作者'],
-      title: '关于 indexGin',
-      answer: `<strong>indexGin</strong> 是一名热衷于探索前沿技术的青年研究者与开发者，主要研究方向为：<br><br>
-• <strong>大语言模型与运筹优化 (LLM4OR)</strong><br>
-• <strong>长程自主智能体系统 (Multi-Agent Systems)</strong><br>
-• <strong>组合优化与数学规划求解器工程</strong><br><br>
-热爱开源，致力于将严谨的数学规划与现代深度学习智能体融合，构建高可靠的工业级自主决策系统。欢迎通过 GitHub: <a href="https://github.com/indexGin" target="_blank" style="color:#c084fc;">@indexGin</a> 交流探讨！`
+      keywords: ['llm4or', '大模型', '运筹', 'opt-verifier', '算法', '验证'],
+      title: 'LLM4OR 与双向验证前沿',
+      answer: `传统运筹求解器（Gurobi / COPT）具备数学严格性，但工业自然语言建模极易面临门槛高与幻觉风险。<br><br>
+indexGin 主导的 <strong>Opt-Verifier</strong> 提出了<strong>“正向语法 AST 约束解析 + 反向语义一致性逆推”</strong>的双向验证机制，并在求解器 Infeasible 时结合 IIS 冲突集自动实现自愈迭代，推动运筹建模迈向可靠自主闭环。`
     }
   ];
 
-  // 2. DOM Elements
+  // =========================================================================
+  // 3. DOM Elements & State Management
+  // =========================================================================
   const launcher = document.getElementById('aiAgentLauncher');
   const modal = document.getElementById('aiAgentModal');
   const closeBtn = document.getElementById('aiCloseBtn');
@@ -95,11 +103,10 @@
 
   let isTyping = false;
 
-  // 3. Modal Toggles
   function openModal() {
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
-    setTimeout(() => inputField.focus(), 200);
+    setTimeout(() => inputField && inputField.focus(), 200);
   }
 
   function closeModal() {
@@ -110,28 +117,69 @@
   if (launcher) launcher.addEventListener('click', openModal);
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
-  // Close on Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('active')) {
       closeModal();
     }
   });
 
-  // 4. Clear Chat
   if (clearBtn) {
     clearBtn.addEventListener('click', () => {
       messagesContainer.innerHTML = `
         <div class="ai-msg ai-msg-assistant">
-          <div class="ai-msg-avatar"><i class="fa fa-robot"></i></div>
+          <div class="ai-msg-avatar"><i class="fa fa-smile-o"></i></div>
           <div class="ai-msg-bubble font-editorial">
-            对话已重置。请随时提出任何关于运筹优化、大模型智能体与开源项目的问题！
+            对话已重置。我是你的空间小助手，随时为你解答关于博主、博客、开源项目、豆瓣书单或技术特性的问题！
           </div>
         </div>
       `;
     });
   }
 
-  // 5. Query Matcher
+  // =========================================================================
+  // 4. Remote Real LLM Fetcher (未来接入云端大模型接口)
+  // =========================================================================
+  async function callRemoteLLM(userQuery) {
+    const config = AGENT_CONFIG.remoteConfig;
+    if (!config.apiEndpoint) {
+      throw new Error("No remote API endpoint configured");
+    }
+
+    const payload = {
+      model: config.model,
+      messages: [
+        { role: "system", content: config.systemPrompt },
+        { role: "user", content: userQuery }
+      ],
+      stream: false
+    };
+
+    const headers = {
+      "Content-Type": "application/json"
+    };
+    if (config.apiKey) {
+      headers["Authorization"] = `Bearer ${config.apiKey}`;
+    }
+
+    const response = await fetch(config.apiEndpoint, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Remote API returned HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.choices && data.choices[0] && data.choices[0].message
+      ? data.choices[0].message.content
+      : "未能从大模型接收到有效回复。";
+  }
+
+  // =========================================================================
+  // 5. Query Matcher (离线本地语义匹配引擎)
+  // =========================================================================
   function matchAnswer(query) {
     const q = query.toLowerCase().trim();
     let bestMatch = null;
@@ -154,12 +202,12 @@
       return bestMatch.answer;
     }
 
-    // Fallback response
-    return `这是一个很有意思的问题！关于 <strong>"${escapeHtml(query)}"</strong>，你可以在本站的以下板块获取更多深入信息：<br><br>
-• <strong>02_Projects</strong>：查看相关的开源算法工程与已合并的头部 PR；<br>
-• <strong>03_Library</strong>：查阅对应学科领域的精读文献与经典教材笔记；<br>
-• <strong>04_Demos</strong>：亲自在浏览器中运行旅行商 2-Opt 启发式或单纯形可行域模拟；<br><br>
-你也可以尝试点击上方的快捷问题胶囊，或者向我询问：<em>LLM4OR、Opt-Verifier、deer-flow、Job-Shop 调度、Benders 分解</em> 等核心主题。`;
+    // Default intelligent friendly fallback
+    return `我收到了你关于 <strong>"${escapeHtml(query)}"</strong> 的提问！作为 indexGin 空间小助手，我建议你：<br><br>
+• <strong>查阅 02_Projects</strong>：浏览开源高星项目（如 deer-flow、agno）与算法求解器；<br>
+• <strong>查阅 03_Library</strong>：发现普鲁斯特《追忆似水年华》、荷马史诗等精选豆瓣书单与读书笔记；<br>
+• <strong>查阅 04_Demos</strong>：亲自体验交互式旅行商 2-Opt 与单纯形算法沙盒；<br><br>
+你也可以点击上方的快捷胶囊，或向我询问关于<em>“近期书单”、“开源贡献”、“关于博主”</em>等内容！后续博主还会为我接入真正的云端大模型，敬请期待！`;
   }
 
   function escapeHtml(text) {
@@ -173,14 +221,16 @@
     return text.replace(/[&<>"']/g, m => map[m]);
   }
 
-  // 6. Append Message to UI
+  // =========================================================================
+  // 6. Message UI Renderer & Typewriter Streaming
+  // =========================================================================
   function appendMessage(sender, htmlContent, isStreaming = false) {
     const msgDiv = document.createElement('div');
     msgDiv.className = `ai-msg ai-msg-${sender}`;
 
     const avatarDiv = document.createElement('div');
     avatarDiv.className = 'ai-msg-avatar';
-    avatarDiv.innerHTML = sender === 'user' ? '<i class="fa fa-user"></i>' : '<i class="fa fa-robot"></i>';
+    avatarDiv.innerHTML = sender === 'user' ? '<i class="fa fa-user"></i>' : '<i class="fa fa-smile-o"></i>';
 
     const bubbleDiv = document.createElement('div');
     bubbleDiv.className = 'ai-msg-bubble font-editorial';
@@ -198,18 +248,16 @@
     return bubbleDiv;
   }
 
-  // 7. Streaming Typewriter Animation
   async function streamAnswer(fullHtml) {
     isTyping = true;
     const bubble = appendMessage('assistant', '', true);
 
-    // Render HTML in smooth chunks
     bubble.innerHTML = fullHtml;
     bubble.style.opacity = '0';
     bubble.style.transform = 'translateY(6px)';
-    bubble.style.transition = 'all 0.3s ease';
+    bubble.style.transition = 'all 0.25s ease';
 
-    await new Promise(r => setTimeout(r, 60));
+    await new Promise(r => setTimeout(r, 50));
     bubble.style.opacity = '1';
     bubble.style.transform = 'translateY(0)';
 
@@ -217,23 +265,33 @@
     isTyping = false;
   }
 
-  // 8. Handle Form Submit
-  function handleUserQuery(query) {
+  async function handleUserQuery(query) {
     const q = query.trim();
     if (!q || isTyping) return;
 
-    // Append user message
     appendMessage('user', escapeHtml(q));
     inputField.value = '';
 
-    // Show typing placeholder
-    const typingPlaceholder = appendMessage('assistant', '<span class="ai-typing-dots"><span>.</span><span>.</span><span>.</span> 计算并检索中</span>');
+    const typingPlaceholder = appendMessage('assistant', '<span class="ai-typing-dots"><span>.</span><span>.</span><span>.</span> 小助手思考中</span>');
 
-    setTimeout(() => {
+    try {
+      if (AGENT_CONFIG.useRemoteLLM) {
+        const remoteAns = await callRemoteLLM(q);
+        typingPlaceholder.parentElement.remove();
+        streamAnswer(remoteAns);
+      } else {
+        setTimeout(() => {
+          typingPlaceholder.parentElement.remove();
+          const answer = matchAnswer(q);
+          streamAnswer(answer);
+        }, 320);
+      }
+    } catch (err) {
+      console.warn("Remote LLM failed or not available, falling back to local engine:", err);
       typingPlaceholder.parentElement.remove();
-      const answer = matchAnswer(q);
-      streamAnswer(answer);
-    }, 380);
+      const fallbackAns = matchAnswer(q);
+      streamAnswer(fallbackAns);
+    }
   }
 
   if (inputForm) {
@@ -243,7 +301,6 @@
     });
   }
 
-  // 9. Quick Pills Click
   quickPills.forEach(pill => {
     pill.addEventListener('click', function () {
       const q = this.getAttribute('data-query');
