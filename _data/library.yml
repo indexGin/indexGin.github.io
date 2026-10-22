@@ -14,19 +14,25 @@
 #
 # ==============================================================================
 
-# 1. 普鲁斯特《追忆似水年华·第二卷》
+# 1. 黄仁宇《万历十五年》
+- title: "万历十五年"
+  author: "[美] 黄仁宇"
+  cover: "/img/covers/wanli.png"
+  douban_url: "https://book.douban.com/subject/1981042/"
+
+# 2. 普鲁斯特《追忆似水年华·第二卷》
 - title: "追忆似水年华·第二卷：在少女们身旁"
   author: "[法] 马塞尔·普鲁斯特"
   cover: "/img/covers/proust.png"
   douban_url: "https://book.douban.com/subject/36455064/"
 
-# 2. 荷马《奥德修纪》
+# 3. 荷马《奥德修纪》
 - title: "奥德修纪"
   author: "[古希腊] 荷马"
   cover: "/img/covers/odyssey.png"
   douban_url: "https://book.douban.com/subject/30388054/"
 
-# 3. 荷马《伊利亚特》
+# 4. 荷马《伊利亚特》
 - title: "伊利亚特"
   author: "[古希腊] 荷马"
   cover: "/img/covers/iliad.png"
