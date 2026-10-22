@@ -131,7 +131,7 @@ indexGin 主导的 <strong>Opt-Verifier</strong> 提出了<strong>“正向语�
         <div class="ai-msg ai-msg-assistant">
           <div class="ai-msg-avatar"><i class="fa fa-smile-o"></i></div>
           <div class="ai-msg-bubble font-editorial">
-            对话已重置。我是你的空间小助手，随时为你解答关于博主、博客、开源项目、豆瓣书单或技术特性的问题！
+            对话已重置。我是 indexGin 空间小助手（已接入智谱大模型），随时为你解答关于博主背景、运筹算法、开源贡献或豆瓣书单的任何问题！
           </div>
         </div>
       `;
@@ -246,7 +246,7 @@ indexGin 主导的 <strong>Opt-Verifier</strong> 提出了<strong>“正向语�
 • <strong>查阅 02_Projects</strong>：浏览开源高星项目（如 deer-flow、agno）与算法求解器；<br>
 • <strong>查阅 03_Library</strong>：发现普鲁斯特《追忆似水年华》、荷马史诗等精选豆瓣书单与读书笔记；<br>
 • <strong>查阅 04_Demos</strong>：亲自体验交互式旅行商 2-Opt 与单纯形算法沙盒；<br><br>
-你也可以点击上方的快捷胶囊，或向我询问关于<em>“近期书单”、“开源贡献”、“关于博主”</em>等内容！后续博主还会为我接入真正的云端大模型，敬请期待！`;
+你也可以点击上方的快捷胶囊，或向我询问关于<em>“近期书单”、“开源贡献”、“关于博主”</em>等内容！`;
   }
 
   function escapeHtml(text) {
