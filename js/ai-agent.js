@@ -86,6 +86,15 @@
       title: 'LLM4OR 与双向验证前沿',
       answer: `传统运筹求解器（Gurobi / COPT）具备数学严格性，但工业自然语言建模极易面临门槛高与幻觉风险。<br><br>
 indexGin 主导的 <strong>Opt-Verifier</strong> 提出了<strong>“正向语法 AST 约束解析 + 反向语义一致性逆推”</strong>的双向验证机制，并在求解器 Infeasible 时结合 IIS 冲突集自动实现自愈迭代，推动运筹建模迈向可靠自主闭环。`
+    },
+    {
+      keywords: ['rag', '检索增强', '知识库', 'chunk', 'bm25', 'rerank', 'embedding', 'graphrag'],
+      title: '博主最新博文：《RAG总结与学习》',
+      answer: `博主发布了全景架构技术长文 <strong>《RAG总结与学习》</strong>：<br><br>
+• <strong>核心流程</strong>：系统解构了“多路召回 (BM25 + 向量) ➔ RRF 倒数融合 ➔ Cross-Encoder 重排 ➔ 上下文防遗忘组装”的标准企业级方案；<br>
+• <strong>高级范式</strong>：深入对比了 Self-RAG 自省循环、CRAG 质量纠错评估与微软 GraphRAG 社区知识图谱；<br>
+• <strong>评测与避坑</strong>：梳理了 Context Relevance、Groundedness 与 Answer Relevance 评测指标与失败模式排查。<br><br>
+可在首页文章流或点击导航 <strong>05_Archive</strong> 直接阅读全文！`
     }
   ];
 
