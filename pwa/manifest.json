@@ -1,7 +1,7 @@
 {
-  "name": "Hux Blog",
-  "short_name": "Hux Blog",
-  "description": "About an engineer & designer who loves web.",
+  "name": "indexGin's Space",
+  "short_name": "indexGin",
+  "description": "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent 系统的个人学术与技术空间",
   "icons": [{
     "src": "icons/128.png",
     "sizes": "128x128",
@@ -11,8 +11,8 @@
     "sizes": "512x512",
     "type": "image/png"
   }],
-  "background_color": "#fff",
-  "theme_color": "#000",
+  "background_color": "#0d1117",
+  "theme_color": "#7c3aed",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait"
