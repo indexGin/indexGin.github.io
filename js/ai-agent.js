@@ -12,22 +12,23 @@
   'use strict';
 
   // =========================================================================
-  // 1. Agent Configuration & Real LLM Extension Hook
+  // 1. Agent Configuration & Real LLM Extension Hook (智谱 GLM-4-Flash)
   // =========================================================================
-  // 当你后续需要为小助手接入真实的云端大模型时：
-  // 1. 将 useRemoteLLM 设置为 true
-  // 2. 配置你的 Serverless Proxy / API Endpoint（如 Cloudflare Worker 或 OpenAI/DeepSeek API）
-  // 3. 小助手将自动开启流式真实对话，若网络断开则自动平滑回退至本地离线知识库
+  // 已配置为对接 智谱 AI 官方永久免费大模型 GLM-4-Flash：
+  // 1. 请在 Cloudflare Workers 中部署代理（代码见根目录 cloudflare-worker.js），配置 ZHIPU_API_KEY
+  // 2. 将下方 apiEndpoint 替换为你的 Cloudflare Worker 域名
+  // 3. 若尚未配置 Worker 或网络离线，小助手会自动平滑回退至本地离线知识库
   // =========================================================================
   const AGENT_CONFIG = {
     botName: "indexGin 小助手",
-    botVersion: "v2.0",
-    useRemoteLLM: false, // 设为 true 即可直连真实大模型 API
+    botVersion: "v2.1",
+    useRemoteLLM: true, // 已开启真实大模型
     remoteConfig: {
-      apiEndpoint: "https://your-llm-proxy-worker.workers.dev/v1/chat/completions",
-      apiKey: "", // 若有代理可在代理端存储 key，无需硬编码在前端
-      model: "deepseek-chat", // 可换成 gpt-4o-mini, gemini-1.5-flash 等
-      systemPrompt: "你是 indexGin 个人主页的智能助手。你精通博主的开源贡献（deer-flow, agno, starlette）、技术博客、运筹优化算法与文学阅读书单（普鲁斯特、荷马史诗）。请用亲切、严谨、智慧的口吻回答访客。"
+      // 已配置为你在 Cloudflare Worker 部署的代理端点
+      apiEndpoint: "https://zhipu.lichengfa7.workers.dev",
+      apiKey: "", // Key 安全保存在 Worker 环境变量中，前端留空
+      model: "glm-4-flash", // 智谱官方永久免费大模型
+      systemPrompt: "你是 indexGin 个人主页的智能助手。你精通博主的开源贡献（deer-flow 84k★, agno 42k★, starlette 12k★）、技术博客、运筹优化算法（LP单纯形, TSP 2-Opt, Gurobi, COPT）与文学阅读书单（普鲁斯特《追忆似水年华》、荷马史诗）。请用亲切、清晰、严谨且富有智慧的口吻回答访客。"
     }
   };
 
@@ -101,6 +102,7 @@ indexGin 主导的 <strong>Opt-Verifier</strong> 提出了<strong>“正向语�
   const quickPills = document.querySelectorAll('.quick-pill');
 
   let isTyping = false;
+  let conversationHistory = []; // 维护多轮对话上下文历史
 
   function openModal() {
     modal.classList.add('active');
@@ -124,6 +126,7 @@ indexGin 主导的 <strong>Opt-Verifier</strong> 提出了<strong>“正向语�
 
   if (clearBtn) {
     clearBtn.addEventListener('click', () => {
+      conversationHistory = []; // 清空多轮对话记忆
       messagesContainer.innerHTML = `
         <div class="ai-msg ai-msg-assistant">
           <div class="ai-msg-avatar"><i class="fa fa-smile-o"></i></div>
@@ -136,19 +139,51 @@ indexGin 主导的 <strong>Opt-Verifier</strong> 提出了<strong>“正向语�
   }
 
   // =========================================================================
-  // 4. Remote Real LLM Fetcher (未来接入云端大模型接口)
+  // 4. Remote Real LLM Fetcher (云端大模型接口 & Markdown 解析)
   // =========================================================================
+  function renderMarkdown(text) {
+    if (!text) return '';
+    let html = text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    // 代码块 ```code```
+    html = html.replace(/```([\s\S]*?)```/g, '<pre style="background:rgba(0,0,0,0.35);padding:8px 10px;border-radius:6px;overflow-x:auto;margin:6px 0;font-family:monospace;font-size:12px;"><code>$1</code></pre>');
+    // 行内代码 `code`
+    html = html.replace(/`([^`]+)`/g, '<code style="background:rgba(255,255,255,0.12);padding:2px 5px;border-radius:4px;font-family:monospace;font-size:12px;">$1</code>');
+    // 粗体 **bold**
+    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    // 斜体 *italic*
+    html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    // 链接 [title](url)
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#c084fc;text-decoration:underline;">$1</a>');
+    // 无序列表项 - item 或 * item
+    html = html.replace(/^\s*[-*]\s+(.+)$/gm, '<li style="margin-left:14px;list-style-type:disc;">$1</li>');
+    // 换行
+    html = html.replace(/\n\n+/g, '<br><br>');
+    html = html.replace(/\n/g, '<br>');
+
+    return html;
+  }
+
   async function callRemoteLLM(userQuery) {
     const config = AGENT_CONFIG.remoteConfig;
     if (!config.apiEndpoint) {
       throw new Error("No remote API endpoint configured");
     }
 
+    // 记录用户消息至多轮对话历史
+    conversationHistory.push({ role: "user", content: userQuery });
+
+    // 保留最近 6 轮对话以维持上下文并控制 Token
+    const recentHistory = conversationHistory.slice(-6);
+
     const payload = {
       model: config.model,
       messages: [
         { role: "system", content: config.systemPrompt },
-        { role: "user", content: userQuery }
+        ...recentHistory
       ],
       stream: false
     };
@@ -171,9 +206,14 @@ indexGin 主导的 <strong>Opt-Verifier</strong> 提出了<strong>“正向语�
     }
 
     const data = await response.json();
-    return data.choices && data.choices[0] && data.choices[0].message
+    const reply = data.choices && data.choices[0] && data.choices[0].message
       ? data.choices[0].message.content
       : "未能从大模型接收到有效回复。";
+
+    // 记录助手回复至历史
+    conversationHistory.push({ role: "assistant", content: reply });
+
+    return reply;
   }
 
   // =========================================================================
@@ -277,7 +317,7 @@ indexGin 主导的 <strong>Opt-Verifier</strong> 提出了<strong>“正向语�
       if (AGENT_CONFIG.useRemoteLLM) {
         const remoteAns = await callRemoteLLM(q);
         typingPlaceholder.parentElement.remove();
-        streamAnswer(remoteAns);
+        streamAnswer(renderMarkdown(remoteAns));
       } else {
         setTimeout(() => {
           typingPlaceholder.parentElement.remove();
