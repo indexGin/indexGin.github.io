@@ -2398,3 +2398,41 @@ html[data-theme="light"] .ai-modal-footer {
 
 
 
+
+
+/* ==========================================================================
+   Mermaid Diagrams Responsive Styling & Size Guard
+   ========================================================================== */
+.mermaid-wrap {
+  margin: 2rem auto;
+  padding: 1.5rem 1rem;
+  background: var(--card-bg, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--nav-border, rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+  overflow-x: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.mermaid-wrap .mermaid {
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 100%;
+}
+
+.mermaid-wrap svg {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .mermaid-wrap {
+    padding: 1rem 0.5rem;
+    margin: 1.2rem auto;
+  }
+}
