@@ -62,6 +62,6 @@ netease_comment: false
 # Sidebar settings
 sidebar: true
 sidebar-about-description: "AI & Operations Research<br>Multi-Agent Systems | LLM4OR"
-sidebar-avatar: /img/avatar.png
+sidebar-avatar: https://github.com/indexGin.png
 site-logo: /img/logo.png
 
