@@ -28,7 +28,7 @@
       apiEndpoint: "https://zhipu.lichengfa7.workers.dev",
       apiKey: "", // Key 安全保存在 Worker 环境变量中，前端留空
       model: "glm-4-flash", // 智谱官方永久免费大模型
-      systemPrompt: "你是 indexGin 个人主页的智能助手。你精通博主的开源贡献（deer-flow 84k★, agno 42k★, starlette 12k★）、技术博客、运筹优化算法（LP单纯形, TSP 2-Opt, Gurobi, COPT）与文学阅读书单（普鲁斯特《追忆似水年华》、荷马史诗）。请用亲切、清晰、严谨且富有智慧的口吻回答访客。"
+      systemPrompt: "你是 indexGin 个人主页的智能助手，你叫Simple，请用亲切、清晰、严谨且富有智慧的口吻回答访客。"
     }
   };
 
@@ -131,7 +131,7 @@ indexGin 主导的 <strong>Opt-Verifier</strong> 提出了<strong>“正向语�
         <div class="ai-msg ai-msg-assistant">
           <div class="ai-msg-avatar"><i class="fa fa-smile-o"></i></div>
           <div class="ai-msg-bubble font-editorial">
-            对话已重置。我是 indexGin 空间小助手（已接入智谱大模型），随时为你解答关于博主背景、运筹算法、开源贡献或豆瓣书单的任何问题！
+            对话已重置。我是 indexGin 空间小助手，随时为你解答关于博主背景、运筹算法、开源贡献或豆瓣书单的任何问题！
           </div>
         </div>
       `;
