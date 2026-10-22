@@ -266,6 +266,112 @@ html[data-theme="dark"] .theme-icon-moon {
   display: none;
 }
 
+/* ==========================================================================
+   Mobile Navbar Toggle Button & Dropdown Panel (Responsive Adaptation)
+   ========================================================================== */
+.navbar-custom .navbar-toggle {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .navbar-custom .navbar-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 12px !important;
+    margin-top: 10px !important;
+    margin-right: 14px !important;
+    margin-bottom: 8px !important;
+    background: var(--card-bg) !important;
+    border: 1px solid var(--nav-border) !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    outline: none !important;
+  }
+
+  .navbar-custom .navbar-toggle:hover,
+  .navbar-custom .navbar-toggle:active,
+  .navbar-custom .navbar-toggle:focus {
+    background: rgba(124, 58, 237, 0.15) !important;
+    border-color: var(--primary-color) !important;
+  }
+
+  .navbar-custom .navbar-toggle .toggle-icon-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5px;
+    justify-content: center;
+  }
+
+  .navbar-custom .navbar-toggle .icon-bar {
+    width: 15px !important;
+    height: 2px !important;
+    background-color: var(--primary-color) !important;
+    border-radius: 2px !important;
+    transition: var(--transition-smooth);
+    margin: 0 !important;
+    display: block !important;
+  }
+
+  .navbar-custom .navbar-toggle .toggle-menu-text {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-main) !important;
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+
+  /* Mobile Dropdown Panel Styling */
+  .navbar-default .navbar-collapse {
+    position: absolute !important;
+    right: 14px !important;
+    top: 56px !important;
+    width: 210px !important;
+    background: var(--nav-bg) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border: 1px solid var(--nav-border) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35) !important;
+    padding: 10px 8px !important;
+    overflow: hidden !important;
+  }
+
+  #huxblog_navbar a {
+    font-size: 13.5px !important;
+    color: var(--nav-text) !important;
+    padding: 9px 14px !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    align-items: center;
+    transition: var(--transition-smooth);
+  }
+
+  #huxblog_navbar a:hover {
+    color: var(--nav-text-hover) !important;
+    background: rgba(124, 58, 237, 0.12) !important;
+  }
+
+  #huxblog_navbar .nav li {
+    margin-bottom: 2px;
+  }
+
+  #huxblog_navbar .nav li.search-icon,
+  #huxblog_navbar .nav li.github-nav-item,
+  #huxblog_navbar .nav li.theme-toggle-nav-item {
+    display: inline-block !important;
+  }
+
+  #huxblog_navbar .nav li.search-icon a,
+  #huxblog_navbar .nav li.github-nav-item a,
+  #huxblog_navbar .nav li.theme-toggle-nav-item a {
+    display: inline-flex !important;
+    padding: 8px 12px !important;
+  }
+}
+
 /* --------------------------------------------------------------------------
    2. Unified Theme Hero Header (Dark & Light Seamless Adaptability)
    -------------------------------------------------------------------------- */
