@@ -190,20 +190,62 @@ description: "探索大语言模型、运筹优化与智能体系统的交汇前
                 {% endfor %}
             </div>
 
-            <!-- Pager -->
+            <!-- Modern Responsive Pagination -->
             {% if paginator.total_pages > 1 %}
-            <ul class="pager font-mono compact-pager">
-                {% if paginator.previous_page %}
-                <li class="previous">
-                    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; 上一页</a>
-                </li>
-                {% endif %}
-                {% if paginator.next_page %}
-                <li class="next">
-                    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">下一页 &rarr;</a>
-                </li>
-                {% endif %}
-            </ul>
+            <nav class="modern-pagination font-mono" aria-label="文章列表分页导航">
+                <div class="pagination-track">
+                    <!-- 上一页 -->
+                    {% if paginator.previous_page %}
+                        {% if paginator.previous_page == 1 %}
+                        <a href="{{ site.baseurl }}/" class="pagination-btn pagination-prev" title="上一页">
+                            <i class="fa fa-angle-left"></i> 上一页
+                        </a>
+                        {% else %}
+                        <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', paginator.previous_page }}" class="pagination-btn pagination-prev" title="上一页">
+                            <i class="fa fa-angle-left"></i> 上一页
+                        </a>
+                        {% endif %}
+                    {% else %}
+                        <span class="pagination-btn pagination-disabled" aria-disabled="true">
+                            <i class="fa fa-angle-left"></i> 上一页
+                        </span>
+                    {% endif %}
+
+                    <!-- 数字页码 -->
+                    <div class="pagination-numbers">
+                        {% for page_num in (1..paginator.total_pages) %}
+                            {% if page_num == paginator.page %}
+                                <span class="page-num active" aria-current="page">{{ page_num }}</span>
+                            {% elsif page_num == 1 %}
+                                <a href="{{ site.baseurl }}/" class="page-num" title="第 1 页">{{ page_num }}</a>
+                            {% else %}
+                                <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page_num }}" class="page-num" title="第 {{ page_num }} 页">{{ page_num }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <!-- 下一页 -->
+                    {% if paginator.next_page %}
+                        <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', paginator.next_page }}" class="pagination-btn pagination-next" title="下一页">
+                            下一页 <i class="fa fa-angle-right"></i>
+                        </a>
+                    {% else %}
+                        <span class="pagination-btn pagination-disabled" aria-disabled="true">
+                            下一页 <i class="fa fa-angle-right"></i>
+                        </span>
+                    {% endif %}
+                </div>
+
+                <!-- 分页统计提示 -->
+                <div class="pagination-meta">
+                    <span class="pagination-indicator">
+                        <i class="fa fa-bookmark-o"></i> 当前第 <strong>{{ paginator.page }}</strong> / {{ paginator.total_pages }} 页
+                    </span>
+                    <span class="pagination-total">
+                        共 {{ paginator.total_posts }} 篇研究日志
+                    </span>
+                </div>
+            </nav>
             {% endif %}
 
         </main>
