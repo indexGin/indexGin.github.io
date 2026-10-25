@@ -1,254 +1,391 @@
 ---
 layout: default
 title: Home
-description: "探索大语言模型、运筹优化与智能体系统的交汇前沿"
+description: "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent 系统的个人学术与技术空间"
 ---
 
-<!-- Homepage Header (Unified Theme) -->
-<header class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 col-lg-offset-1 text-center">
-                <div class="site-heading">
-                    <div class="hero-status-pill font-mono">
-                        <span class="status-indicator-dot"></span>
-                        <span>AI & OPERATIONS RESEARCH // INDEXGIN'S SPACE</span>
-                    </div>
-                    <h1 class="hero-brand-title font-editorial">
-                        indexGin
-                    </h1>
-                    <p class="subheading font-mono">
-                        聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent 系统的个人学术与技术空间
-                    </p>
-                </div>
-            </div>
+<!-- ================================================================
+     HERO SECTION: Full-Page Immersive Banner (Butterfly Theme Style)
+     ================================================================ -->
+<header id="page-header" class="full_page">
+    <div id="site-info">
+        <div class="hero-status-pill font-mono">
+            <span class="status-indicator-dot"></span>
+            <span>AI &amp; OPERATIONS RESEARCH // INDEXGIN'S SPACE</span>
         </div>
+        <h1 id="site-title" class="font-editorial">indexGin</h1>
+        <div id="site-subtitle">
+            <span id="subtitle" class="typed-text"></span>
+            <span class="typed-cursor">|</span>
+        </div>
+        <div id="site_social_icons">
+            <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" title="GitHub @{{ site.github_username }}" class="social-icon">
+                <i class="fa fa-github"></i>
+            </a>
+            <a href="mailto:{{ site.email }}" title="Email 博主" class="social-icon">
+                <i class="fa fa-envelope-o"></i>
+            </a>
+            <a href="{{ site.baseurl }}/about/" title="关于博主" class="social-icon">
+                <i class="fa fa-user-circle-o"></i>
+            </a>
+            <a href="{{ site.baseurl }}/archive/" title="归档日志" class="social-icon">
+                <i class="fa fa-archive"></i>
+            </a>
+            <a href="{{ site.baseurl }}/library/" title="数字书架" class="social-icon">
+                <i class="fa fa-book"></i>
+            </a>
+        </div>
+    </div>
+    <div id="scroll-down" title="向下滚动浏览文章">
+        <i class="fa fa-angle-down scroll-down-effects"></i>
     </div>
 </header>
 
-<!-- Main Homepage Grid: Left (Open Source & Profile) + Right (Compact Blog Posts) -->
-<div class="container homepage-container">
-    <div class="row">
+<!-- ================================================================
+     MAIN CONTENT: Alternating Post Stream (Left) + Rich Sidebar (Right)
+     ================================================================ -->
+<div id="content-inner" class="butterfly-container">
 
-        <!-- ================================================================
-             LEFT COLUMN: Open Source Upstream Inflow & Profile & Books
-             ================================================================ -->
-        <aside class="col-lg-4 col-md-5 col-sm-12 home-left-sidebar">
+    <!-- Left Column: Recent Post Feed (Alternating Cards) -->
+    <main class="butterfly-recent-posts">
+        <div class="butterfly-feed-bar">
+            <div class="butterfly-feed-title font-mono">
+                <i class="fa fa-newspaper-o"></i>
+                <span>最新博文与研究记录 // ARTICLES</span>
+            </div>
+            <span class="butterfly-feed-count font-mono">{{ paginator.total_posts }} 篇日志</span>
+        </div>
 
-            <!-- 1. Open Source Contributions (开源贡献) Card -->
-            <div class="home-widget-card oss-highlight-widget">
-                <div class="widget-header font-mono">
-                    <span class="widget-icon"><i class="fa fa-code-fork"></i></span>
-                    <span class="widget-title">开源贡献 // UPSTREAM PRs</span>
-                </div>
-                <div class="oss-items-list">
-                    <!-- bytedance/deer-flow -->
-                    <a href="https://github.com/bytedance/deer-flow" target="_blank" rel="noopener noreferrer" class="oss-item-row">
-                        <div class="oss-row-header font-mono">
-                            <span class="oss-repo"><i class="fa fa-github"></i> bytedance/deer-flow</span>
-                            <span class="badge-pill badge-stars"><i class="fa fa-star"></i> 84k★</span>
+        <div class="recent-posts-stream">
+            {% for post in paginator.posts %}
+            {% assign mod = forloop.index0 | modulo: 2 %}
+            {% if post.header-img %}
+                {% if post.header-img contains 'http://' or post.header-img contains 'https://' %}
+                    {% assign post_cover = post.header-img %}
+                {% else %}
+                    {% assign post_cover = post.header-img | prepend: site.baseurl %}
+                {% endif %}
+            {% elsif post.cover %}
+                {% if post.cover contains 'http://' or post.cover contains 'https://' %}
+                    {% assign post_cover = post.cover %}
+                {% else %}
+                    {% assign post_cover = post.cover | prepend: site.baseurl %}
+                {% endif %}
+            {% else %}
+                {% assign default_covers = "img/post-bg-digital-native.jpg,img/post-bg-unix-linux.jpg,img/post-bg-os-metro.jpg,img/post-bg-universe.jpg,img/home-bg.jpg" | split: "," %}
+                {% assign cover_idx = forloop.index0 | modulo: 5 %}
+                {% assign post_cover = default_covers[cover_idx] | prepend: site.baseurl %}
+            {% endif %}
+
+            <article class="recent-post-item">
+                <div class="recent-post-content {% if mod == 0 %}left{% else %}right{% endif %}">
+                    <div class="recent-post-cover">
+                        <a href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}">
+                            <img src="{{ post_cover }}" alt="{{ post.title }}" class="article-cover" loading="lazy" onerror="this.onerror=null;this.src='{{ '/img/home-bg.jpg' | prepend: site.baseurl }}';">
+                        </a>
+                        {% if forloop.first and paginator.page == 1 %}
+                        <span class="post-sticky-badge font-mono">
+                            <i class="fa fa-thumb-tack"></i> 置顶精选
+                        </span>
+                        {% endif %}
+                    </div>
+                    <div class="recent-post-info">
+                        <a class="article-title font-editorial" href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}">
+                            {{ post.title }}
+                        </a>
+                        <div class="recent-post-meta font-mono">
+                            <span class="meta-item">
+                                <i class="fa fa-calendar"></i>
+                                <time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+                            </span>
+                            {% if post.tags.size > 0 %}
+                            <span class="meta-separator">|</span>
+                            <span class="meta-item">
+                                <i class="fa fa-tags"></i>
+                                {% for tag in post.tags limit:2 %}
+                                <span>{{ tag }}</span>{% unless forloop.last %}, {% endunless %}
+                                {% endfor %}
+                            </span>
+                            {% endif %}
+                            <span class="meta-separator">|</span>
+                            <span class="meta-item">
+                                <i class="fa fa-clock-o"></i>
+                                <span>{% assign words = post.content | strip_html | number_of_words %}{{ words | divided_by: 180 | plus: 1 }} 分钟</span>
+                            </span>
                         </div>
-                        <p class="oss-item-desc">
-                            字节跳动开源长程自主智能体平台。贡献 3 个已合并核心 PR，优化任务调度与工具流拓扑。
-                        </p>
-                        <div class="oss-row-footer font-mono">
-                            <span class="badge-pill badge-pr"><i class="fa fa-check"></i> 3 Merged PRs</span>
-                            <span class="oss-arrow">&rarr;</span>
+                        <div class="article-content-text">
+                            {% if post.subtitle %}
+                            <p class="post-desc-subtitle font-mono">
+                                {{ post.subtitle }}
+                            </p>
+                            {% endif %}
+                            <p class="post-desc-excerpt font-editorial">
+                                {% if post.lang == 'en' %}
+                                    {{ post.content | strip_html | truncate: 150 }}
+                                {% else %}
+                                    {{ post.content | strip_html | truncate: 110 }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="recent-post-footer">
+                            <div class="recent-post-tags font-mono">
+                                {% for tag in post.tags limit:3 %}
+                                <span class="post-tag-pill">#{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                            <a href="{{ post.url | prepend: site.baseurl }}" class="read-more-link font-mono">
+                                阅读全文 <i class="fa fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        <!-- Modern Butterfly Pagination -->
+        {% if paginator.total_pages > 1 %}
+        <nav id="pagination" class="butterfly-pagination font-mono" aria-label="分页导航">
+            <div class="pagination-track">
+                {% if paginator.previous_page %}
+                    {% if paginator.previous_page == 1 %}
+                    <a href="{{ site.baseurl }}/" class="page-prev-btn" title="上一页"><i class="fa fa-chevron-left"></i></a>
+                    {% else %}
+                    <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', paginator.previous_page }}" class="page-prev-btn" title="上一页"><i class="fa fa-chevron-left"></i></a>
+                    {% endif %}
+                {% else %}
+                    <span class="page-prev-btn disabled"><i class="fa fa-chevron-left"></i></span>
+                {% endif %}
+
+                {% for page_num in (1..paginator.total_pages) %}
+                    {% if page_num == paginator.page %}
+                        <span class="page-number current">{{ page_num }}</span>
+                    {% elsif page_num == 1 %}
+                        <a href="{{ site.baseurl }}/" class="page-number">{{ page_num }}</a>
+                    {% else %}
+                        <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page_num }}" class="page-number">{{ page_num }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if paginator.next_page %}
+                    <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', paginator.next_page }}" class="page-next-btn" title="下一页"><i class="fa fa-chevron-right"></i></a>
+                {% else %}
+                    <span class="page-next-btn disabled"><i class="fa fa-chevron-right"></i></span>
+                {% endif %}
+            </div>
+            <div class="pagination-info">
+                第 {{ paginator.page }} / {{ paginator.total_pages }} 页 · 共 {{ paginator.total_posts }} 篇研究日志
+            </div>
+        </nav>
+        {% endif %}
+    </main>
+
+    <!-- Right Column: Butterfly Aside Sidebar -->
+    <aside id="aside-content" class="butterfly-aside">
+
+        <!-- 1. Profile Widget (card-info) -->
+        <div class="card-widget card-info">
+            <div class="card-info-avatar">
+                <div class="avatar-img">
+                    <img src="{{ site.sidebar-avatar }}" alt="{{ site.title }}" onerror="this.onerror=null;this.src='{{ '/img/avatar.png' | prepend: site.baseurl }}';">
+                </div>
+                <div class="author-status-box" title="当前状态">
+                    <div class="author-status font-mono">
+                        <span class="status-emoji">💡</span>
+                        <span class="status-text">LLM4OR &amp; Multi-Agent</span>
+                    </div>
+                </div>
+            </div>
+            <div class="author-info__name font-mono">indexGin</div>
+            <div class="author-info__description">
+                专注于大模型运筹自动建模、形式化验证与智能体系统。追求数学严谨与工程落地的共鸣。
+            </div>
+            <div class="card-info-data font-mono">
+                <a href="{{ site.baseurl }}/archive/" title="查看全部日志">
+                    <div class="headline">文章</div>
+                    <div class="length-num">{{ site.posts.size }}</div>
+                </a>
+                <a href="{{ site.baseurl }}/archive/?tag=all" title="查看所有标签">
+                    <div class="headline">标签</div>
+                    <div class="length-num">{{ site.tags.size }}</div>
+                </a>
+                <a href="{{ site.baseurl }}/library/" title="进入数字书架">
+                    <div class="headline">在读</div>
+                    <div class="length-num">{{ site.data.library.size }}</div>
+                </a>
+            </div>
+            <a href="https://github.com/{{ site.github_username }}" id="card-info-btn" target="_blank" rel="noopener" class="font-mono">
+                <i class="fa fa-github"></i>
+                <span>前往 GitHub</span>
+                <i class="fa fa-arrow-right"></i>
+            </a>
+            <div class="card-info-social-icons">
+                <a href="https://github.com/{{ site.github_username }}" target="_blank" class="social-icon-sm" title="GitHub @{{ site.github_username }}">
+                    <i class="fa fa-github"></i>
+                </a>
+                <a href="mailto:{{ site.email }}" class="social-icon-sm" title="邮箱联系">
+                    <i class="fa fa-envelope-o"></i>
+                </a>
+                <a href="{{ site.baseurl }}/about/" class="social-icon-sm" title="关于博主">
+                    <i class="fa fa-user-circle-o"></i>
+                </a>
+                <a href="{{ site.baseurl }}/library/" class="social-icon-sm" title="数字书架">
+                    <i class="fa fa-book"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- 2. Announcement Widget (card-announcement) -->
+        <div class="card-widget card-announcement">
+            <div class="item-headline font-mono">
+                <i class="fa fa-bullhorn"></i>
+                <span>公告栏 // BULLETIN</span>
+            </div>
+            <div class="announcement_content">
+                <p>👋 欢迎来到 <strong class="announcement-highlight">indexGin's Space</strong>！</p>
+                <p>本站聚焦大语言模型 (LLM)、运筹优化 (OR) 与智能体系统的交叉融合，持续记录学术笔记与真实开源沉淀。</p>
+                <div class="announcement-tags-row font-mono">
+                    <span class="announcement-badge">⚡ LLM4OR</span>
+                    <span class="announcement-badge">🤖 Multi-Agent</span>
+                    <span class="announcement-badge">🛠️ OSS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sticky Container for lower widgets -->
+        <div class="sticky_layout">
+            <!-- 3. Open Source Contributions Widget (card-oss) -->
+            <div class="card-widget card-oss">
+                <div class="item-headline font-mono">
+                    <i class="fa fa-code-fork"></i>
+                    <span>开源贡献 // UPSTREAM PRs</span>
+                </div>
+                <div class="oss-widget-list">
+                    <!-- bytedance/deer-flow -->
+                    <a href="https://github.com/bytedance/deer-flow" target="_blank" rel="noopener noreferrer" class="oss-widget-item">
+                        <div class="oss-item-top font-mono">
+                            <span class="oss-repo-name"><i class="fa fa-github"></i> deer-flow</span>
+                            <span class="badge-star"><i class="fa fa-star"></i> 84k★</span>
+                        </div>
+                        <p class="oss-item-brief">字节跳动开源长程自主智能体平台，贡献 3 个已合并核心 PR。</p>
+                        <div class="oss-item-bottom font-mono">
+                            <span class="badge-merged"><i class="fa fa-check"></i> 3 Merged PRs</span>
                         </div>
                     </a>
 
                     <!-- agno-agi/agno -->
-                    <a href="https://github.com/agno-agi/agno" target="_blank" rel="noopener noreferrer" class="oss-item-row">
-                        <div class="oss-row-header font-mono">
-                            <span class="oss-repo"><i class="fa fa-github"></i> agno-agi/agno</span>
-                            <span class="badge-pill badge-stars"><i class="fa fa-star"></i> 42k★</span>
+                    <a href="https://github.com/agno-agi/agno" target="_blank" rel="noopener noreferrer" class="oss-widget-item">
+                        <div class="oss-item-top font-mono">
+                            <span class="oss-repo-name"><i class="fa fa-github"></i> agno</span>
+                            <span class="badge-star"><i class="fa fa-star"></i> 42k★</span>
                         </div>
-                        <p class="oss-item-desc">
-                            高并发轻量级 Multi-modal Agent 框架。优化智能体状态迁移与异步调用链路。
-                        </p>
-                        <div class="oss-row-footer font-mono">
-                            <span class="badge-pill badge-pr"><i class="fa fa-check"></i> Merged PR</span>
-                            <span class="oss-arrow">&rarr;</span>
+                        <p class="oss-item-brief">高并发轻量级 Multi-modal Agent 框架异步调度优化。</p>
+                        <div class="oss-item-bottom font-mono">
+                            <span class="badge-merged"><i class="fa fa-check"></i> Merged PR</span>
                         </div>
                     </a>
 
                     <!-- Kludex/starlette -->
-                    <a href="https://github.com/Kludex/starlette" target="_blank" rel="noopener noreferrer" class="oss-item-row">
-                        <div class="oss-row-header font-mono">
-                            <span class="oss-repo"><i class="fa fa-github"></i> Kludex/starlette</span>
-                            <span class="badge-pill badge-stars"><i class="fa fa-star"></i> 12k★</span>
+                    <a href="https://github.com/Kludex/starlette" target="_blank" rel="noopener noreferrer" class="oss-widget-item">
+                        <div class="oss-item-top font-mono">
+                            <span class="oss-repo-name"><i class="fa fa-github"></i> starlette</span>
+                            <span class="badge-star"><i class="fa fa-star"></i> 12k★</span>
                         </div>
-                        <p class="oss-item-desc">
-                            Python 生态 ASGI 高性能异步 Web 核心框架。优化核心路由参数解析与吞吐。
-                        </p>
-                        <div class="oss-row-footer font-mono">
-                            <span class="badge-pill badge-pr"><i class="fa fa-check"></i> Merged PR</span>
-                            <span class="oss-arrow">&rarr;</span>
+                        <p class="oss-item-brief">Python 生态 ASGI 高性能异步 Web 核心框架路由参数解析。</p>
+                        <div class="oss-item-bottom font-mono">
+                            <span class="badge-merged"><i class="fa fa-check"></i> Merged PR</span>
                         </div>
                     </a>
                 </div>
-
-                <div class="widget-action-footer font-mono">
-                    <a href="{{ site.baseurl }}/projects/" class="widget-more-link">
-                        查看完整项目与算法工具集 <i class="fa fa-angle-right"></i>
+                <div class="card-more-footer font-mono">
+                    <a href="{{ site.baseurl }}/projects/">
+                        查看全部项目与算法工具集 <i class="fa fa-angle-right"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- 2. Author Profile Mini Card -->
-            <div class="home-widget-card profile-mini-widget">
-                <div class="profile-header-flex">
-                    <img src="{{ site.sidebar-avatar }}" alt="{{ site.title }}" class="profile-avatar-img">
-                    <div class="profile-names">
-                        <h4 class="profile-name font-mono">indexGin</h4>
-                        <span class="profile-status-pill font-mono">
-                            <span class="profile-status-dot"></span> LLM4OR & Multi-Agent
-                        </span>
-                    </div>
-                </div>
-                <p class="profile-bio-text">
-                    专注于大模型运筹自动建模、双向形式化验证与离散制造车间调度。追求数学严谨与工程落地的共鸣。
-                </p>
-                <div class="profile-social-bar font-mono">
-                    <a href="https://github.com/indexGin" target="_blank" class="social-btn"><i class="fa fa-github"></i> @indexGin</a>
-                    <a href="{{ site.baseurl }}/about/" class="social-btn"><i class="fa fa-user"></i> 关于博主</a>
-                </div>
-            </div>
-
-            <!-- 3. Recent Books (近期在读) Mini Card: 封面、书名、作者 (无评分) -->
-            <div class="home-widget-card reading-mini-widget">
-                <div class="widget-header font-mono">
-                    <span class="widget-icon"><i class="fa fa-book"></i></span>
-                    <span class="widget-title">近期在读 // READING</span>
+            <!-- 4. Reading Mini Widget (card-reading) -->
+            <div class="card-widget card-reading">
+                <div class="item-headline font-mono">
+                    <i class="fa fa-book"></i>
+                    <span>近期在读 // READING</span>
                 </div>
                 <div class="mini-books-grid">
-                    {% for item in site.data.library %}
-                    <a href="{{ item.douban_url }}" target="_blank" rel="noopener noreferrer" class="mini-book-card" title="查看豆瓣读书详情">
+                    {% for item in site.data.library limit:4 %}
+                    <a href="{{ item.douban_url }}" target="_blank" rel="noopener noreferrer" class="mini-book-card" title="{{ item.title }}">
                         <div class="mini-book-cover-wrap">
                             <img src="{{ item.cover | prepend: site.baseurl }}" alt="{{ item.title }}" class="mini-cover-thumb">
-                            <div class="mini-spine-shadow"></div>
                         </div>
-                        <div class="mini-book-details">
-                            <h5 class="mini-title font-editorial">{{ item.title }}</h5>
-                            <span class="mini-author font-mono">{{ item.author }}</span>
-                        </div>
+                        <h5 class="mini-title font-editorial">{{ item.title }}</h5>
+                        <span class="mini-author font-mono">{{ item.author }}</span>
                     </a>
                     {% endfor %}
                 </div>
-                <div class="widget-action-footer font-mono">
-                    <a href="{{ site.baseurl }}/library/" class="widget-more-link">
+                <div class="card-more-footer font-mono">
+                    <a href="{{ site.baseurl }}/library/">
                         进入完整数字书架 <i class="fa fa-angle-right"></i>
                     </a>
                 </div>
             </div>
+        </div>
 
-        </aside>
+    </aside>
 
-        <!-- ================================================================
-             RIGHT COLUMN: Compact, Space-Efficient Blog Posts Feed
-             ================================================================ -->
-        <main class="col-lg-8 col-md-7 col-sm-12 home-main-feed">
-
-            <div class="feed-header-bar">
-                <div class="feed-title-clean font-mono">
-                    <i class="fa fa-newspaper-o"></i> 最新博文与研究记录 // ARTICLES
-                </div>
-                <span class="feed-badge-count font-mono">{{ paginator.total_posts }} 篇日志</span>
-            </div>
-
-            <div class="compact-post-stream">
-                {% for post in paginator.posts %}
-                <article class="compact-post-card">
-                    <a href="{{ post.url | prepend: site.baseurl }}" class="post-card-anchor">
-                        <h3 class="post-title font-editorial">
-                            {{ post.title }}
-                        </h3>
-                        {% if post.subtitle %}
-                        <h4 class="post-subtitle font-mono">
-                            {{ post.subtitle }}
-                        </h4>
-                        {% endif %}
-                        <div class="post-content-preview font-editorial">
-                            {% if post.lang == 'en' %}
-                                {{ post.content | strip_html | truncate:160 }}
-                            {% else %}
-                                {{ post.content | strip_html | truncate:120 }}
-                            {% endif %}
-                        </div>
-                    </a>
-                    <div class="post-meta-compact font-mono">
-                        <span class="post-date-item"><i class="fa fa-calendar"></i> {{ post.date | date: "%Y-%m-%d" }}</span>
-                        {% if post.tags.size > 0 %}
-                        <div class="post-tags-compact">
-                            {% for tag in post.tags %}
-                            <span class="tech-tag">{{ tag }}</span>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-                    </div>
-                </article>
-                {% endfor %}
-            </div>
-
-            <!-- Modern Responsive Pagination -->
-            {% if paginator.total_pages > 1 %}
-            <nav class="modern-pagination font-mono" aria-label="文章列表分页导航">
-                <div class="pagination-track">
-                    <!-- 上一页 -->
-                    {% if paginator.previous_page %}
-                        {% if paginator.previous_page == 1 %}
-                        <a href="{{ site.baseurl }}/" class="pagination-btn pagination-prev" title="上一页">
-                            <i class="fa fa-angle-left"></i> 上一页
-                        </a>
-                        {% else %}
-                        <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', paginator.previous_page }}" class="pagination-btn pagination-prev" title="上一页">
-                            <i class="fa fa-angle-left"></i> 上一页
-                        </a>
-                        {% endif %}
-                    {% else %}
-                        <span class="pagination-btn pagination-disabled" aria-disabled="true">
-                            <i class="fa fa-angle-left"></i> 上一页
-                        </span>
-                    {% endif %}
-
-                    <!-- 数字页码 -->
-                    <div class="pagination-numbers">
-                        {% for page_num in (1..paginator.total_pages) %}
-                            {% if page_num == paginator.page %}
-                                <span class="page-num active" aria-current="page">{{ page_num }}</span>
-                            {% elsif page_num == 1 %}
-                                <a href="{{ site.baseurl }}/" class="page-num" title="第 1 页">{{ page_num }}</a>
-                            {% else %}
-                                <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page_num }}" class="page-num" title="第 {{ page_num }} 页">{{ page_num }}</a>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-
-                    <!-- 下一页 -->
-                    {% if paginator.next_page %}
-                        <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', paginator.next_page }}" class="pagination-btn pagination-next" title="下一页">
-                            下一页 <i class="fa fa-angle-right"></i>
-                        </a>
-                    {% else %}
-                        <span class="pagination-btn pagination-disabled" aria-disabled="true">
-                            下一页 <i class="fa fa-angle-right"></i>
-                        </span>
-                    {% endif %}
-                </div>
-
-                <!-- 分页统计提示 -->
-                <div class="pagination-meta">
-                    <span class="pagination-indicator">
-                        <i class="fa fa-bookmark-o"></i> 当前第 <strong>{{ paginator.page }}</strong> / {{ paginator.total_pages }} 页
-                    </span>
-                    <span class="pagination-total">
-                        共 {{ paginator.total_posts }} 篇研究日志
-                    </span>
-                </div>
-            </nav>
-            {% endif %}
-
-        </main>
-
-    </div>
 </div>
+
+<!-- Typewriter & Scroll Down Interaction Scripts -->
+<script>
+(function() {
+    // Typewriter Effect for Hero Subtitle
+    var subtitleElem = document.getElementById('subtitle');
+    if (subtitleElem) {
+        var phrases = [
+            "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent 系统",
+            "从 AI Coding 到 AI Workflow：工程沉淀与能力闭环",
+            "追求数学严谨与工程落地的学术技术空间",
+            "运筹自动建模 · 双向形式化验证 · 离散制造调度"
+        ];
+        var phraseIdx = 0;
+        var charIdx = 0;
+        var isDeleting = false;
+        var typeSpeed = 90;
+
+        function typeLoop() {
+            var current = phrases[phraseIdx];
+            if (isDeleting) {
+                subtitleElem.textContent = current.substring(0, charIdx - 1);
+                charIdx--;
+                typeSpeed = 35;
+            } else {
+                subtitleElem.textContent = current.substring(0, charIdx + 1);
+                charIdx++;
+                typeSpeed = 80;
+            }
+
+            if (!isDeleting && charIdx === current.length) {
+                isDeleting = true;
+                typeSpeed = 2200; // Pause at end of phrase
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                phraseIdx = (phraseIdx + 1) % phrases.length;
+                typeSpeed = 400; // Pause before new phrase
+            }
+
+            setTimeout(typeLoop, typeSpeed);
+        }
+
+        typeLoop();
+    }
+
+    // Scroll Down Smooth Scrolling
+    var scrollBtn = document.getElementById('scroll-down');
+    if (scrollBtn) {
+        scrollBtn.addEventListener('click', function() {
+            var target = document.getElementById('content-inner');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    }
+})();
+</script>

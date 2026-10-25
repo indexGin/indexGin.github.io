@@ -14,25 +14,31 @@
 #
 # ==============================================================================
 
-# 1. 黄仁宇《万历十五年》
+# 1. 斯蒂芬·金《宠物公墓》
+- title: "宠物公墓"
+  author: "[美] 斯蒂芬·金"
+  cover: "/img/covers/pet_sematary.png"
+  douban_url: "https://book.douban.com/subject/4027219/"
+
+# 2. 黄仁宇《万历十五年》
 - title: "万历十五年"
   author: "[美] 黄仁宇"
   cover: "/img/covers/wanli.png"
   douban_url: "https://book.douban.com/subject/1981042/"
 
-# 2. 普鲁斯特《追忆似水年华·第二卷》
+# 3. 普鲁斯特《追忆似水年华·第二卷》
 - title: "追忆似水年华·第二卷：在少女们身旁"
   author: "[法] 马塞尔·普鲁斯特"
   cover: "/img/covers/proust.png"
   douban_url: "https://book.douban.com/subject/36455064/"
 
-# 3. 荷马《奥德修纪》
+# 4. 荷马《奥德修纪》
 - title: "奥德修纪"
   author: "[古希腊] 荷马"
   cover: "/img/covers/odyssey.png"
   douban_url: "https://book.douban.com/subject/30388054/"
 
-# 4. 荷马《伊利亚特》
+# 5. 荷马《伊利亚特》
 - title: "伊利亚特"
   author: "[古希腊] 荷马"
   cover: "/img/covers/iliad.png"

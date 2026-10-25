@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>indexGin's Space | Butterfly Theme Preview</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/hux-blog.min.css">
+    <link rel="stylesheet" href="./css/custom-modern.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Theme switcher test button -->
+    <div style="position:fixed; bottom:20px; right:20px; z-index:99999; display:flex; gap:10px;">
+        <button onclick="toggleTheme()" style="padding:10px 16px; border-radius:30px; background:#7c3aed; color:#fff; border:none; box-shadow:0 4px 14px rgba(0,0,0,0.3); font-weight:bold; cursor:pointer;">
+            🌓 切换浅色/深色模式
+        </button>
+    </div>
+    <script>
+        function toggleTheme() {
+            var curr = document.documentElement.getAttribute('data-theme');
+            document.documentElement.setAttribute('data-theme', curr === 'dark' ? 'light' : 'dark');
+        }
+    </script>
+<!-- Reading Scroll Progress Bar -->
+<div class="reading-progress-bar" id="readingProgressBar"></div>
+
+<!-- Navigation -->
+{% if page.nav-style == "invert" or page.header-style == "text" %}
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top invert matrix-nav">
+    {% else %}
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top matrix-nav">
+        {% endif %}
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" aria-label="Toggle Navigation">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="toggle-icon-bars">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </span>
+                    <span class="toggle-menu-text font-mono">MENU</span>
+                </button>
+                <a class="navbar-brand" href="./">
+                    <img src="./img/logo-nav.png" alt="indexGin Logo" class="nav-brand-logo" width="24" height="24" style="width: 24px !important; height: 24px !important; max-width: 24px !important; max-height: 24px !important; object-fit: contain; vertical-align: middle; display: inline-block;">
+                    <span class="node-prefix font-mono">[NODE:0]</span>
+                    <span class="nav-brand-title">indexGin</span>
+                    <span class="node-sublabel font-mono">// OR_LAB</span>
+                    <span class="graph-status-badge font-mono" title="Status: Optimal">
+                        <span class="graph-node-dot"></span>
+                        <span class="graph-status-text">LLM4OR_GRAPH</span>
+                    </span>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right font-mono">
+                        <li>
+                            <a href="./">
+                                <span class="node-id">01_</span>Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./projects/">
+                                <span class="node-id">02_</span>Projects
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./library/">
+                                <span class="node-id">03_</span>Library
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./demos/">
+                                <span class="node-id">04_</span>Demos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./archive/">
+                                <span class="node-id">05_</span>Archive
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./about/">
+                                <span class="node-id">06_</span>About
+                            </a>
+                        </li>
+                        <li class="search-icon">
+                            <a href="javascript:void(0)" title="Search Node">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                        <li class="github-nav-item">
+                            <a href="https://github.com/indexGin" target="_blank" title="GitHub @indexGin">
+                                <i class="fa fa-github"></i>
+                            </a>
+                        </li>
+                        <!-- Theme Toggle Button (Top Right) -->
+                        <li class="theme-toggle-nav-item">
+                            <a href="javascript:void(0)" id="themeToggleBtn" title="切换深色/浅色模式 (Dark/Light Theme)">
+                                <i class="fa fa-moon-o theme-icon-moon"></i>
+                                <i class="fa fa-sun-o theme-icon-sun"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                setTimeout(function () {
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px";
+                    }
+                }, 400);
+            },
+            open: function () {
+                $collapse.style.height = "auto";
+                $navbar.className += " in";
+            }
+        };
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close();
+            } else {
+                __HuxNav__.open();
+            }
+        });
+
+        document.addEventListener('click', function (e) {
+            if ($toggle.contains(e.target)) return;
+            __HuxNav__.close();
+        });
+
+        // Reading Scroll Progress Indicator
+        window.addEventListener('scroll', function () {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            var bar = document.getElementById("readingProgressBar");
+            if (bar) bar.style.width = scrolled + "%";
+        });
+
+        // Dark / Light Theme Toggle Listener
+        var themeBtn = document.getElementById('themeToggleBtn');
+        if (themeBtn) {
+            themeBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                var current = document.documentElement.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('indexgin-theme', next);
+            });
+        }
+    </script>
+
+<header id="page-header" class="full_page">
+    <div id="site-info">
+        <div class="hero-status-pill font-mono">
+            <span class="status-indicator-dot"></span>
+            <span>AI &amp; OPERATIONS RESEARCH // INDEXGIN'S SPACE</span>
+        </div>
+        <h1 id="site-title" class="font-editorial">indexGin</h1>
+        <div id="site-subtitle">
+            <span id="subtitle" class="typed-text"></span>
+            <span class="typed-cursor">|</span>
+        </div>
+        <div id="site_social_icons">
+            <a href="https://github.com/indexGin" target="_blank" rel="noopener" title="GitHub @indexGin" class="social-icon">
+                <i class="fa fa-github"></i>
+            </a>
+            <a href="mailto:indexGin@example.com" title="Email 博主" class="social-icon">
+                <i class="fa fa-envelope-o"></i>
+            </a>
+            <a href="./about/" title="关于博主" class="social-icon">
+                <i class="fa fa-user-circle-o"></i>
+            </a>
+            <a href="./archive/" title="归档日志" class="social-icon">
+                <i class="fa fa-archive"></i>
+            </a>
+            <a href="./library/" title="数字书架" class="social-icon">
+                <i class="fa fa-book"></i>
+            </a>
+        </div>
+    </div>
+    <div id="scroll-down" title="向下滚动浏览文章">
+        <i class="fa fa-angle-down scroll-down-effects"></i>
+    </div>
+</header>
+
+<div id="content-inner" class="butterfly-container">
+    <main class="butterfly-recent-posts">
+        <div class="butterfly-feed-bar">
+            <div class="butterfly-feed-title font-mono">
+                <i class="fa fa-newspaper-o"></i>
+                <span>最新博文与研究记录 // ARTICLES</span>
+            </div>
+            <span class="butterfly-feed-count font-mono">11 篇日志</span>
+        </div>
+
+        <div class="recent-posts-stream">
+            
+    <article class="recent-post-item">
+        <div class="recent-post-content left">
+            <div class="recent-post-cover">
+                <a href="/posts/2026-10-23-typescript-electron-fullstack-agent-product.html" title="TypeScript 与 Electron 全栈产品承载（第四板斧）">
+                    <img src="./img/post-bg-e2e-ux.jpg" alt="TypeScript 与 Electron 全栈产品承载（第四板斧）" class="article-cover" loading="lazy">
+                </a>
+                <span class="post-sticky-badge font-mono"><i class="fa fa-thumb-tack"></i> 置顶精选</span>
+            </div>
+            <div class="recent-post-info">
+                <a class="article-title font-editorial" href="/posts/2026-10-23-typescript-electron-fullstack-agent-product.html" title="TypeScript 与 Electron 全栈产品承载（第四板斧）">
+                    TypeScript 与 Electron 全栈产品承载（第四板斧）
+                </a>
+                <div class="recent-post-meta font-mono">
+                    <span class="meta-item">
+                        <i class="fa fa-calendar"></i>
+                        <time datetime="2026-10-23">2026-10-23</time>
+                    </span>
+                    <span class="meta-separator">|</span>
+                    <span class="meta-item">
+                        <i class="fa fa-tags"></i>
+                        <span>Agent</span>
+                    </span>
+                    <span class="meta-separator">|</span>
+                    <span class="meta-item">
+                        <i class="fa fa-clock-o"></i>
+                        <span>5 分钟</span>
+                    </span>
+                </div>
+                <div class="article-content-text">
+                    <p class="post-desc-subtitle font-mono">把 Agent Runtime 装进可交互、可持久化、可发布的桌面级产品</p>
+                    <p class="post-desc-excerpt font-editorial">
+                        > **导航**：本文为《通用 Agent 设计方法论》系列第四篇（收官篇）。  
+> ⬅️ 上一篇：Agent 评测与调优（第三板斧）  
+> 📖 系列总览：通用 Agent 设计方法论（四板斧）
+
+---
+
+> 🎯 ...
+                    </p>
+                </div>
+                <div class="recent-post-footer">
+                    <div class="recent-post-tags font-mono">
+                        <span class="post-tag-pill">#Agent</span><span class="post-tag-pill">#TypeScript</span><span class="post-tag-pill">#Electron</span>
+                    </div>
+                    <a href="/posts/2026-10-23-typescript-electron-fullstack-agent-product.html" class="read-more-link font-mono">
+                        阅读全文 <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+    
+    <article class="recent-post-item">
+        <div class="recent-post-content right">
+            <div class="recent-post-cover">
+                <a href="/posts/2026-10-23-agent-orchestration-and-reasoning.html" title="Agent 能力编排与推理融合（第二板斧）">
+                    <img src="./img/post-bg-universe.jpg" alt="Agent 能力编排与推理融合（第二板斧）" class="article-cover" loading="lazy">
+                </a>
+                
+            </div>
+            <div class="recent-post-info">
+                <a class="article-title font-editorial" href="/posts/2026-10-23-agent-orchestration-and-reasoning.html" title="Agent 能力编排与推理融合（第二板斧）">
+                    Agent 能力编排与推理融合（第二板斧）
+                </a>
+                <div class="recent-post-meta font-mono">
+                    <span class="meta-item">
+                        <i class="fa fa-calendar"></i>
+                        <time datetime="2026-10-23">2026-10-23</time>
+                    </span>
+                    <span class="meta-separator">|</span>
+                    <span class="meta-item">
+                        <i class="fa fa-tags"></i>
+                        <span>Agent</span>
+                    </span>
+                    <span class="meta-separator">|</span>
+                    <span class="meta-item">
+                        <i class="fa fa-clock-o"></i>
+                        <span>5 分钟</span>
+                    </span>
+                </div>
+                <div class="article-content-text">
+                    <p class="post-desc-subtitle font-mono">从单 Agent 骨架（Loop/Prompt/Memory/Skill）到多 Agent 协作的升级决策</p>
+                    <p class="post-desc-excerpt font-editorial">
+                        > **导航**：本文为《通用 Agent 设计方法论》系列第二篇。  
+> ⬅️ 上一篇：场景材料与外部能力设计（第一板斧）  
+> 📖 系列总览：通用 Agent 设计方法论（四板斧）  
+> ➡️ 下一篇：Agen...
+                    </p>
+                </div>
+                <div class="recent-post-footer">
+                    <div class="recent-post-tags font-mono">
+                        <span class="post-tag-pill">#Agent</span><span class="post-tag-pill">#方法论</span><span class="post-tag-pill">#Agent Loop</span>
+                    </div>
+                    <a href="/posts/2026-10-23-agent-orchestration-and-reasoning.html" class="read-more-link font-mono">
+                        阅读全文 <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+    
+    <article class="recent-post-item">
+        <div class="recent-post-content left">
+            <div class="recent-post-cover">
+                <a href="/posts/2026-10-23-agent-evaluation-and-tuning.html" title="Agent 评测与调优（第三板斧）">
+                    <img src="./img/post-bg-halting.jpg" alt="Agent 评测与调优（第三板斧）" class="article-cover" loading="lazy">
+                </a>
+                
+            </div>
+            <div class="recent-post-info">
+                <a class="article-title font-editorial" href="/posts/2026-10-23-agent-evaluation-and-tuning.html" title="Agent 评测与调优（第三板斧）">
+                    Agent 评测与调优（第三板斧）
+                </a>
+                <div class="recent-post-meta font-mono">
+                    <span class="meta-item">
+                        <i class="fa fa-calendar"></i>
+                        <time datetime="2026-10-23">2026-10-23</time>
+                    </span>
+                    <span class="meta-separator">|</span>
+                    <span class="meta-item">
+                        <i class="fa fa-tags"></i>
+                        <span>Agent</span>
+                    </span>
+                    <span class="meta-separator">|</span>
+                    <span class="meta-item">
+                        <i class="fa fa-clock-o"></i>
+                        <span>5 分钟</span>
+                    </span>
+                </div>
+                <div class="article-content-text">
+                    <p class="post-desc-subtitle font-mono">五维评测、审计 Agent 反馈闭环与 Token 预算成本治理</p>
+                    <p class="post-desc-excerpt font-editorial">
+                        > **导航**：本文为《通用 Agent 设计方法论》系列第三篇。  
+> ⬅️ 上一篇：Agent 能力编排与推理融合（第二板斧）  
+> 📖 系列总览：通用 Agent 设计方法论（四板斧）  
+> ➡️ 下一篇：...
+                    </p>
+                </div>
+                <div class="recent-post-footer">
+                    <div class="recent-post-tags font-mono">
+                        <span class="post-tag-pill">#Agent</span><span class="post-tag-pill">#方法论</span><span class="post-tag-pill">#评测调优</span>
+                    </div>
+                    <a href="/posts/2026-10-23-agent-evaluation-and-tuning.html" class="read-more-link font-mono">
+                        阅读全文 <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+    
+    <article class="recent-post-item">
+        <div class="recent-post-content right">
+            <div class="recent-post-cover">
+                <a href="/posts/2026-10-23-agent-design-materials-and-capabilities.html" title="场景材料与外部能力设计（第一板斧）">
+                    <img src="./img/post-bg-rwd.jpg" alt="场景材料与外部能力设计（第一板斧）" class="article-cover" loading="lazy">
+                </a>
+                
+            </div>
+            <div class="recent-post-info">
+                <a class="article-title font-editorial" href="/posts/2026-10-23-agent-design-materials-and-capabilities.html" title="场景材料与外部能力设计（第一板斧）">
+                    场景材料与外部能力设计（第一板斧）
+                </a>
+                <div class="recent-post-meta font-mono">
+                    <span class="meta-item">
+                        <i class="fa fa-calendar"></i>
+                        <time datetime="2026-10-23">2026-10-23</time>
+                    </span>
+                    <span class="meta-separator">|</span>
+                    <span class="meta-item">
+                        <i class="fa fa-tags"></i>
+                        <span>Agent</span>
+                    </span>
+                    <span class="meta-separator">|</span>
+                    <span class="meta-item">
+                        <i class="fa fa-clock-o"></i>
+                        <span>5 分钟</span>
+                    </span>
+                </div>
+                <div class="article-content-text">
+                    <p class="post-desc-subtitle font-mono">确定信息入口与动作入口：从材料类型、RAG、Tool 到权限边界</p>
+                    <p class="post-desc-excerpt font-editorial">
+                        > **导航**：本文为《通用 Agent 设计方法论》系列第一篇。  
+> 📖 系列总览：通用 Agent 设计方法论（四板斧）  
+> ➡️ 下一篇：Agent 能力编排与推理融合（第二板斧）
+
+---
+
+> 🔍 *...
+                    </p>
+                </div>
+                <div class="recent-post-footer">
+                    <div class="recent-post-tags font-mono">
+                        <span class="post-tag-pill">#Agent</span><span class="post-tag-pill">#方法论</span><span class="post-tag-pill">#系统设计</span>
+                    </div>
+                    <a href="/posts/2026-10-23-agent-design-materials-and-capabilities.html" class="read-more-link font-mono">
+                        阅读全文 <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+    
+    <article class="recent-post-item">
+        <div class="recent-post-content left">
+            <div class="recent-post-cover">
+                <a href="/posts/2026-10-22-taobao-ai-agent-online-eval-practice.html" title="淘宝AI购物助手在线评测落地实践">
+                    <img src="./img/post-bg-alibaba.jpg" alt="淘宝AI购物助手在线评测落地实践" class="article-cover" loading="lazy">
+                </a>
+                
+            </div>
+            <div class="recent-post-info">
+                <a class="article-title font-editorial" href="/posts/2026-10-22-taobao-ai-agent-online-eval-practice.html" title="淘宝AI购物助手在线评测落地实践">
+                    淘宝AI购物助手在线评测落地实践
+                </a>
+                <div class="recent-post-meta font-mono">
+                    <span class="meta-item">
+                        <i class="fa fa-calendar"></i>
+                        <time datetime="2026-10-22">2026-10-22</time>
+                    </span>
+                    <span class="meta-separator">|</span>
+                    <span class="meta-item">
+                        <i class="fa fa-tags"></i>
+                        <span>LLM</span>
+                    </span>
+                    <span class="meta-separator">|</span>
+                    <span class="meta-item">
+                        <i class="fa fa-clock-o"></i>
+                        <span>5 分钟</span>
+                    </span>
+                </div>
+                <div class="article-content-text">
+                    <p class="post-desc-subtitle font-mono">日均海量会话场景下 LLM-as-a-Judge 工业化落地与归因闭环</p>
+                    <p class="post-desc-excerpt font-editorial">
+                        > **转载说明**  
+> **出处**：微信公众号 **「大淘宝技术」**（2026年10月12日推文）  
+> **作者**：淘天集团-交易数据技术团队 盈衣  
+> **原文链接**：淘宝AI购物助手在线评测落地...
+                    </p>
+                </div>
+                <div class="recent-post-footer">
+                    <div class="recent-post-tags font-mono">
+                        <span class="post-tag-pill">#LLM</span><span class="post-tag-pill">#Agent</span><span class="post-tag-pill">#LLM-as-a-Judge</span>
+                    </div>
+                    <a href="/posts/2026-10-22-taobao-ai-agent-online-eval-practice.html" class="read-more-link font-mono">
+                        阅读全文 <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+    
+    <article class="recent-post-item">
+        <div class="recent-post-content right">
+            <div class="recent-post-cover">
+                <a href="/posts/2026-10-22-rag-summary-and-notes.html" title="RAG总结与学习">
+                    <img src="./img/post-bg-e2e-ux.jpg" alt="RAG总结与学习" class="article-cover" loading="lazy">
+                </a>
+                
+            </div>
+            <div class="recent-post-info">
+                <a class="article-title font-editorial" href="/posts/2026-10-22-rag-summary-and-notes.html" title="RAG总结与学习">
+                    RAG总结与学习
+                </a>
+                <div class="recent-post-meta font-mono">
+                    <span class="meta-item">
+                        <i class="fa fa-calendar"></i>
+                        <time datetime="2026-10-22">2026-10-22</time>
+                    </span>
+                    <span class="meta-separator">|</span>
+                    <span class="meta-item">
+                        <i class="fa fa-tags"></i>
+                        <span>RAG</span>
+                    </span>
+                    <span class="meta-separator">|</span>
+                    <span class="meta-item">
+                        <i class="fa fa-clock-o"></i>
+                        <span>5 分钟</span>
+                    </span>
+                </div>
+                <div class="article-content-text">
+                    <p class="post-desc-subtitle font-mono">从核心概念、检索范式到工程落地与评测体系全景解析</p>
+                    <p class="post-desc-excerpt font-editorial">
+                        > **一句话理解**  
+> **RAG（Retrieval-Augmented Generation，检索增强生成）**是在模型回答前，从外部知识源检索相关证据，并把证据连同问题一起交给模型生成答案。它把 LLM 的...
+                    </p>
+                </div>
+                <div class="recent-post-footer">
+                    <div class="recent-post-tags font-mono">
+                        <span class="post-tag-pill">#RAG</span><span class="post-tag-pill">#LLM</span><span class="post-tag-pill">#Agent</span>
+                    </div>
+                    <a href="/posts/2026-10-22-rag-summary-and-notes.html" class="read-more-link font-mono">
+                        阅读全文 <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+    
+        </div>
+
+        <nav id="pagination" class="butterfly-pagination font-mono" aria-label="分页导航">
+            <div class="pagination-track">
+                <span class="page-prev-btn disabled"><i class="fa fa-chevron-left"></i></span>
+                <span class="page-number current">1</span>
+                <a href="#page-2" class="page-number">2</a>
+                <a href="#page-2" class="page-next-btn" title="下一页"><i class="fa fa-chevron-right"></i></a>
+            </div>
+            <div class="pagination-info">
+                第 1 / 2 页 · 共 11 篇研究日志
+            </div>
+        </nav>
+    </main>
+
+    <aside id="aside-content" class="butterfly-aside">
+        <div class="card-widget card-info">
+            <div class="card-info-avatar">
+                <div class="avatar-img">
+                    <img src="https://github.com/indexGin.png" alt="indexGin" onerror="this.onerror=null;this.src='./img/avatar.png';">
+                </div>
+                <div class="author-status-box" title="当前状态">
+                    <div class="author-status font-mono">
+                        <span class="status-emoji">💡</span>
+                        <span class="status-text">LLM4OR &amp; Multi-Agent</span>
+                    </div>
+                </div>
+            </div>
+            <div class="author-info__name font-mono">indexGin</div>
+            <div class="author-info__description">
+                专注于大模型运筹自动建模、形式化验证与智能体系统。追求数学严谨与工程落地的共鸣。
+            </div>
+            <div class="card-info-data font-mono">
+                <a href="./archive/" title="查看全部日志">
+                    <div class="headline">文章</div>
+                    <div class="length-num">11</div>
+                </a>
+                <a href="./archive/?tag=all" title="查看所有标签">
+                    <div class="headline">标签</div>
+                    <div class="length-num">14</div>
+                </a>
+                <a href="./library/" title="进入数字书架">
+                    <div class="headline">在读</div>
+                    <div class="length-num">5</div>
+                </a>
+            </div>
+            <a href="https://github.com/indexGin" id="card-info-btn" target="_blank" rel="noopener" class="font-mono">
+                <i class="fa fa-github"></i>
+                <span>前往 GitHub</span>
+                <i class="fa fa-arrow-right"></i>
+            </a>
+            <div class="card-info-social-icons">
+                <a href="https://github.com/indexGin" target="_blank" class="social-icon-sm" title="GitHub @indexGin">
+                    <i class="fa fa-github"></i>
+                </a>
+                <a href="mailto:test@example.com" class="social-icon-sm" title="邮箱联系">
+                    <i class="fa fa-envelope-o"></i>
+                </a>
+                <a href="./about/" class="social-icon-sm" title="关于博主">
+                    <i class="fa fa-user-circle-o"></i>
+                </a>
+                <a href="./library/" class="social-icon-sm" title="数字书架">
+                    <i class="fa fa-book"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="card-widget card-announcement">
+            <div class="item-headline font-mono">
+                <i class="fa fa-bullhorn"></i>
+                <span>公告栏 // BULLETIN</span>
+            </div>
+            <div class="announcement_content">
+                <p>👋 欢迎来到 <strong class="announcement-highlight">indexGin's Space</strong>！</p>
+                <p>本站聚焦大语言模型 (LLM)、运筹优化 (OR) 与智能体系统的交叉融合，持续记录学术笔记与真实开源沉淀。</p>
+                <div class="announcement-tags-row font-mono">
+                    <span class="announcement-badge">⚡ LLM4OR</span>
+                    <span class="announcement-badge">🤖 Multi-Agent</span>
+                    <span class="announcement-badge">🛠️ OSS</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sticky_layout">
+            <div class="card-widget card-oss">
+                <div class="item-headline font-mono">
+                    <i class="fa fa-code-fork"></i>
+                    <span>开源贡献 // UPSTREAM PRs</span>
+                </div>
+                <div class="oss-widget-list">
+                    <a href="https://github.com/bytedance/deer-flow" target="_blank" rel="noopener noreferrer" class="oss-widget-item">
+                        <div class="oss-item-top font-mono">
+                            <span class="oss-repo-name"><i class="fa fa-github"></i> deer-flow</span>
+                            <span class="badge-star"><i class="fa fa-star"></i> 84k★</span>
+                        </div>
+                        <p class="oss-item-brief">字节跳动开源长程自主智能体平台，贡献 3 个已合并核心 PR。</p>
+                        <div class="oss-item-bottom font-mono">
+                            <span class="badge-merged"><i class="fa fa-check"></i> 3 Merged PRs</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/agno-agi/agno" target="_blank" rel="noopener noreferrer" class="oss-widget-item">
+                        <div class="oss-item-top font-mono">
+                            <span class="oss-repo-name"><i class="fa fa-github"></i> agno</span>
+                            <span class="badge-star"><i class="fa fa-star"></i> 42k★</span>
+                        </div>
+                        <p class="oss-item-brief">高并发轻量级 Multi-modal Agent 框架异步调度优化。</p>
+                        <div class="oss-item-bottom font-mono">
+                            <span class="badge-merged"><i class="fa fa-check"></i> Merged PR</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/Kludex/starlette" target="_blank" rel="noopener noreferrer" class="oss-widget-item">
+                        <div class="oss-item-top font-mono">
+                            <span class="oss-repo-name"><i class="fa fa-github"></i> starlette</span>
+                            <span class="badge-star"><i class="fa fa-star"></i> 12k★</span>
+                        </div>
+                        <p class="oss-item-brief">Python 生态 ASGI 高性能异步 Web 核心框架路由参数解析。</p>
+                        <div class="oss-item-bottom font-mono">
+                            <span class="badge-merged"><i class="fa fa-check"></i> Merged PR</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-more-footer font-mono">
+                    <a href="./projects/">
+                        查看全部项目与算法工具集 <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card-widget card-reading">
+                <div class="item-headline font-mono">
+                    <i class="fa fa-book"></i>
+                    <span>近期在读 // READING</span>
+                </div>
+                <div class="mini-books-grid">
+                    
+    <a href="https://book.douban.com/subject/4027219/" target="_blank" rel="noopener noreferrer" class="mini-book-card" title="宠物公墓">
+        <div class="mini-book-cover-wrap">
+            <img src="./img/covers/pet_sematary.png" alt="宠物公墓" class="mini-cover-thumb">
+        </div>
+        <h5 class="mini-title font-editorial">宠物公墓</h5>
+        <span class="mini-author font-mono">[美] 斯蒂芬·金</span>
+    </a>
+    
+    <a href="https://book.douban.com/subject/1981042/" target="_blank" rel="noopener noreferrer" class="mini-book-card" title="万历十五年">
+        <div class="mini-book-cover-wrap">
+            <img src="./img/covers/wanli.png" alt="万历十五年" class="mini-cover-thumb">
+        </div>
+        <h5 class="mini-title font-editorial">万历十五年</h5>
+        <span class="mini-author font-mono">[美] 黄仁宇</span>
+    </a>
+    
+    <a href="https://book.douban.com/subject/36455064/" target="_blank" rel="noopener noreferrer" class="mini-book-card" title="追忆似水年华·第二卷：在少女们身旁">
+        <div class="mini-book-cover-wrap">
+            <img src="./img/covers/proust.png" alt="追忆似水年华·第二卷：在少女们身旁" class="mini-cover-thumb">
+        </div>
+        <h5 class="mini-title font-editorial">追忆似水年华·第二卷：在少女们身旁</h5>
+        <span class="mini-author font-mono">[法] 马塞尔·普鲁斯特</span>
+    </a>
+    
+    <a href="https://book.douban.com/subject/30388054/" target="_blank" rel="noopener noreferrer" class="mini-book-card" title="奥德修纪">
+        <div class="mini-book-cover-wrap">
+            <img src="./img/covers/odyssey.png" alt="奥德修纪" class="mini-cover-thumb">
+        </div>
+        <h5 class="mini-title font-editorial">奥德修纪</h5>
+        <span class="mini-author font-mono">[古希腊] 荷马</span>
+    </a>
+    
+                </div>
+                <div class="card-more-footer font-mono">
+                    <a href="./library/">
+                        进入完整数字书架 <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<script>
+(function() {
+    var subtitleElem = document.getElementById('subtitle');
+    if (subtitleElem) {
+        var phrases = [
+            "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent 系统",
+            "从 AI Coding 到 AI Workflow：工程沉淀与能力闭环",
+            "追求数学严谨与工程落地的学术技术空间",
+            "运筹自动建模 · 双向形式化验证 · 离散制造调度"
+        ];
+        var phraseIdx = 0;
+        var charIdx = 0;
+        var isDeleting = false;
+        var typeSpeed = 90;
+
+        function typeLoop() {
+            var current = phrases[phraseIdx];
+            if (isDeleting) {
+                subtitleElem.textContent = current.substring(0, charIdx - 1);
+                charIdx--;
+                typeSpeed = 35;
+            } else {
+                subtitleElem.textContent = current.substring(0, charIdx + 1);
+                charIdx++;
+                typeSpeed = 80;
+            }
+
+            if (!isDeleting && charIdx === current.length) {
+                isDeleting = true;
+                typeSpeed = 2200;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                phraseIdx = (phraseIdx + 1) % phrases.length;
+                typeSpeed = 400;
+            }
+
+            setTimeout(typeLoop, typeSpeed);
+        }
+
+        typeLoop();
+    }
+
+    var scrollBtn = document.getElementById('scroll-down');
+    if (scrollBtn) {
+        scrollBtn.addEventListener('click', function() {
+            var target = document.getElementById('content-inner');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    }
+})();
+</script>
+</body>
+</html>
