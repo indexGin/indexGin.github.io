@@ -3,8 +3,7 @@
    Post Detail Content Styling, Legacy Feed & Side Catalog
    ========================================================================== */
 
-   2. Unified Theme Hero Header (Dark & Light Seamless Adaptability)
-   -------------------------------------------------------------------------- */
+
 header.intro-header {
   position: relative;
   background: var(--header-bg) !important;

@@ -4,8 +4,9 @@ title: Home
 description: "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent 系统的个人学术与技术空间"
 ---
 
+{% if paginator.page == 1 or paginator.page == nil %}
 <!-- ================================================================
-     HERO SECTION: Full-Page Immersive Banner (Butterfly Theme Style)
+     HERO SECTION: Full-Page Immersive Banner (Page 1 Only)
      ================================================================ -->
 <header id="page-header" class="full_page">
     <div id="site-info">
@@ -40,6 +41,19 @@ description: "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent �
         <i class="fa fa-angle-down scroll-down-effects"></i>
     </div>
 </header>
+{% else %}
+<!-- ================================================================
+     PAGINATION HEADER: Compact Header for Subsequent Pages
+     ================================================================ -->
+<header id="page-header" class="not-home-page">
+    <div id="site-info">
+        <h1 id="site-title" class="font-editorial">indexGin's Space</h1>
+        <div class="page-num-pill font-mono">
+            <i class="fa fa-files-o"></i> 第 {{ paginator.page }} 页 // PAGE {{ paginator.page }}
+        </div>
+    </div>
+</header>
+{% endif %}
 
 <!-- ================================================================
      MAIN CONTENT: Alternating Post Stream (Left) + Rich Sidebar (Right)
@@ -63,16 +77,16 @@ description: "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent �
                 {% if post.header-img contains 'http://' or post.header-img contains 'https://' %}
                     {% assign post_cover = post.header-img %}
                 {% else %}
-                    {% assign post_cover = post.header-img | prepend: site.baseurl %}
+                    {% assign post_cover = post.header-img | prepend: '/' | replace: '//', '/' | prepend: site.baseurl %}
                 {% endif %}
             {% elsif post.cover %}
                 {% if post.cover contains 'http://' or post.cover contains 'https://' %}
                     {% assign post_cover = post.cover %}
                 {% else %}
-                    {% assign post_cover = post.cover | prepend: site.baseurl %}
+                    {% assign post_cover = post.cover | prepend: '/' | replace: '//', '/' | prepend: site.baseurl %}
                 {% endif %}
             {% else %}
-                {% assign default_covers = "img/post-bg-digital-native.jpg,img/post-bg-unix-linux.jpg,img/post-bg-os-metro.jpg,img/post-bg-universe.jpg,img/home-bg.jpg" | split: "," %}
+                {% assign default_covers = "/img/post-bg-digital-native.jpg,/img/post-bg-unix-linux.jpg,/img/post-bg-os-metro.jpg,/img/post-bg-universe.jpg,/img/home-bg.jpg" | split: "," %}
                 {% assign cover_idx = forloop.index0 | modulo: 5 %}
                 {% assign post_cover = default_covers[cover_idx] | prepend: site.baseurl %}
             {% endif %}

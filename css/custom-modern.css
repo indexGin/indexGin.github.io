@@ -3,11 +3,11 @@
    Modular architecture for indexGin's personal tech blog
    ========================================================================== */
 
-@import url('theme-core.css');
-@import url('components-nav-footer.css');
-@import url('components-butterfly.css');
-@import url('components-post-detail.css');
-@import url('components-library.css');
-@import url('components-projects.css');
-@import url('components-demos.css');
-@import url('components-ai-agent.css');
+@import url('/css/theme-core.css');
+@import url('/css/components-nav-footer.css');
+@import url('/css/components-butterfly.css');
+@import url('/css/components-post-detail.css');
+@import url('/css/components-library.css');
+@import url('/css/components-projects.css');
+@import url('/css/components-demos.css');
+@import url('/css/components-ai-agent.css');
