@@ -1,0 +1,207 @@
+/* ==========================================================================
+   components-projects.css
+   Anthony Fu Style: Curated Projects & Tools Showcase
+   ========================================================================== */
+
+   8. Anthony Fu Style: Curated Projects Showcase
+   -------------------------------------------------------------------------- */
+.antfu-projects-wrapper {
+  margin-top: 10px;
+  margin-bottom: 60px;
+}
+
+.projects-intro-header {
+  margin-bottom: 35px;
+}
+
+.projects-main-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  margin: 6px 0 10px 0;
+}
+
+.projects-subtext {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 680px;
+  margin: 0;
+}
+
+.project-group-section {
+  margin-bottom: 45px;
+}
+
+.group-header {
+  margin-bottom: 18px;
+  border-bottom: 1px dashed var(--card-border);
+  padding-bottom: 8px;
+}
+
+.group-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.group-hashtag {
+  color: var(--primary-color);
+  font-size: 20px;
+}
+
+.group-description {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.project-card-link {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: block;
+}
+
+.project-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--card-hover-border);
+  box-shadow: 0 10px 25px -4px rgba(124, 58, 237, 0.12);
+}
+
+.card-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.project-title-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-icon {
+  font-size: 15px;
+  color: var(--primary-color);
+}
+
+.project-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.project-card:hover .project-name {
+  color: var(--primary-color);
+}
+
+.badge-pill {
+  font-size: 10.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.badge-stars {
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-pr {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.project-description {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #475569;
+  margin: 0 0 16px 0;
+  flex: 1;
+}
+
+.project-tags-area {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  position: relative;
+}
+
+.tech-tag {
+  font-size: 10.5px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.view-link-arrow {
+  margin-left: auto;
+  font-size: 11px;
+  color: #cbd5e1;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.project-card:hover .view-link-arrow {
+  transform: translateX(4px);
+  color: #7c3aed;
+}
+
+.github-activity-cta {
+  margin-top: 40px;
+  padding: 18px 24px;
+  background: #0f172a;
+  border-radius: 12px;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  text-align: center;
+}
+
+.cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+.cta-link {
+  color: #c084fc !important;
+  font-weight: 600;
+  text-decoration: none !important;
+}
+
+.cta-link:hover {
+  text-decoration: underline !important;
+}
+
+/* --------------------------------------------------------------------------

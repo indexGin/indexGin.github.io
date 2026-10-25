@@ -1,0 +1,552 @@
+/* ==========================================================================
+   components-nav-footer.css
+   Matrix Navigation, Mobile Responsive Menu, Footer & Architecture Diagrams
+   ========================================================================== */
+
+   1. Scheme 3: Graph Matrix Navigation & Scroll Progress Indicator
+   -------------------------------------------------------------------------- */
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #7c3aed 0%, #a855f7 50%, #38bdf8 100%);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.7);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
+.navbar-custom.matrix-nav {
+  background: var(--nav-bg) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--nav-border) !important;
+  transition: var(--transition-smooth);
+}
+
+@media (min-width: 768px) {
+  .navbar-custom.matrix-nav {
+    top: 14px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: min(95%, 1180px) !important;
+    border-radius: 12px !important;
+    border: 1px solid var(--nav-border) !important;
+    box-shadow: var(--nav-shadow) !important;
+    padding: 2px 16px !important;
+  }
+}
+
+.navbar-custom .navbar-brand {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-main) !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 10px;
+}
+
+.nav-brand-logo {
+  width: 24px !important;
+  height: 24px !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(124, 58, 237, 0.35));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.navbar-brand:hover .nav-brand-logo {
+  transform: rotate(20deg) scale(1.1);
+}
+
+.navbar-custom .navbar-brand::before {
+  display: none !important;
+}
+
+.matrix-nav .node-prefix {
+  color: var(--primary-color);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.matrix-nav .nav-brand-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+  transition: color 0.2s ease;
+}
+
+.matrix-nav .node-sublabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+
+.matrix-nav .graph-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid var(--nav-border);
+  font-size: 10.5px;
+  color: var(--primary-color);
+}
+
+@media (max-width: 767px) {
+  .matrix-nav .graph-status-badge {
+    display: none;
+  }
+}
+
+.graph-node-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  box-shadow: 0 0 8px var(--primary-light);
+  display: inline-block;
+  animation: pulse-node 2s infinite ease-in-out;
+}
+
+@keyframes pulse-node {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+.matrix-nav .node-id {
+  color: var(--primary-color);
+  font-size: 11px;
+  margin-right: 2px;
+  opacity: 0.85;
+}
+
+.matrix-nav .nav li a {
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--nav-text) !important;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: var(--transition-smooth);
+}
+
+.matrix-nav .nav li a:hover {
+  color: var(--nav-text-hover) !important;
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid var(--nav-border);
+}
+
+.matrix-nav .nav li.github-nav-item a,
+.matrix-nav .nav li.search-icon a {
+  padding: 8px 10px;
+  font-size: 14px;
+  color: var(--nav-text) !important;
+}
+
+.matrix-nav .nav li.github-nav-item a:hover,
+.matrix-nav .nav li.search-icon a:hover {
+  color: var(--primary-color) !important;
+  border: none;
+}
+
+/* Theme Toggle Button (Top Right Navbar) */
+.theme-toggle-nav-item a {
+  padding: 8px 12px !important;
+  font-size: 15px !important;
+  color: var(--nav-text) !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.theme-toggle-nav-item a:hover {
+  background: rgba(124, 58, 237, 0.15) !important;
+  transform: rotate(15deg);
+}
+
+/* Light Mode: show Moon (click to go Dark) */
+html[data-theme="light"] .theme-icon-moon,
+:root:not([data-theme="dark"]) .theme-icon-moon {
+  display: inline-block;
+  color: #475569;
+}
+html[data-theme="light"] .theme-icon-sun,
+:root:not([data-theme="dark"]) .theme-icon-sun {
+  display: none;
+}
+
+/* Dark Mode: show Sun (click to go Light) */
+html[data-theme="dark"] .theme-icon-sun {
+  display: inline-block;
+  color: #fbbf24;
+}
+html[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
+/* ==========================================================================
+   Mobile Navbar Toggle Button & Dropdown Panel (Responsive Adaptation)
+   ========================================================================== */
+.navbar-custom .navbar-toggle {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .navbar-custom .navbar-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 12px !important;
+    margin-top: 10px !important;
+    margin-right: 14px !important;
+    margin-bottom: 8px !important;
+    background: var(--card-bg) !important;
+    border: 1px solid var(--nav-border) !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    outline: none !important;
+  }
+
+  .navbar-custom .navbar-toggle:hover,
+  .navbar-custom .navbar-toggle:active,
+  .navbar-custom .navbar-toggle:focus {
+    background: rgba(124, 58, 237, 0.15) !important;
+    border-color: var(--primary-color) !important;
+  }
+
+  .navbar-custom .navbar-toggle .toggle-icon-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5px;
+    justify-content: center;
+  }
+
+  .navbar-custom .navbar-toggle .icon-bar {
+    width: 15px !important;
+    height: 2px !important;
+    background-color: var(--primary-color) !important;
+    border-radius: 2px !important;
+    transition: var(--transition-smooth);
+    margin: 0 !important;
+    display: block !important;
+  }
+
+  .navbar-custom .navbar-toggle .toggle-menu-text {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-main) !important;
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+
+  /* Mobile Dropdown Panel Styling */
+  .navbar-default .navbar-collapse {
+    position: absolute !important;
+    right: 14px !important;
+    top: 56px !important;
+    width: 210px !important;
+    background: var(--nav-bg) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border: 1px solid var(--nav-border) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35) !important;
+    padding: 10px 8px !important;
+    overflow: hidden !important;
+  }
+
+  #huxblog_navbar a {
+    font-size: 13.5px !important;
+    color: var(--nav-text) !important;
+    padding: 9px 14px !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    align-items: center;
+    transition: var(--transition-smooth);
+  }
+
+  #huxblog_navbar a:hover {
+    color: var(--nav-text-hover) !important;
+    background: rgba(124, 58, 237, 0.12) !important;
+  }
+
+  #huxblog_navbar .nav li {
+    margin-bottom: 2px;
+  }
+
+  #huxblog_navbar .nav li.search-icon,
+  #huxblog_navbar .nav li.github-nav-item,
+  #huxblog_navbar .nav li.theme-toggle-nav-item {
+    display: inline-block !important;
+  }
+
+  #huxblog_navbar .nav li.search-icon a,
+  #huxblog_navbar .nav li.github-nav-item a,
+  #huxblog_navbar .nav li.theme-toggle-nav-item a {
+    display: inline-flex !important;
+    padding: 8px 12px !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+
+   7. Scheme 3: Graph Matrix & OR Lab Footer
+   -------------------------------------------------------------------------- */
+.matrix-footer {
+  position: relative;
+  background: var(--footer-bg) !important;
+  color: var(--footer-text);
+  padding: 55px 0 35px;
+  margin-top: 60px;
+  border-top: 1px solid var(--footer-border);
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.matrix-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(168, 85, 247, 0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(168, 85, 247, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.matrix-terminal-card {
+  background: var(--footer-terminal-bg);
+  border: 1px solid var(--footer-terminal-border);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2), 0 0 15px -3px rgba(168, 85, 247, 0.1);
+  overflow: hidden;
+  margin-bottom: 36px;
+  position: relative;
+  z-index: 2;
+}
+
+.matrix-terminal-header {
+  background: var(--card-bg);
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.term-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.term-dot.red { background: #ef4444; }
+.term-dot.yellow { background: #f59e0b; }
+.term-dot.green { background: #10b981; }
+
+.term-title {
+  color: var(--text-main);
+  font-size: 11px;
+}
+
+.term-status {
+  color: #10b981;
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.matrix-terminal-body {
+  padding: 20px 24px;
+  text-align: center;
+}
+
+.matrix-terminal-body .math-easter-egg {
+  color: var(--primary-color);
+  font-size: 14.5px;
+  overflow-x: auto;
+}
+
+.matrix-terminal-body .term-subtext {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+.matrix-footer-grid {
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.matrix-col {
+  margin-bottom: 24px;
+}
+
+.matrix-col .node-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 14px;
+}
+
+.matrix-col .node-tag {
+  color: var(--primary-color);
+  font-size: 12px;
+}
+
+.matrix-col .node-desc {
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+.node-meta-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.matrix-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid var(--card-border);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.matrix-pill.active {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #10b981;
+}
+
+.matrix-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.matrix-links-list li {
+  margin-bottom: 9px;
+}
+
+.matrix-links-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-muted);
+  text-decoration: none !important;
+  font-size: 12px;
+  transition: color 0.2s ease;
+}
+
+.matrix-links-list a:hover {
+  color: var(--primary-color);
+}
+
+.matrix-links-list .node-weight {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.matrix-links-list .node-badge-pr {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+}
+
+.matrix-bottom-bar {
+  border-top: 1px solid var(--card-border);
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.matrix-bottom-bar .copyright {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.matrix-bottom-right {
+  text-align: right;
+}
+
+@media (max-width: 767px) {
+  .matrix-bottom-right {
+    text-align: left;
+    margin-top: 12px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+
+   Mermaid Diagrams Responsive Styling & Size Guard
+   ========================================================================== */
+.mermaid-wrap {
+  margin: 2rem auto;
+  padding: 1.5rem 1rem;
+  background: var(--card-bg, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--nav-border, rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+  overflow-x: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.mermaid-wrap .mermaid {
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 100%;
+}
+
+.mermaid-wrap svg {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .mermaid-wrap {
+    padding: 1rem 0.5rem;
+    margin: 1.2rem auto;
+  }
+}
+
+/* ==========================================================================

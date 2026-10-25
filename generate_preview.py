@@ -171,8 +171,8 @@ for b in library_data[:4]:
         <div class="mini-book-cover-wrap">
             <img src="{cover}" alt="{b.get('title')}" class="mini-cover-thumb">
         </div>
-        <h5 class="mini-title font-editorial">{b.get('title')}</h5>
-        <span class="mini-author font-mono">{b.get('author')}</span>
+        <h5 class="mini-title">{b.get('title')}</h5>
+        <span class="mini-author">{b.get('author')}</span>
     </a>
     """
 
