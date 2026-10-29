@@ -6,7 +6,7 @@
 
 
 
-/* 1. Full-Screen Immersive Hero Header */
+/* 1. Full-Screen Immersive Hero Header (Dynamic Live Wallpaper with Ken Burns Effect) */
 #page-header.full_page {
   position: relative;
   width: 100%;
@@ -15,16 +15,51 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.72) 0%, rgba(30, 27, 75, 0.78) 100%),
-              url('/img/home-bg.jpg') center center / cover no-repeat;
-  background-attachment: fixed;
   color: #ffffff;
   text-align: center;
   overflow: hidden;
   margin-bottom: 0;
+  background-color: #0f172a;
 }
 
-/* 1.1 Compact Header for Pagination Pages (Page 2, 3...) */
+#page-header.full_page::before {
+  content: "";
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.40) 0%, rgba(30, 27, 75, 0.50) 100%),
+              url('/img/home-bg.jpg') center center / cover no-repeat;
+  animation: heroKenBurns 28s ease-in-out infinite alternate;
+  will-change: transform;
+  z-index: 1;
+}
+
+@keyframes heroKenBurns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.08) translate(-1.5%, -1%);
+  }
+  100% {
+    transform: scale(1.03) translate(1%, -1.2%);
+  }
+}
+
+/* 1.1 Canvas for Dynamic Falling Autumn Leaves / Floating Light Particles */
+#hero-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* 1.2 Compact Header for Pagination Pages (Page 2, 3...) */
 #page-header.not-home-page {
   position: relative;
   width: 100%;
@@ -32,29 +67,51 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.78) 0%, rgba(30, 27, 75, 0.85) 100%),
-              url('/img/home-bg.jpg') center center / cover no-repeat;
   color: #ffffff;
   text-align: center;
   overflow: hidden;
   margin-bottom: 0;
+  background-color: #0f172a;
+}
+
+#page-header.not-home-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.65) 0%, rgba(30, 27, 75, 0.75) 100%),
+              url('/img/home-bg.jpg') center center / cover no-repeat;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
   #page-header.full_page {
-    background-attachment: scroll !important; /* iOS fix */
     height: 90vh;
     min-height: 480px;
+  }
+  #page-header.full_page::before {
+    animation-duration: 36s;
   }
   #page-header.not-home-page {
     height: 220px;
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  #page-header.full_page::before {
+    animation: none;
+  }
+  #hero-particles {
+    display: none;
+  }
+}
+
 #page-header.full_page #site-info,
 #page-header.not-home-page #site-info {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   padding: 0 20px;
   max-width: 960px;
   margin: 0 auto;

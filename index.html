@@ -9,6 +9,7 @@ description: "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent �
      HERO SECTION: Full-Page Immersive Banner (Page 1 Only)
      ================================================================ -->
 <header id="page-header" class="full_page">
+    <canvas id="hero-particles"></canvas>
     <div id="site-info">
         <div class="hero-status-pill font-mono">
             <span class="status-indicator-dot"></span>
@@ -390,6 +391,106 @@ description: "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent �
 
         typeLoop();
     }
+
+    // Dynamic Falling Autumn Leaves & Golden Particles Effect
+    (function() {
+        var canvas = document.getElementById('hero-particles');
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        var width = 0, height = 0;
+        var particles = [];
+        var count = 36;
+        var colors = [
+            'rgba(249, 115, 22, 0.75)',  // amber-orange
+            'rgba(234, 88, 12, 0.65)',   // deep autumn orange
+            'rgba(251, 146, 60, 0.70)',  // warm apricot
+            'rgba(253, 186, 116, 0.55)', // soft golden highlight
+            'rgba(45, 212, 191, 0.40)'   // subtle turquoise sky glint
+        ];
+
+        function resize() {
+            var header = document.getElementById('page-header');
+            if (!header) return;
+            width = canvas.width = header.offsetWidth;
+            height = canvas.height = header.offsetHeight;
+        }
+
+        function createParticle(initial) {
+            return {
+                x: Math.random() * (width || window.innerWidth),
+                y: initial ? Math.random() * (height || window.innerHeight) : -20,
+                size: Math.random() * 5 + 3,
+                speedY: Math.random() * 0.85 + 0.35,
+                speedX: Math.random() * 0.7 - 0.35,
+                angle: Math.random() * Math.PI * 2,
+                angularSpeed: (Math.random() - 0.5) * 0.025,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                opacity: Math.random() * 0.5 + 0.4,
+                wobble: Math.random() * Math.PI * 2,
+                wobbleSpeed: Math.random() * 0.03 + 0.015
+            };
+        }
+
+        function init() {
+            resize();
+            particles = [];
+            for (var i = 0; i < count; i++) {
+                particles.push(createParticle(true));
+            }
+        }
+
+        function drawLeaf(ctx, p) {
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.angle);
+            ctx.globalAlpha = p.opacity;
+            ctx.fillStyle = p.color;
+
+            ctx.beginPath();
+            ctx.moveTo(0, -p.size);
+            ctx.quadraticCurveTo(p.size * 0.8, 0, 0, p.size);
+            ctx.quadraticCurveTo(-p.size * 0.8, 0, 0, -p.size);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        var isVisible = true;
+        var header = document.getElementById('page-header');
+        if ('IntersectionObserver' in window && header) {
+            var observer = new IntersectionObserver(function(entries) {
+                isVisible = entries[0].isIntersecting;
+            });
+            observer.observe(header);
+        }
+
+        function animate() {
+            if (isVisible && width && height) {
+                ctx.clearRect(0, 0, width, height);
+                for (var i = 0; i < particles.length; i++) {
+                    var p = particles[i];
+                    p.wobble += p.wobbleSpeed;
+                    p.x += p.speedX + Math.sin(p.wobble) * 0.65;
+                    p.y += p.speedY;
+                    p.angle += p.angularSpeed;
+
+                    if (p.y > height + 20 || p.x < -30 || p.x > width + 30) {
+                        particles[i] = createParticle(false);
+                    }
+
+                    drawLeaf(ctx, p);
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        init();
+        requestAnimationFrame(animate);
+    })();
 
     // Scroll Down Smooth Scrolling
     var scrollBtn = document.getElementById('scroll-down');
