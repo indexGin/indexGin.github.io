@@ -16,23 +16,29 @@
   transition: width 0.1s ease-out;
 }
 
-.navbar-custom.matrix-nav {
-  background: var(--nav-bg) !important;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--nav-border) !important;
+.navbar-custom.matrix-nav,
+.navbar-custom.matrix-nav.is-fixed,
+.navbar-custom.matrix-nav.is-visible {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
   transition: var(--transition-smooth);
 }
 
 @media (min-width: 768px) {
-  .navbar-custom.matrix-nav {
+  .navbar-custom.matrix-nav,
+  .navbar-custom.matrix-nav.is-fixed,
+  .navbar-custom.matrix-nav.is-visible {
     top: 14px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: min(95%, 1180px) !important;
-    border-radius: 12px !important;
-    border: 1px solid var(--nav-border) !important;
-    box-shadow: var(--nav-shadow) !important;
+    width: min(96%, 1380px) !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
     padding: 2px 16px !important;
   }
 }
@@ -40,11 +46,12 @@
 .navbar-custom .navbar-brand {
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: var(--text-main) !important;
+  color: #ffffff !important;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 10px;
+  padding: 10px 10px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .nav-brand-logo {
@@ -76,8 +83,9 @@
 .matrix-nav .nav-brand-title {
   font-size: 16px;
   font-weight: 800;
-  color: var(--text-main);
+  color: #ffffff !important;
   letter-spacing: -0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
   transition: color 0.2s ease;
 }
 
@@ -129,19 +137,26 @@
 }
 
 .matrix-nav .nav li a {
-  font-size: 12.5px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--nav-text) !important;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: var(--transition-smooth);
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+  padding: 8px 13px;
+  border-radius: 8px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background: transparent;
+  border: none !important;
 }
 
 .matrix-nav .nav li a:hover {
-  color: var(--nav-text-hover) !important;
-  background: rgba(124, 58, 237, 0.12);
-  border: 1px solid var(--nav-border);
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  border: none !important;
+  transform: translateY(-2px);
 }
 
 .matrix-nav .nav li.github-nav-item a,
@@ -307,11 +322,13 @@ html[data-theme="dark"] .theme-icon-moon {
    -------------------------------------------------------------------------- */
 .matrix-footer {
   position: relative;
-  background: var(--footer-bg) !important;
+  background: rgba(10, 15, 29, 0.8) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   color: var(--footer-text);
   padding: 55px 0 35px;
   margin-top: 60px;
-  border-top: 1px solid var(--footer-border);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
   transition: background 0.3s ease, border-color 0.3s ease;
 }

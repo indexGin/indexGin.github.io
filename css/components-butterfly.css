@@ -6,7 +6,49 @@
 
 
 
-/* 1. Full-Screen Immersive Hero Header (Dynamic Live Wallpaper with Ken Burns Effect) */
+/* 0. Global Full-Screen Live Wallpaper & Dynamic Particle Canvas */
+#web_bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -999;
+  pointer-events: none;
+  background-image: linear-gradient(135deg, rgba(10, 15, 29, 0.42) 0%, rgba(10, 15, 29, 0.68) 100%),
+                    url('/img/home-bg.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  animation: webBgBreathing 24s ease-in-out infinite alternate;
+  will-change: transform;
+  transform-origin: center center;
+}
+
+@keyframes webBgBreathing {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.05) translate(-1%, -0.7%);
+  }
+  100% {
+    transform: scale(1.02) translate(0.7%, -1%);
+  }
+}
+
+#web_leaves_canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 1. Full-Screen Immersive Hero Header (Seamless blend with global #web_bg) */
 #page-header.full_page {
   position: relative;
   width: 100%;
@@ -19,33 +61,11 @@
   text-align: center;
   overflow: hidden;
   margin-bottom: 0;
-  background-color: #0f172a;
+  background: transparent !important;
 }
 
 #page-header.full_page::before {
-  content: "";
-  position: absolute;
-  top: -5%;
-  left: -5%;
-  width: 110%;
-  height: 110%;
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.40) 0%, rgba(30, 27, 75, 0.50) 100%),
-              url('/img/home-bg.jpg') center center / cover no-repeat;
-  animation: heroKenBurns 28s ease-in-out infinite alternate;
-  will-change: transform;
-  z-index: 1;
-}
-
-@keyframes heroKenBurns {
-  0% {
-    transform: scale(1) translate(0, 0);
-  }
-  50% {
-    transform: scale(1.08) translate(-1.5%, -1%);
-  }
-  100% {
-    transform: scale(1.03) translate(1%, -1.2%);
-  }
+  display: none !important;
 }
 
 /* 1.1 Canvas for Dynamic Falling Autumn Leaves / Floating Light Particles */
@@ -288,18 +308,18 @@
 
 /* 2. Main Content Container */
 #content-inner.butterfly-container {
-  max-width: 1280px;
+  max-width: 1360px;
   margin: 0 auto;
-  padding: 42px 20px 80px 20px;
+  padding: 42px 24px 80px 24px;
   display: flex;
-  gap: 28px;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 36px;
   box-sizing: border-box;
+  background: transparent !important;
 }
 
 @media (max-width: 991px) {
   #content-inner.butterfly-container {
-    flex-direction: column;
     padding: 24px 14px 60px 14px;
     gap: 24px;
   }
@@ -1126,3 +1146,261 @@ html[data-theme="dark"] .mini-book-card:hover {
   font-size: 12px;
   color: var(--text-muted);
 }
+
+
+
+/* ==========================================================================
+   3-Column Article Card Grid (Target Layout from Reference Image)
+   ========================================================================== */
+.articles-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 1100px) {
+  .articles-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
+@media (max-width: 720px) {
+  .articles-card-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.article-grid-card {
+  position: relative;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  background: rgba(18, 22, 34, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.45);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.article-grid-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 42px -10px rgba(0, 0, 0, 0.65), 0 0 24px rgba(56, 189, 248, 0.22);
+  border-color: rgba(56, 189, 248, 0.38);
+}
+
+/* Card Cover Container with Chevron Point Notch */
+.card-cover-container {
+  position: relative;
+  width: 100%;
+  height: 195px;
+  overflow: hidden;
+  background-color: #0b0f19;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), 50% 100%, 0 calc(100% - 14px));
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), 50% 100%, 0 calc(100% - 14px));
+}
+
+.card-cover-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-decoration: none;
+}
+
+.card-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+}
+
+.article-grid-card:hover .card-cover-img {
+  transform: scale(1.08);
+}
+
+.card-cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 15, 25, 0.45) 0%, rgba(11, 15, 25, 0.72) 60%, rgba(11, 15, 25, 0.94) 100%);
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.article-grid-card:hover .card-cover-overlay {
+  background: linear-gradient(180deg, rgba(11, 15, 25, 0.35) 0%, rgba(11, 15, 25, 0.65) 60%, rgba(11, 15, 25, 0.90) 100%);
+}
+
+/* Downward Caret Indicator */
+.card-quote-indicator {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #38bdf8;
+  font-size: 15px;
+  z-index: 3;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+  pointer-events: none;
+  animation: floatIndicator 2.4s ease-in-out infinite;
+}
+
+@keyframes floatIndicator {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(3px); }
+}
+
+/* Quote in 「...」 */
+.card-quote-content {
+  position: absolute;
+  top: 28px;
+  left: 16px;
+  right: 16px;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #f8fafc;
+  font-size: 13.5px;
+  line-height: 1.65;
+  font-weight: 500;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+  z-index: 3;
+  padding: 0 8px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Bottom Body */
+.card-body-content {
+  padding: 16px 18px 18px 18px;
+  background: rgba(18, 22, 34, 0.88);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.card-article-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.015em;
+}
+
+.card-article-title a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.article-grid-card:hover .card-article-title a {
+  color: #38bdf8;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+
+.card-meta-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: rgba(203, 213, 225, 0.75);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-meta-line i {
+  color: #38bdf8;
+  font-size: 11px;
+}
+
+.meta-tag-pin {
+  color: #f87171;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.meta-tag-pin i {
+  color: #ef4444;
+}
+
+.meta-tag-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.meta-tag-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #a78bfa;
+  font-weight: 500;
+}
+
+.meta-tag-category i {
+  color: #c084fc;
+}
+
+.meta-tag-tags {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta-separator {
+  color: rgba(255, 255, 255, 0.2);
+  margin: 0 1px;
+}
+
+/* Homepage Bottom Acrylic Dashboard Widgets */
+.homepage-widgets-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+@media (max-width: 1200px) {
+  .homepage-widgets-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .homepage-widgets-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.homepage-widgets-grid .card-widget {
+  background: rgba(18, 22, 34, 0.82) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  margin-bottom: 0 !important;
+  color: #f1f5f9;
+}
+

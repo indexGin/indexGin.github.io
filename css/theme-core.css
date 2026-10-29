@@ -78,7 +78,7 @@ body {
   font-family: var(--global-font);
   font-size: var(--global-font-size, 15.5px);
   line-height: 1.85;
-  background-color: var(--bg-page);
+  background-color: transparent !important;
   color: var(--text-main);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

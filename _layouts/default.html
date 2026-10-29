@@ -6,6 +6,12 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
 
+    <!-- Global Full-Screen Live Wallpaper Background Layer -->
+    <div id="web_bg" aria-hidden="true"></div>
+
+    <!-- Global Dynamic Falling Autumn Leaves & Golden Sparkles Canvas -->
+    <canvas id="web_leaves_canvas" aria-hidden="true"></canvas>
+
     <!-- Ambient Mathematical & Frontier Research SVG Background Layer -->
     {% include frontier-bg.html %}
 
@@ -20,6 +26,8 @@
     <!-- Maxime Heckel Embedded AI Q&A Agent Widget -->
     {% include ai-assistant.html %}
 
+    <!-- Global Autumn Leaves Particle Physics Engine -->
+    <script src="{{ '/js/autumn-leaves.js' | prepend: site.baseurl }}?v=20261029autumn"></script>
 
 <!-- Image to hack wechat -->
 <img src="/img/icon_wechat.png" width="0" height="0" />
