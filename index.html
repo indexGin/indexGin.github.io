@@ -56,11 +56,11 @@ description: "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent �
 {% endif %}
 
 <!-- ================================================================
-     MAIN CONTENT: 3-Column Responsive Article Cards Grid
+     MAIN CONTENT: 3-Column Responsive Article Cards (Left) + Sidebar (Right)
      ================================================================ -->
 <div id="content-inner" class="butterfly-container">
 
-    <!-- 1. Recent Post Feed Section -->
+    <!-- Left Column: Recent Post Feed (3-Column Article Card Grid) -->
     <main class="butterfly-recent-posts">
         <div class="butterfly-feed-bar">
             <div class="butterfly-feed-title font-mono">
@@ -182,10 +182,10 @@ description: "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent �
         {% endif %}
     </main>
 
-    <!-- 2. Homepage Bottom Acrylic Dashboard Widgets (Profile, Bulletin, OSS PRs, Library) -->
-    <section id="aside-content" class="homepage-widgets-grid">
+    <!-- Right Column: Butterfly Aside Sidebar -->
+    <aside id="aside-content" class="butterfly-aside">
 
-        <!-- Widget 1: Profile Card (card-info) -->
+        <!-- 1. Profile Widget (card-info) -->
         <div class="card-widget card-info">
             <div class="card-info-avatar">
                 <div class="avatar-img">
@@ -237,7 +237,7 @@ description: "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent �
             </div>
         </div>
 
-        <!-- Widget 2: Announcement Card (card-announcement) -->
+        <!-- 2. Announcement Widget (card-announcement) -->
         <div class="card-widget card-announcement">
             <div class="item-headline font-mono">
                 <i class="fa fa-bullhorn"></i>
@@ -254,81 +254,84 @@ description: "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent �
             </div>
         </div>
 
-        <!-- Widget 3: Open Source Upstream Contributions Card (card-oss) -->
-        <div class="card-widget card-oss">
-            <div class="item-headline font-mono">
-                <i class="fa fa-code-fork"></i>
-                <span>开源贡献 // UPSTREAM PRs</span>
-            </div>
-            <div class="oss-widget-list">
-                <!-- bytedance/deer-flow -->
-                <a href="https://github.com/bytedance/deer-flow" target="_blank" rel="noopener noreferrer" class="oss-widget-item">
-                    <div class="oss-item-top font-mono">
-                        <span class="oss-repo-name"><i class="fa fa-github"></i> deer-flow</span>
-                        <span class="badge-star"><i class="fa fa-star"></i> 84k★</span>
-                    </div>
-                    <p class="oss-item-brief">字节跳动开源长程自主智能体平台，贡献 3 个已合并核心 PR。</p>
-                    <div class="oss-item-bottom font-mono">
-                        <span class="badge-merged"><i class="fa fa-check"></i> 3 Merged PRs</span>
-                    </div>
-                </a>
+        <!-- Sticky Container for lower widgets -->
+        <div class="sticky_layout">
+            <!-- 3. Open Source Contributions Widget (card-oss) -->
+            <div class="card-widget card-oss">
+                <div class="item-headline font-mono">
+                    <i class="fa fa-code-fork"></i>
+                    <span>开源贡献 // UPSTREAM PRs</span>
+                </div>
+                <div class="oss-widget-list">
+                    <!-- bytedance/deer-flow -->
+                    <a href="https://github.com/bytedance/deer-flow" target="_blank" rel="noopener noreferrer" class="oss-widget-item">
+                        <div class="oss-item-top font-mono">
+                            <span class="oss-repo-name"><i class="fa fa-github"></i> deer-flow</span>
+                            <span class="badge-star"><i class="fa fa-star"></i> 84k★</span>
+                        </div>
+                        <p class="oss-item-brief">字节跳动开源长程自主智能体平台，贡献 3 个已合并核心 PR。</p>
+                        <div class="oss-item-bottom font-mono">
+                            <span class="badge-merged"><i class="fa fa-check"></i> 3 Merged PRs</span>
+                        </div>
+                    </a>
 
-                <!-- agno-agi/agno -->
-                <a href="https://github.com/agno-agi/agno" target="_blank" rel="noopener noreferrer" class="oss-widget-item">
-                    <div class="oss-item-top font-mono">
-                        <span class="oss-repo-name"><i class="fa fa-github"></i> agno</span>
-                        <span class="badge-star"><i class="fa fa-star"></i> 42k★</span>
-                    </div>
-                    <p class="oss-item-brief">高并发轻量级 Multi-modal Agent 框架异步调度优化。</p>
-                    <div class="oss-item-bottom font-mono">
-                        <span class="badge-merged"><i class="fa fa-check"></i> Merged PR</span>
-                    </div>
-                </a>
+                    <!-- agno-agi/agno -->
+                    <a href="https://github.com/agno-agi/agno" target="_blank" rel="noopener noreferrer" class="oss-widget-item">
+                        <div class="oss-item-top font-mono">
+                            <span class="oss-repo-name"><i class="fa fa-github"></i> agno</span>
+                            <span class="badge-star"><i class="fa fa-star"></i> 42k★</span>
+                        </div>
+                        <p class="oss-item-brief">高并发轻量级 Multi-modal Agent 框架异步调度优化。</p>
+                        <div class="oss-item-bottom font-mono">
+                            <span class="badge-merged"><i class="fa fa-check"></i> Merged PR</span>
+                        </div>
+                    </a>
 
-                <!-- Kludex/starlette -->
-                <a href="https://github.com/Kludex/starlette" target="_blank" rel="noopener noreferrer" class="oss-widget-item">
-                    <div class="oss-item-top font-mono">
-                        <span class="oss-repo-name"><i class="fa fa-github"></i> starlette</span>
-                        <span class="badge-star"><i class="fa fa-star"></i> 12k★</span>
-                    </div>
-                    <p class="oss-item-brief">Python 生态 ASGI 高性能异步 Web 核心框架路由参数解析。</p>
-                    <div class="oss-item-bottom font-mono">
-                        <span class="badge-merged"><i class="fa fa-check"></i> Merged PR</span>
-                    </div>
-                </a>
+                    <!-- Kludex/starlette -->
+                    <a href="https://github.com/Kludex/starlette" target="_blank" rel="noopener noreferrer" class="oss-widget-item">
+                        <div class="oss-item-top font-mono">
+                            <span class="oss-repo-name"><i class="fa fa-github"></i> starlette</span>
+                            <span class="badge-star"><i class="fa fa-star"></i> 12k★</span>
+                        </div>
+                        <p class="oss-item-brief">Python 生态 ASGI 高性能异步 Web 核心框架路由参数解析。</p>
+                        <div class="oss-item-bottom font-mono">
+                            <span class="badge-merged"><i class="fa fa-check"></i> Merged PR</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-more-footer font-mono">
+                    <a href="{{ site.baseurl }}/projects/">
+                        查看全部项目与算法工具集 <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
             </div>
-            <div class="card-more-footer font-mono">
-                <a href="{{ site.baseurl }}/projects/">
-                    查看全部项目与算法工具集 <i class="fa fa-angle-right"></i>
-                </a>
+
+            <!-- 4. Reading Mini Widget (card-reading) -->
+            <div class="card-widget card-reading">
+                <div class="item-headline font-mono">
+                    <i class="fa fa-book"></i>
+                    <span>近期在读 // READING</span>
+                </div>
+                <div class="mini-books-grid">
+                    {% for item in site.data.library limit:4 %}
+                    <a href="{{ item.douban_url }}" target="_blank" rel="noopener noreferrer" class="mini-book-card" title="{{ item.title }}">
+                        <div class="mini-book-cover-wrap">
+                            <img src="{{ item.cover | prepend: site.baseurl }}" alt="{{ item.title }}" class="mini-cover-thumb">
+                        </div>
+                        <h5 class="mini-title">{{ item.title }}</h5>
+                        <span class="mini-author">{{ item.author }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="card-more-footer font-mono">
+                    <a href="{{ site.baseurl }}/library/">
+                        进入完整数字书架 <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- Widget 4: Digital Bookshelf Mini Reading Card (card-reading) -->
-        <div class="card-widget card-reading">
-            <div class="item-headline font-mono">
-                <i class="fa fa-book"></i>
-                <span>近期在读 // READING</span>
-            </div>
-            <div class="mini-books-grid">
-                {% for item in site.data.library limit:4 %}
-                <a href="{{ item.douban_url }}" target="_blank" rel="noopener noreferrer" class="mini-book-card" title="{{ item.title }}">
-                    <div class="mini-book-cover-wrap">
-                        <img src="{{ item.cover | prepend: site.baseurl }}" alt="{{ item.title }}" class="mini-cover-thumb">
-                    </div>
-                    <h5 class="mini-title">{{ item.title }}</h5>
-                    <span class="mini-author">{{ item.author }}</span>
-                </a>
-                {% endfor %}
-            </div>
-            <div class="card-more-footer font-mono">
-                <a href="{{ site.baseurl }}/library/">
-                    进入完整数字书架 <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-        </div>
-
-    </section>
+    </aside>
 
 </div>
 

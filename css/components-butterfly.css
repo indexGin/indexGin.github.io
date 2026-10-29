@@ -306,22 +306,26 @@
   100% { transform: translateY(0); opacity: 0.5; }
 }
 
-/* 2. Main Content Container */
+/* 2. Main Content Container (Left: 3-Column Articles Feed | Right: Original Aside Widgets) */
 #content-inner.butterfly-container {
-  max-width: 1360px;
+  max-width: 1480px;
+  width: 95%;
   margin: 0 auto;
-  padding: 42px 24px 80px 24px;
+  padding: 42px 20px 80px 20px;
   display: flex;
-  flex-direction: column;
-  gap: 36px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
   box-sizing: border-box;
   background: transparent !important;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1100px) {
   #content-inner.butterfly-container {
+    flex-direction: column;
     padding: 24px 14px 60px 14px;
     gap: 24px;
+    width: 100%;
   }
 }
 
@@ -610,25 +614,45 @@ html[data-theme="dark"] .recent-post-item:hover {
 
 /* 5. Butterfly Aside Sidebar */
 .butterfly-aside {
-  width: 320px;
+  width: 310px;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1100px) {
   .butterfly-aside {
     width: 100% !important;
   }
 }
 
 .butterfly-aside .card-widget {
-  background: var(--card-bg);
+  background: rgba(18, 22, 34, 0.82) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 22px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--card-border);
+  padding: 22px 20px;
+  margin-bottom: 0;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   box-sizing: border-box;
+  color: #f1f5f9;
+}
+
+.butterfly-aside .card-widget:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), 0 0 20px rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.butterfly-aside .sticky_layout {
+  position: sticky;
+  top: 75px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 html[data-theme="dark"] .butterfly-aside .card-widget {
@@ -1155,19 +1179,26 @@ html[data-theme="dark"] .mini-book-card:hover {
 .articles-card-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
+  gap: 18px;
   width: 100%;
   margin-bottom: 32px;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1320px) and (min-width: 1050px) {
   .articles-card-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 1049px) and (min-width: 680px) {
+  .articles-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 679px) {
   .articles-card-grid {
     grid-template-columns: 1fr;
     gap: 16px;
