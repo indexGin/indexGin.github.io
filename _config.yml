@@ -24,7 +24,7 @@ github_username: indexGin
 # Build settings
 highlighter: rouge
 permalink: pretty
-paginate: 6
+paginate: 12
 paginate_path: "/page:num/"
 exclude:
   [
