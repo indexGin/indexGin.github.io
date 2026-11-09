@@ -36,13 +36,53 @@
 - category: "Open Source Upstream Inflow"
   description: "深度参与的高星开源项目与已合并的核心 PR"
   items:
+    - name: "langgenius/dify"
+      desc: "全球顶流 LLM 应用开发平台。贡献了底层参数解析与核心稳定性修复（#45786 已合并，多项在途）。"
+      link: "https://github.com/langgenius/dify"
+      stars: "160k★"
+      badge: "Merged PR"
+      icon: "fa-cubes"
+      tags: ["LLM Platform", "Python", "Core Engine"]
+
+    - name: "n8n-io/n8n"
+      desc: "顶级工作流自动化与 AI Agent 编排引擎。贡献了基础工具链、URL 格式化与数据管道安全校验（11 项在途 PR）。"
+      link: "https://github.com/n8n-io/n8n"
+      stars: "210k★"
+      badge: "11 Active PRs"
+      icon: "fa-sitemap"
+      tags: ["Workflow", "Agent Flow", "TypeScript"]
+
     - name: "bytedance/deer-flow"
-      desc: "字节跳动开源的长程自主智能体平台（SuperAgent Harness）。贡献了调度流与任务拆解核心优化。"
+      desc: "字节跳动开源的长程自主智能体平台（SuperAgent Harness）。贡献了调度流与任务拆解核心优化及 PPT 图元处理。"
       link: "https://github.com/bytedance/deer-flow"
       stars: "84k★"
       badge: "3 Merged PRs"
       icon: "fa-code-branch"
       tags: ["SuperAgent", "Python", "Autonomous Flow"]
+
+    - name: "agentscope-ai/agentscope"
+      desc: "阿里巴巴开源的高性能 Multi-Agent 协同框架。贡献了 Bash 上下文防注入修复（#3474 已合并）及多项核心演进。"
+      link: "https://github.com/agentscope-ai/agentscope"
+      stars: "35k★"
+      badge: "Merged PR"
+      icon: "fa-users"
+      tags: ["Multi-Agent", "Python", "Distributed Agents"]
+
+    - name: "pydantic/pydantic-ai"
+      desc: "Pydantic 官方打造的生产级 GenAI Agent 框架。贡献指令反序列化保障、布尔 Schema 解析等核心模块。"
+      link: "https://github.com/pydantic/pydantic-ai"
+      stars: "21k★"
+      badge: "10 Approved PRs"
+      icon: "fa-check-circle"
+      tags: ["GenAI", "Type-Safety", "Agent Runtime"]
+
+    - name: "QwenLM/qwen-code"
+      desc: "通义千问官方代码智能体引擎。贡献了 GitHub API 嵌套参数测试与断言校验（#12560 已合并）及 CI 失败签名修复。"
+      link: "https://github.com/QwenLM"
+      stars: "Official"
+      badge: "Merged PR"
+      icon: "fa-terminal"
+      tags: ["Coding Agent", "CI/CD Harness", "Node.js"]
 
     - name: "agno-agi/agno"
       desc: "高并发轻量级 Multi-modal Agent 框架。优化了智能体状态迁移与工具调用链路。"

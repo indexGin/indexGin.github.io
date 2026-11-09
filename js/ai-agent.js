@@ -47,12 +47,16 @@
 点击顶部导航的 <strong>03_Library</strong> 或主页左侧书架，即可浏览 3D 实体书架并直达对应<strong>豆瓣读书主页</strong>！`
     },
     {
-      keywords: ['开源', '贡献', 'pr', 'deer-flow', 'agno', 'starlette', 'upstream', '字节', 'github'],
+      keywords: ['开源', '贡献', 'pr', 'deer-flow', 'agno', 'starlette', 'dify', 'n8n', 'agentscope', 'pydantic', 'qwen', 'upstream', '字节', 'github'],
       title: '深度参与的头部开源项目贡献',
-      answer: `indexGin 在高星开源社区深度参与了多个关键基础设施的代码贡献：<br><br>
-• <strong>bytedance/deer-flow (84k★)</strong>：字节跳动开源的长程自主智能体平台。贡献了 <strong>3 个已合并核心 PR</strong>，深度重构了智能体多轮调度的任务流与拓扑解耦逻辑；<br>
-• <strong>agno-agi/agno (42k★)</strong>：高并发轻量级多模态 Agent 框架，参与优化了智能体状态机迁移与异步调用上下文；<br>
-• <strong>Kludex/starlette (12k★)</strong>：Python 事实标准的 ASGI 高性能异步 Web 框架，优化了核心路由吞吐与类型系统。<br><br>
+      answer: `indexGin 在高星开源社区深度参与了多个关键 AI Agent 与基础设施的代码建设，累计提交并推进 <strong>50+ 个高质量 PR</strong>：<br><br>
+• <strong>langgenius/dify (160k★)</strong>：全球顶流 LLM 应用平台，贡献底层参数解析与核心稳定性修复（已合并 #45786，多项在途）；<br>
+• <strong>n8n-io/n8n (210k★)</strong>：顶级工作流自动化与 Agent 编排引擎，贡献基础工具链与数据管道安全校验（11 项在途 PR）；<br>
+• <strong>bytedance/deer-flow (84k★)</strong>：字节跳动长程自主智能体平台，贡献了 <strong>3 个已合并核心 PR</strong>（调度流与任务拆解核心优化）；<br>
+• <strong>agentscope-ai/agentscope (35k★)</strong>：阿里高性能 Multi-Agent 协作框架，贡献执行上下文安全防注入与核心组件演进（已合并 #3474，17 项在途）；<br>
+• <strong>pydantic/pydantic-ai (21k★)</strong>：Pydantic 官方 Agent 框架，贡献指令反序列化与布尔 Schema 解析（<strong>10 个 PR 获 Approved</strong>）；<br>
+• <strong>QwenLM/qwen-code</strong>：通义千问官方代码智能体引擎，贡献 GitHub API 嵌套参数测试（已合并 #12560）与 CI 诊断；<br>
+• <strong>agno-agi/agno (42k★)</strong> 与 <strong>Kludex/starlette (12k★)</strong>：均贡献了已合并核心 PR。<br><br>
 点击顶部导航的 <strong>02_Projects</strong> 或主页左侧开源栏目可查看详细 PR 记录与代码仓库。`
     },
     {

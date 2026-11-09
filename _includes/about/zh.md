@@ -14,11 +14,16 @@ Hey，我是 **indexGin**（ChengFa），一名专注于 **大语言模型（LLM
 
 ### 🌟 开源贡献 (Open Source)
 
-我积极参与开源社区的技术建设，已合并（Merged）PR 的代表性开源项目包括：
+我深度参与高星开源社区的技术演进与底层基建，累计提交并推进 50+ 个高质量 PR，代表性项目包括：
 
-- **[`bytedance/deer-flow`](https://github.com/bytedance/deer-flow)**：字节跳动开源的长程自主智能体平台（3 个 Merged PRs）
-- **[`agno-agi/agno`](https://github.com/agno-agi/agno)**：高并发轻量级 Multi-Agent 开发框架（Merged PR）
-- **[`Kludex/starlette`](https://github.com/Kludex/starlette)**：高性能 Python ASGI 核心框架（Merged PR）
+- **[`langgenius/dify`](https://github.com/langgenius/dify)**（160k★）：全球知名开源 LLM 应用开发平台，贡献底层参数解析与核心稳定性修复（Merged PR & 多项活跃 PR）
+- **[`n8n-io/n8n`](https://github.com/n8n-io/n8n)**（210k★）：顶级工作流自动化与 AI Agent 编排引擎，贡献基础工具链与数据管道安全校验（11 项在途 PR 全绿）
+- **[`bytedance/deer-flow`](https://github.com/bytedance/deer-flow)**（84k★）：字节跳动开源的长程自主智能体平台，贡献任务调度流解耦与核心工具优化（3 个 Merged PRs）
+- **[`agentscope-ai/agentscope`](https://github.com/agentscope-ai/agentscope)**（35k★）：阿里巴巴开源的高性能 Multi-Agent 协作框架，贡献执行上下文安全防注入与核心组件演进（Merged PR & 17 项活跃 PR）
+- **[`pydantic/pydantic-ai`](https://github.com/pydantic/pydantic-ai)**（21k★）：Pydantic 官方打造的生产级 GenAI Agent 框架，贡献指令反序列化与布尔 Schema 解析（10 个 PR 获 Approved）
+- **[`QwenLM/qwen-code`](https://github.com/QwenLM)**：阿里云通义千问官方代码智能体引擎，贡献 GitHub API 嵌套参数测试与 CI 失败签名修复（Merged PR）
+- **[`agno-agi/agno`](https://github.com/agno-agi/agno)**（42k★）：高并发轻量级 Multi-modal Agent 框架，优化智能体状态迁移与异步调用上下文（Merged PR）
+- **[`Kludex/starlette`](https://github.com/Kludex/starlette)**（12k★）：Python 事实标准的 ASGI 高性能异步 Web 框架，优化核心路由与类型系统（Merged PR）
 
 ---
 
