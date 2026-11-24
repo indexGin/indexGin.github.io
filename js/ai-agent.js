@@ -257,7 +257,7 @@ indexGin 主导的 <strong>Opt-Verifier</strong> 提出了<strong>“正向语�
 
     // Default intelligent friendly fallback
     return `我收到了你关于 <strong>"${escapeHtml(query)}"</strong> 的提问！作为 indexGin 空间小助手，我建议你：<br><br>
-• <strong>查阅 02_Projects</strong>：浏览开源高星项目（如 deer-flow、agno）与算法求解器；<br>
+• <strong>查阅 02_Projects</strong>：浏览 GitHub 主页置顶的开源项目（CustMate、dotclaw、PCode）；<br>
 • <strong>查阅 03_Library</strong>：发现普鲁斯特《追忆似水年华》、荷马史诗等精选豆瓣书单与读书笔记；<br>
 • <strong>查阅 04_Demos</strong>：亲自体验交互式旅行商 2-Opt 与单纯形算法沙盒；<br><br>
 你也可以点击上方的快捷胶囊，或向我询问关于<em>“近期书单”、“开源贡献”、“关于博主”</em>等内容！`;

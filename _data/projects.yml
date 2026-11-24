@@ -1,101 +1,24 @@
-# Anthony Fu Style Curated Projects Showcase
-- category: "Autonomous Agents & LLM4OR"
-  description: "面向运筹优化与长程决策的大模型与智能体系统"
+# GitHub Pinned Projects Showcase
+- category: "Pinned Projects"
+  description: "GitHub 主页精选置顶项目（github.com/indexGin）"
   items:
-    - name: "Opt-Verifier-Agent"
-      desc: "基于大语言模型的运筹学自动建模与双向语法/语义验证闭环工具，集成 Gurobi 求解器接口。"
-      link: "https://github.com/indexGin"
-      stars: "Open"
-      icon: "fa-robot"
-      tags: ["Python", "Gurobi", "LLM", "AST Verification"]
+    - name: "CustMate"
+      desc: "为 AI Agent 而生的开源客户经营系统（Customer OS）。以真实 CRM 为状态空间，让 Agent 读取客户与商机、消费知识与记忆、调用工具把业务真正推进。"
+      link: "https://github.com/indexGin/CustMate"
+      badge: "Pinned"
+      icon: "fa-briefcase"
+      tags: ["TypeScript", "Customer OS", "AI Agent", "CRM"]
 
-    - name: "Production-Opt-Agent"
-      desc: "面向离散制造业车间作业调度（Job-Shop Scheduling）的长程自主 Multi-Agent 仿真与求解框架。"
-      link: "https://github.com/indexGin"
-      stars: "Active"
-      icon: "fa-industry"
-      tags: ["Multi-Agent", "JSP", "PyTorch", "Heuristics"]
-
-- category: "Operations Research Algorithms"
-  description: "经典组合优化启发式算法与求解器工程实践"
-  items:
-    - name: "ALNS-VRPTW-Solver"
-      desc: "基于自适应大规模邻域搜索（ALNS）的带时间窗车辆路径问题（VRPTW）高性能求解器。"
-      link: "https://github.com/indexGin"
-      stars: "Core"
-      icon: "fa-route"
-      tags: ["Optimization", "Meta-heuristics", "VRP", "Python"]
-
-    - name: "Benders-Decomposition-Framework"
-      desc: "针对大型两阶段随机选址问题（Location-Allocation）的 Benders 分解算法工程实现。"
-      link: "https://github.com/indexGin"
-      stars: "Research"
-      icon: "fa-draw-polygon"
-      tags: ["Benders", "MIP", "Linear Programming"]
-
-- category: "Open Source Upstream Inflow"
-  description: "深度参与的高星开源项目与已合并的核心 PR"
-  items:
-    - name: "langgenius/dify"
-      desc: "全球顶流 LLM 应用开发平台。贡献了底层参数解析与核心稳定性修复（#45786 已合并，多项在途）。"
-      link: "https://github.com/langgenius/dify"
-      stars: "160k★"
-      badge: "Merged PR"
+    - name: "dotclaw"
+      desc: "自托管、Pi Agent 驱动的多渠道智能体工作台（self-hosted AI agent workspace on the Pi Agent Runtime）。把 Agent、工作区、记忆、工具、渠道与自动化任务组织在同一个可控的运行环境中。"
+      link: "https://github.com/indexGin/dotclaw"
+      badge: "Pinned"
       icon: "fa-cubes"
-      tags: ["LLM Platform", "Python", "Core Engine"]
+      tags: ["TypeScript", "Pi Agent", "Multi-Channel", "Self-Hosted"]
 
-    - name: "n8n-io/n8n"
-      desc: "顶级工作流自动化与 AI Agent 编排引擎。贡献了基础工具链、URL 格式化与数据管道安全校验（11 项在途 PR）。"
-      link: "https://github.com/n8n-io/n8n"
-      stars: "210k★"
-      badge: "11 Active PRs"
-      icon: "fa-sitemap"
-      tags: ["Workflow", "Agent Flow", "TypeScript"]
-
-    - name: "bytedance/deer-flow"
-      desc: "字节跳动开源的长程自主智能体平台（SuperAgent Harness）。贡献了调度流与任务拆解核心优化及 PPT 图元处理。"
-      link: "https://github.com/bytedance/deer-flow"
-      stars: "84k★"
-      badge: "3 Merged PRs"
-      icon: "fa-code-branch"
-      tags: ["SuperAgent", "Python", "Autonomous Flow"]
-
-    - name: "agentscope-ai/agentscope"
-      desc: "阿里巴巴开源的高性能 Multi-Agent 协同框架。贡献了 Bash 上下文防注入修复（#3474 已合并）及多项核心演进。"
-      link: "https://github.com/agentscope-ai/agentscope"
-      stars: "35k★"
-      badge: "Merged PR"
-      icon: "fa-users"
-      tags: ["Multi-Agent", "Python", "Distributed Agents"]
-
-    - name: "pydantic/pydantic-ai"
-      desc: "Pydantic 官方打造的生产级 GenAI Agent 框架。贡献指令反序列化保障、布尔 Schema 解析等核心模块。"
-      link: "https://github.com/pydantic/pydantic-ai"
-      stars: "21k★"
-      badge: "10 Approved PRs"
-      icon: "fa-check-circle"
-      tags: ["GenAI", "Type-Safety", "Agent Runtime"]
-
-    - name: "QwenLM/qwen-code"
-      desc: "通义千问官方代码智能体引擎。贡献了 GitHub API 嵌套参数测试与断言校验（#12560 已合并）及 CI 失败签名修复。"
-      link: "https://github.com/QwenLM"
-      stars: "Official"
-      badge: "Merged PR"
+    - name: "PCode"
+      desc: "A minimal but complete Coding Agent Harness — the readable way to learn how coding agents actually work. 基于 Pi、TypeScript 与 ESM 构建，约 6k 行代码完整呈现生产级 Coding Agent 核心子系统。"
+      link: "https://github.com/indexGin/PCode"
+      badge: "Pinned"
       icon: "fa-terminal"
-      tags: ["Coding Agent", "CI/CD Harness", "Node.js"]
-
-    - name: "agno-agi/agno"
-      desc: "高并发轻量级 Multi-modal Agent 框架。优化了智能体状态迁移与工具调用链路。"
-      link: "https://github.com/agno-agi/agno"
-      stars: "42k★"
-      badge: "Merged PR"
-      icon: "fa-microchip"
-      tags: ["Multi-modal", "Agent System"]
-
-    - name: "Kludex/starlette"
-      desc: "广受欢迎的高性能 Python ASGI 异步 Web 核心框架。优化核心路由与类型约束处理。"
-      link: "https://github.com/Kludex/starlette"
-      stars: "12k★"
-      badge: "Merged PR"
-      icon: "fa-bolt"
-      tags: ["ASGI", "AsyncIO", "Python"]
+      tags: ["TypeScript", "Coding Agent", "Pi", "ESM"]
