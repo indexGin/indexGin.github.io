@@ -5,7 +5,7 @@ header-img: img/home-bg.jpg
 email: 166748424+indexGin@users.noreply.github.com
 description: "聚焦大语言模型 (LLM)、运筹优化 (OR) 与 Multi-Agent 系统的个人学术与技术空间"
 keyword: "indexGin, LLM, Operations Research, 运筹学, Multi-Agent, Python, PyTorch, Gurobi, 算法, 博客"
-url: "https://indexgin.github.io" # your host, for absolute URL
+url: "https://chengfa.bond" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
 
 
